@@ -2,7 +2,7 @@
 
 # -- Project information
 
-project = 'Istio & Envoy 内幕'
+project = '面向技术宅的 JVM 内幕'
 copyright = '2022, Mark Zhu'
 author = 'Mark Zhu'
 
@@ -22,11 +22,11 @@ extensions = [
     'sphinx_sitemap'
 ]
 
-html_baseurl = 'https://istio-insider.mygraphql.com/'
+html_baseurl = 'https://jvm-insider.mygraphql.com/'
 
 autosectionlabel_prefix_document = True
 
-html_title = "Istio & Envoy 内幕"
+html_title = "面向技术宅的 JVM 内幕"
 html_favicon = '_static/favicon.ico'
 html_logo = "_static/logo.png"
 
@@ -34,8 +34,8 @@ exclude_patterns = ['**/*.mdb']
 
 html_theme_options = {
     "home_page_in_toc": True,
-    "github_url": "https://github.com/labilezhu/istio-insider",
-    "repository_url": "https://github.com/labilezhu/istio-insider",
+    "github_url": "https://github.com/labilezhu/jvm-insider",
+    "repository_url": "https://github.com/labilezhu/jvm-insider",
     "repository_branch": "master",
     # "path_to_docs": "docs",
     "use_repository_button": True,

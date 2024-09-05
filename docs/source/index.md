@@ -4,7 +4,7 @@
 
 ## 本书概述
 
-本书名为《Istio & Envoy 内幕》，英文名《Istio & Envoy Insider》。这是一本编写中的书，现在草稿阶段。
+本书名为《面向技术宅的 JVM 内幕》，英文名《JVM Insider For Nerds》。这是一本编写中的书，现在草稿阶段。
 
 ### 本书是什么
 
@@ -44,14 +44,14 @@
 
 
 
-本书同步在以下平台发布：
+<!-- 本书同步在以下平台发布：
 
-- [Istio & Envoy Insider English Edition on Amazon Kindle](https://www.amazon.com/dp/B0D6KZ3RNN)
-- [《Istio & Envoy 内幕》中文版本 @ salttiger.com](https://salttiger.com/istio-envoy-%e5%86%85%e5%b9%95/#more-22178)
+- [JVM Insider For Nerds English Edition on Amazon Kindle](https://www.amazon.com/dp/B0D6KZ3RNN)
+- [《面向技术宅的 JVM 内幕》中文版本 @ salttiger.com](https://salttiger.com/istio-envoy-%e5%86%85%e5%b9%95/#more-22178) -->
 
 
 
-在这里感谢 https://salttiger.com/ 站长为本书提供了更多被读者了解的机会。在大平台被垄断的时代，为知识提供了一个平凡人可及的平台更是难得。
+<!-- 在这里感谢 https://salttiger.com/ 站长为本书提供了更多被读者了解的机会。在大平台被垄断的时代，为知识提供了一个平凡人可及的平台更是难得。 -->
 
 
 
@@ -79,8 +79,8 @@ Blog: [https://blog.mygraphql.com/](https://blog.mygraphql.com/)
 如果你也对编写本书有兴趣，欢迎联系我。本书的出发点不是刷简历，也没这个能力。而且，这样的非`短平快` 且 `TL;DR` 书籍注定是小众货。
 
 
-#### 感谢提出 Issue 的同学 🌻
-- [使众行者](https://github.com/tanjunchen)：对阅读体验和排版提出很多非常好的意见。
+<!-- #### 感谢提出 Issue 的同学 🌻
+- [使众行者](https://github.com/tanjunchen)：对阅读体验和排版提出很多非常好的意见。 -->
 
 ### Dedication 💞
 
@@ -102,35 +102,5 @@ and productive life. To my dear wife and our amazing kid – thanks for all your
 There is an English version: [https://istio-insider.mygraphql.com/en/latest/](https://istio-insider.mygraphql.com/en/latest/)
 
 
-![](wechat-reward-qrcode.jpg)
 
 
-# 目录
-
-
-```{toctree}
-:caption: 目录
-:maxdepth: 5
-:includehidden:
-
-ch0/index
-ch1-istio-arch/index
-ch2-envoy/index
-ch4-istio-data-plane/index
-ch5-istio-ambient/ch5-istio-ambient.md
-performance/performance.md
-disruptions/disruptions.md
-observability/observability.md
-troubleshooting/troubleshooting.md
-dev-istio/dev-istio.md
-```
-
-# 附录
-
-```{toctree}
-:caption: 附录
-:maxdepth: 5
-:includehidden:
-
-appendix-lab-env/index.md
-```
