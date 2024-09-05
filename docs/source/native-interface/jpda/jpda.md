@@ -11,8 +11,10 @@
 Java 调试支持技术栈也有这个问题。下图尝试总结一下技术栈的依赖关系。
 
 
+:::{figure-md} 图: Java 调试支持技术栈
 
-![Java 调试支持技术栈](debugging-tec-stack.drawio.svg)
-*Java 调试支持技术栈*
+<img src="/native-interface/jpda/debugging-tec-stack.drawio.svg" alt="图: Java 调试支持技术栈">
 
-*[用 Draw.io 打开](https://app.diagrams.net/?ui=sketch#Uhttps%3A%2F%2Fblog.mygraphql.com%2Fzh%2Fnotes%2Fjava%2Fjni-junior%2Fdebugging-tec-stack.drawio.svg)*
+*图: Java 调试支持技术栈*
+:::
+*[用 Draw.io 打开](https://app.diagrams.net/?ui=sketch#Uhttps%3A%2F%2Fjvm-insider.mygraphql.com%2Fzh-cn%2Flatest%2F_images%2Fdebugging-tec-stack.drawio.svg)*

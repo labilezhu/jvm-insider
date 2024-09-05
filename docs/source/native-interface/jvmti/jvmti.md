@@ -6,10 +6,14 @@
 
 说到 JNI，对于 Java 开发工具及其实现有兴趣的同学，不得不提一下基于 JNI 基础架构上的 JVMTI。
 
-![JVMTI Data Structure](jvmti-data-struct.drawio.svg)
-*JVMTI Data Structure*
 
-*[用 Draw.io 打开](https://app.diagrams.net/?ui=sketch#Uhttps%3A%2F%2Fblog.mygraphql.com%2Fzh%2Fnotes%2Fjava%2Fjni-junior%2Fjvmti-data-struct.drawio.svg)*
+:::{figure-md} 图: JVMTI Data Structure
+
+<img src="/native-interface/jvmti/jvmti-data-struct.drawio.svg" alt="图: JVMTI Data Structure">
+
+*图: JVMTI Data Structure*
+:::
+*[用 Draw.io 打开](https://app.diagrams.net/?ui=sketch#Uhttps%3A%2F%2Fjvm-insider.mygraphql.com%2Fzh-cn%2Flatest%2F_images%2Fjvmti-data-struct.drawio.svg)*
 
 
 
