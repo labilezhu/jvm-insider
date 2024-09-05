@@ -44,16 +44,16 @@
 
 
 
-## Java Laucher 的 JNI 使用
+## Java Launcher 的 JNI 使用
 
-下面以 jstack 应用程序为例，说明一下 Java Laucher 的 JNI 使用。
+下面以 jstack 应用程序为例，说明一下 Java Launcher 的 JNI 使用。
 
 
-:::{figure-md} 图: Java Laucher 示例: jstack.exe
+:::{figure-md} 图: Java Launcher 示例: jstack.exe
 
-<img src="/native-interface/jni/launcher.drawio.svg" alt="图: Java Laucher 示例: jstack.exe">
+<img src="/native-interface/jni/launcher.drawio.svg" alt="图: Java Launcher 示例: jstack.exe">
 
-*图: Java Laucher 示例: jstack.exe*
+*图: Java Launcher 示例: jstack.exe*
 :::
 *[用 Draw.io 打开](https://app.diagrams.net/?ui=sketch#Uhttps%3A%2F%2Fjvm-insider.mygraphql.com%2Fzh-cn%2Flatest%2F_images%2Flauncher.drawio.svg)*
 
