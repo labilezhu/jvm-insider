@@ -61,9 +61,26 @@
 当我了解到 jstack.exe 甚至是 java.exe 本身其实都是利用 JNI API 去嵌入 JVM(libjvm.so) 时，是有点开眼界的。其实 Java 设计之初就是支持桌面应用，Native Application 可以轻松嵌入 JVM。只是作为现在主流的后端开发界来说，已经很少提这个“初心”了。
 
 
+## 常用的 JNI 观察工具
 
 
 
+```bash
+nm -gD /home/labile/opensource/jdk/build/linux-x86_64-server-slowdebug/images/jdk/lib/libjava.so 
+
+readelf --symbols --wide  /home/labile/opensource/jdk/build/linux-x86_64-server-slowdebug/images/jdk/lib/libjava.so  | less
+
+
+nm -gD /home/labile/opensource/jdk/build/linux-x86_64-server-slowdebug/images/jdk/lib/lib*.so | less 
+
+
+nm -gD /home/labile/opensource/jdk/build/linux-x86_64-server-slowdebug/images/jdk/lib/server/libjvm.so | grep JNI_CreateJavaVM
+
+
+ldd /home/labile/opensource/jdk/./build/linux-x86_64-server-slowdebug/jdk/bin/../lib/libjli.so
+
+nm -gD /home/labile/opensource/jdk/./build/linux-x86_64-server-slowdebug/jdk/bin/../lib/libjli.so | less
+```
 
 
 

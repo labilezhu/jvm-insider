@@ -2,5 +2,5 @@
 
 
 ```{toctree}
-build-jdk/build-slow-debug-jdk.md
+build-jdk/build-jdk.md
 ```
