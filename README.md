@@ -33,9 +33,9 @@
 本书主要讲 Istio/Envoy 的设计、实现机制。假设读者已经有一定的 Istio 使用经验。
 
 ### 书的访问地址
-- [https://istio-insider.mygraphql.com](https://istio-insider.mygraphql.com)
-- [https://istio-insider.readthedocs.io](https://istio-insider.readthedocs.io)
-- [https://istio-insider.rtfd.io](https://istio-insider.rtfd.io)
+- [https://jvm-insider.mygraphql.com](https://jvm-insider.mygraphql.com)
+- [https://jvm-insider.readthedocs.io](https://jvm-insider.readthedocs.io)
+- [https://jvm-insider.rtfd.io](https://jvm-insider.rtfd.io)
 
 
 ### 关于作者
