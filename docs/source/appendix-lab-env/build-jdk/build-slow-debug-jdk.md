@@ -243,10 +243,6 @@ To use `./build/linux-x86_64-server-slowdebug-hsdis/jdk.code-workspace`, choose 
 
 
 
-
-
-
-
 ### 编译数据库
 
 [编译数据库(Compilation Database) ](https://clang.llvm.org/docs/JSONCompilationDatabase.html) 可以让 IDE 知道跨文件和目录的代码之间的关系。用这个关系就可以方便地在 IDE 实现代码跳转功能。
