@@ -30,9 +30,9 @@
         }
 ```
 
-### debug Java code
+### native 与 Java 代码混合调试
 
-后来，我发觉除了 debug native code 外，我还想可以 debug java code。于是：
+后来，我发觉除了 debug native code 外，我还需要 debug java code。于是，就不能用 jstack launcher 命令去使用 jstack 的功能了。就要想法子用 java 命令启动 jstack。于是：
 
 ```json
         {
@@ -73,7 +73,7 @@
 
 jdb 连接上后，就可以 set java breakpoint 了。需要执行 `cont` 或 `run` 命令， Java 层面才可以继续运行。 
 
-一些设置 breakpoint 的例子：
+设置 breakpoint 的一些例子：
 
 ```
 stop at sun.tools.attach.VirtualMachineImpl:60

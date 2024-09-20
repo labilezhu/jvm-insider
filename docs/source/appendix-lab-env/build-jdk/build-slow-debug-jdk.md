@@ -11,7 +11,7 @@ cd /home/labile/opensource/
 git clone https://github.com/openjdk/jdk/
 git checkout tags/jdk-21+35 -b jdk-21+35
 ```
-以下假设绝对路径为： `/home/labile/opensource/jdk`
+以下假设 JDK 源码绝对路径为： `/home/labile/opensource/jdk`
 
 ## 构建 OpenJDK
 
@@ -35,11 +35,32 @@ sudo apt-get install libfontconfig1-dev
 
 
 
-### 构建参数配置
+### 构建配置
 
+#### hsdis 工具分析 JVM 编译生成的代码
+
+由于打算用 hsdis 工具分析 JVM 编译生成的代码。即反汇编 JIT/Interpreter 的机器代码。所以要让 JDK 支持 hsdis 。
+
+
+> 参考:
+> - https://mail.openjdk.org/pipermail/core-libs-dev/2022-February/086176.html
+> - https://git.openjdk.java.net/jdk/pull/7578
+
+因为会使用 hsdis 工具分析 JVM 内部数据，所以 `./configure ` 要加上 `--enable-hsdis-bundling  --with-hsdis=binutils --with-binutils-src=/home/labile/opensource/jdk/external-libs/binutils/binutils-2.37` 。 参数 `--enable-hsdis-bundling` 让 JDK 内置 hsdis 实现，就不需要后面自己 copy .so 文件了。
+
+由于 license 问题，要自己下载 binutils 源码：
 
 ```bash
-bash ./configure --with-debug-level=slowdebug --with-native-debug-symbols=internal --with-jvm-variants=server --with-target-bits=64
+mkdir /home/labile/opensource/jdk/external-libs/
+cd /home/labile/opensource/jdk/external-libs/
+curl -L -O https://ftp.gnu.org/gnu/binutils/binutils-2.37.tar.gz
+tar -xvf binutils-2.37.tar.gz
+```
+
+#### configure jdk build
+
+```bash
+bash ./configure --with-debug-level=slowdebug --with-native-debug-symbols=internal --with-jvm-variants=server --with-target-bits=64 --enable-hsdis-bundling  --with-hsdis=binutils --with-binutils-src=/home/labile/opensource/jdk/external-libs/binutils/binutils-2.37 --with-conf-name=linux-x86_64-server-slowdebug-hsdis
 ```
 
 `--with-debug-level` 的定义如下：
@@ -56,6 +77,7 @@ bash ./configure --with-debug-level=slowdebug --with-native-debug-symbols=intern
 > AC_DEFUN_ONCE([JDKOPT_SETUP_DEBUG_LEVEL],
 > ```
 
+同一个 JDK git work dir 支持使用多个 build profile(conf-name) 配置，来让测试者可以快速切换。用 `--with-conf-name=` 指定 `conf-name`(配置名)。
 
 
 输出：
@@ -63,11 +85,11 @@ bash ./configure --with-debug-level=slowdebug --with-native-debug-symbols=intern
 ```
 ====================================================
 A new configuration has been successfully created in
-/home/labile/opensource/jdk/build/linux-x86_64-server-slowdebug
-using configure arguments '--with-debug-level=slowdebug --with-native-debug-symbols=internal --with-jvm-variants=server --with-target-bits=64'.
+/home/labile/opensource/jdk/build/linux-x86_64-server-slowdebug-hsdis
+using configure arguments '...'.
 
 Configuration summary:
-* Name:           linux-x86_64-server-slowdebug
+* Name:           linux-x86_64-server-slowdebug-hsdis
 * Debug level:    slowdebug
 * HS debug level: debug
 * JVM variants:   server
@@ -83,19 +105,19 @@ Tools summary:
 * C++ Compiler:   Version 11.4.0 (at /usr/bin/g++)
 ```
 
-由于 jdk 支持多配置 profile 并存，配置 profile 在 jdk 中正式名是 `Configuration Name` 或 `CONF_NAME` 。
+由于 jdk 支持多配置 build profile 并存，配置 profile 在 jdk 中正式名是 `Configuration Name` 或 `CONF_NAME` 。
 
-从上面输出可见，`CONF_NAME` 自动命名为： `linux-x86_64-server-slowdebug` 。
+从上面输出可见，`CONF_NAME` 命名为： `linux-x86_64-server-slowdebug-hsdis` 。
 
-这个名字也会在目录中看到：`./build/linux-x86_64-server-slowdebug`
+这个名字也会在目录中看到：`./build/linux-x86_64-server-slowdebug-hsdis
 
 
 
 ### 构建
 
 ```bash
-cd jdk
-/usr/bin/gmake CONF_NAME=linux-x86_64-server-slowdebug LOG=info,cmdlines jdk
+cd /home/labile/opensource/jdk
+/usr/bin/gmake CONF_NAME=linux-x86_64-server-slowdebug-hsdis LOG=info,cmdlines jdk
 ```
 
 
@@ -103,7 +125,7 @@ cd jdk
 ### 测试构建结果
 
 ```bash
-./build/linux-x86_64-server-slowdebug/jdk/bin/java 
+./build/linux-x86_64-server-slowdebug-hsdis/jdk/bin/java 
 ```
 
 
@@ -122,7 +144,7 @@ make vscode-project CONF=linux-x86_64-server-slowdebug
 
 这个命令生成了：
 
-`./build/linux-x86_64-server-slowdebug/jdk.code-workspace`
+`./build/linux-x86_64-server-slowdebug-hsdis/jdk.code-workspace`
 
 这个 VSCode worksplace 配置文件。其内容大体如下：
 
@@ -135,7 +157,7 @@ make vscode-project CONF=linux-x86_64-server-slowdebug
 		},
 		{
 			"name": "Build artifacts",
-			"path": "/home/labile/opensource/jdk/build/linux-x86_64-server-slowdebug"
+			"path": "/home/labile/opensource/jdk/build/linux-x86_64-server-slowdebug-hsdis
 		}
 	],
 	"extensions": {
@@ -145,8 +167,8 @@ make vscode-project CONF=linux-x86_64-server-slowdebug
 	},
 	"settings": {
 		// Configure cpptools IntelliSense
-		"C_Cpp.intelliSenseCachePath": "/home/labile/opensource/jdk/build/linux-x86_64-server-slowdebug/.vscode",
-		"C_Cpp.default.compileCommands": "/home/labile/opensource/jdk/build/linux-x86_64-server-slowdebug/compile_commands.json",
+		"C_Cpp.intelliSenseCachePath": "/home/labile/opensource/jdk/build/linux-x86_64-server-slowdebug-hsdis.vscode",
+		"C_Cpp.default.compileCommands": "/home/labile/opensource/jdk/build/linux-x86_64-server-slowdebug-hsdis/compile_commands.json",
 		"C_Cpp.default.cppStandard": "c++14",
 		"C_Cpp.default.compilerPath": "/usr/bin/g++ ",
 
@@ -203,13 +225,13 @@ make vscode-project CONF=linux-x86_64-server-slowdebug
 
 
 
-其中 `"C_Cpp.default.compileCommands": "/home/labile/opensource/jdk/build/linux-x86_64-server-slowdebug/compile_commands.json"`下面将会提到。
+其中 `"C_Cpp.default.compileCommands": "/home/labile/opensource/jdk/build/linux-x86_64-server-slowdebug-hsdis/compile_commands.json"`下面将会提到。
 
 
 
 然后用 vscode 重新打开这个文件：
 
-To use `./build/linux-x86_64-server-slowdebug/jdk.code-workspace`, choose `File -> Open Workspace...` in Visual Studio Code。
+To use `./build/linux-x86_64-server-slowdebug-hsdis/jdk.code-workspace`, choose `File -> Open Workspace...` in Visual Studio Code。
 
 
 
@@ -225,10 +247,10 @@ To use `./build/linux-x86_64-server-slowdebug/jdk.code-workspace`, choose `File 
 make compile-commands CONF=linux-x86_64-server-slowdebug
 ```
 
-这会生成 `./build/linux-x86_64-server-slowdebug/compile_commands.json` 文件。下面是其中一行采样内容：
+这会生成 `./build/linux-x86_64-server-slowdebug-hsdis compile_commands.json` 文件。下面是其中一行采样内容：
 
 ```json
-{ "directory": "/home/labile/opensource/jdk/make", "file": "/home/labile/opensource/jdk/src/java.management/share/native/libmanagement/MemoryManagerImpl.c", "command": "/usr/bin/gcc -I/home/labile/opensource/jdk/build/linux-x86_64-server-slowdebug/support/modules_include/java.base -I/home/labile/opensource/jdk/build/linux-x86_64-server-slowdebug/support/modules_include/java.base/linux -I/home/labile/opensource/jdk/src/java.base/share/native/libjava -I/home/labile/opensource/jdk/src/java.base/unix/native/libjava -I/home/labile/opensource/jdk/src/hotspot/share/include -I/home/labile/opensource/jdk/src/hotspot/os/posix/include -pipe -fstack-protector -DLIBC=gnu -D_GNU_SOURCE -D_REENTRANT -D_LARGEFILE64_SOURCE -DLINUX -DDEBUG -fstack-protector-all --param ssp-buffer-size=1 -g -gdwarf-4 -std=c11 -fno-strict-aliasing -Wall -Wextra -Wformat=2 -Wpointer-arith -Wsign-compare -Wunused-function -Wundef -Wunused-value -Wreturn-type -Wtrampolines -m64 -D_LITTLE_ENDIAN -DARCH='\"amd64\"' -Damd64 -D_LP64=1 -fno-omit-frame-pointer -fno-delete-null-pointer-checks -fno-lifetime-dse -fPIC -fvisibility=hidden -I/home/labile/opensource/jdk/src/java.management/share/native/libmanagement -I/home/labile/opensource/jdk/build/linux-x86_64-server-slowdebug/support/headers/java.management -g -gdwarf-4 -Wno-unused-parameter -Wno-unused -Werror -O0 -c -o /home/labile/opensource/jdk/build/linux-x86_64-server-slowdebug/support/native/java.management/libmanagement/MemoryManagerImpl.o /home/labile/opensource/jdk/src/java.management/share/native/libmanagement/MemoryManagerImpl.c -frandom-seed=\"MemoryManagerImpl.c\"" },
+{ "directory": "/home/labile/opensource/jdk/make", "file": "/home/labile/opensource/jdk/src/java.management/share/native/libmanagement/MemoryManagerImpl.c", "command": "/usr/bin/gcc -I/home/labile/opensource/jdk/build/support/modules_include/java.base -I/home/labile/opensource/jdk/build/linux-x86_64-server-slowdebug-hsdis/support/modules_include/java.base/linux -I/home/labile/opensource/jdk/src/java.base/share/native/libjava -I/home/labile/opensource/jdk/src/java.base/unix/native/libjava -I/home/labile/opensource/jdk/src/hotspot/share/include -I/home/labile/opensource/jdk/src/hotspot/os/posix/include -pipe -fstack-protector -DLIBC=gnu -D_GNU_SOURCE -D_REENTRANT -D_LARGEFILE64_SOURCE -DLINUX -DDEBUG -fstack-protector-all --param ssp-buffer-size=1 -g -gdwarf-4 -std=c11 -fno-strict-aliasing -Wall -Wextra -Wformat=2 -Wpointer-arith -Wsign-compare -Wunused-function -Wundef -Wunused-value -Wreturn-type -Wtrampolines -m64 -D_LITTLE_ENDIAN -DARCH='\"amd64\"' -Damd64 -D_LP64=1 -fno-omit-frame-pointer -fno-delete-null-pointer-checks -fno-lifetime-dse -fPIC -fvisibility=hidden -I/home/labile/opensource/jdk/src/java.management/share/native/libmanagement -I/home/labile/opensource/jdk/build/linux-x86_64-server-slowdebug-hsdis/support/headers/java.management -g -gdwarf-4 -Wno-unused-parameter -Wno-unused -Werror -O0 -c -o /home/labile/opensource/jdk/build/linux-x86_64-server-slowdebug-hsdis/support/native/java.management/libmanagement/MemoryManagerImpl.o /home/labile/opensource/jdk/src/java.management/share/native/libmanagement/MemoryManagerImpl.c -frandom-seed=\"MemoryManagerImpl.c\"" },
 ```
 
 
