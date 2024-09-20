@@ -37,16 +37,24 @@ sudo apt-get install libfontconfig1-dev
 
 ### 构建配置
 
-#### hsdis 工具分析 JVM 编译生成的代码
+#### hsdis 工具分析 JVM 编译生成的代码(可选)
 
-由于打算用 hsdis 工具分析 JVM 编译生成的代码。即反汇编 JIT/Interpreter 的机器代码。所以要让 JDK 支持 hsdis 。
+> 如需要分析 JVM 编译生成的代码，可以通过 `-XX:+PrintAssembly` java 参数让 JVM 以汇编为格式，输出 JIT 编译后的程序到日志文件。使用说明见： https://wiki.openjdk.org/display/HotSpot/PrintAssembly 。
+> `-XX:+PrintAssembly` 基于 hsdis 技术，需要 jdk 在构建期就支持 hsdis。
+> 另外，其实 JDK 自带的 jhsdb 也可以实时反编译 JIT 生成的机器指令。所以 hsdis 有时不是必须的。但如果你希望得到注释比较丰富（如函数 call 地址后显示函数名），可读性高，可用 [jitwatch](https://github.com/AdoptOpenJDK/jitwatch) GUI 分析的汇编代码，那么支持 hsdis 是必须的。
 
 
-> 参考:
-> - https://mail.openjdk.org/pipermail/core-libs-dev/2022-February/086176.html
-> - https://git.openjdk.java.net/jdk/pull/7578
 
-因为会使用 hsdis 工具分析 JVM 内部数据，所以 `./configure ` 要加上 `--enable-hsdis-bundling  --with-hsdis=binutils --with-binutils-src=/home/labile/opensource/jdk/external-libs/binutils/binutils-2.37` 。 参数 `--enable-hsdis-bundling` 让 JDK 内置 hsdis 实现，就不需要后面自己 copy .so 文件了。
+因为会使用 hsdis 工具分析 JVM 内部数据，所以 `./configure ` 要加上 `--enable-hsdis-bundling  --with-hsdis=binutils --with-binutils-src=/home/labile/opensource/jdk/external-libs/binutils/binutils-2.37` 。 
+
+
+
+参数 `--enable-hsdis-bundling` 让 JDK 内置 hsdis 实现，就不需要后面自己 copy .so 文件了。参考:
+
+- https://mail.openjdk.org/pipermail/core-libs-dev/2022-February/086176.html
+- https://git.openjdk.java.net/jdk/pull/7578
+
+
 
 由于 license 问题，要自己下载 binutils 源码：
 
