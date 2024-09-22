@@ -38,7 +38,7 @@ HotSpot OpenJDK 的 Java 堆栈直接建立于 Native 堆栈内存区上。保�
 > `-XX:+PrintAssembly` 基于 hsdis 技术，需要 jdk 在构建期就支持 hsdis。
 > 另外，其实 JDK 自带的 jhsdb 也可以实时反编译 JIT 生成的机器指令。所以 hsdis 有时不是必须的。但如果你希望得到注释比较丰富（如函数 call 地址后显示函数名），可读性高，可用 [jitwatch](https://github.com/AdoptOpenJDK/jitwatch) GUI 分析的汇编代码，那么支持 hsdis 是必须的。
 
-JVM 支持 hsdis 的准备工作参见： {ref}`appendix-lab-env/build-jdk/build-slow-debug-jdk:hsdis 工具分析 JVM 编译生成的代码`
+JVM 支持 hsdis 的准备工作参见： {ref}`/appendix-lab-env/build-jdk/build-slow-debug-jdk:hsdis 工具分析 JVM 编译生成的代码`
 
 
 
