@@ -24,7 +24,7 @@ HotSpot OpenJDK 的 Java 堆栈直接建立于 Native 堆栈内存区上。保�
 
 
 
-对于需要精学掌握的知识，我喜欢用 `keep my hands dirty` 做实验的方法来学习，有以下好处：
+对于需要精学掌握的知识，我喜欢用 `get my hands dirty` 做实验的方法来学习，有以下好处：
 
 - 做 fact check。技术的更新太快，有的东西要眼见为实
 - 加强记忆。知识是自己挖出来，比直接学习来得深刻
