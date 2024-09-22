@@ -2,7 +2,7 @@
 
 本书的操作环境如下：
 - 操作系统： Ubuntu 22.04.4 LTS (kernel: 6.8.0-40-generic)
-- CPU Arch: x86_64
+- CPU Arch: x86_64 (Intel(R) Xeon(R) CPU E3-1225 v5)
 
 ## Git repo
 
