@@ -95,7 +95,7 @@ setarch $(uname -m) --addr-no-randomize /home/labile/opensource/jdk/build/linux-
  - `setarch $(uname -m) --addr-no-randomize` 是为了禁用 [Address space layout randomization (ASLR)](https://en.wikipedia.org/wiki/Address_space_layout_randomization) 。以让多次重启 Java 进程时，内存地址尽量一致。
  - `-XX:+PreserveFramePointer` 是为了 stack 和 CPU 寄存器的使用 与 gdb 兼容，让 gdb 可以正确识别出线程的 stack 。 详见： [Java Mixed-Mode
 Flame Graphs - Brendan Gregg](https://www.brendangregg.com/Slides/JavaOne2015_MixedModeFlameGraphs.pdf)
- - `-Xcomp -XX:-TieredCompilation -XX:-BackgroundCompilation` 让代码跳过 interpreter 直接 JIT 编译。因为本节的重点是 JIT 。
+ - `-Xcomp -XX:-TieredCompilation -XX:-BackgroundCompilation` 让代码跳过 interpreter 直接 JIT 编译。因为本节的重点是 JIT 。`-XX:-BackgroundCompilation` 与 `-Xbatch` 同义，均为不在异步后台编译，直接在工作线程中等待编译完成。
  - `-XX:+PrintAssembly -XX:PrintAssemblyOptions=intel -XX:CompileCommand=dontinline -Xlog:class+load=info -XX:+LogCompilation -XX:LogFile=./round3/mylogfile.log -XX:+DebugNonSafepoints -XX:+PrintInterpreter` 这些参数目的是保存 JIT 汇编输出。对于本节实验这是可选的。参数使用说明见： https://wiki.openjdk.org/display/HotSpot/PrintAssembly
 
 ### 保存现场
@@ -351,7 +351,8 @@ r10                     0x7ffff5285600
 
 
 
-
+## 参考
+- [Notes on debugging HotSpot's JIT compilation - Jorn Vernee](https://jornvernee.github.io/hotspot/jit/2023/08/18/debugging-jit.html)
 
 
 
