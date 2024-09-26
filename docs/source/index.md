@@ -140,6 +140,7 @@ and productive life. To my dear wife and our amazing kid – thanks for all your
 :includehidden:
 
 native-interface/native-interface.md
+serviceability/serviceability.md
 share/services/services.md
 exec-engine/exec-engine.md
 ```

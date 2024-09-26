@@ -23,3 +23,6 @@
 *图: JVM attach 机制(Java 10 之前)*
 :::
 *[用 Draw.io 打开](https://app.diagrams.net/?ui=sketch#Uhttps%3A%2F%2Fjvm-insider.mygraphql.com%2Fzh-cn%2Flatest%2F_images%2Fjvm-attach-before-java10.drawio.svg)*
+
+## 参考
+- [Module jdk.attach - Defines the attach API](https://docs.oracle.com/en/java/javase/21/docs/api/jdk.attach/module-summary.html)
