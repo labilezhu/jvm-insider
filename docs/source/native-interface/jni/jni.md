@@ -44,23 +44,6 @@
 
 
 
-## Java Launcher 的 JNI 使用
-
-下面以 jstack 应用程序为例，说明一下 Java Launcher 的 JNI 使用。
-
-
-:::{figure-md} 图: Java Launcher 示例: jstack.exe
-
-<img src="/native-interface/jni/launcher.drawio.svg" alt="图: Java Launcher 示例: jstack.exe">
-
-*图: Java Launcher 示例: jstack.exe*
-:::
-*[用 Draw.io 打开](https://app.diagrams.net/?ui=sketch#Uhttps%3A%2F%2Fjvm-insider.mygraphql.com%2Fzh-cn%2Flatest%2F_images%2Flauncher.drawio.svg)*
-
-
-当我了解到 jstack.exe 甚至是 java.exe 本身其实都是利用 JNI API 去嵌入 JVM(libjvm.so) 时，是有点开眼界的。其实 Java 设计之初就是支持桌面应用，Native Application 可以轻松嵌入 JVM。只是作为现在主流的后端开发界来说，已经很少提这个“初心”了。
-
-
 ## 常用的 JNI 观察工具
 
 

@@ -13,7 +13,7 @@ typora-root-url: ../../
 
 :::{figure-md} 图: JVMTI Data Structure
 
-<img src="/native-interface/jvmti/jvmti-data-struct.drawio.svg" alt="图: JVMTI Data Structure">
+<img src="/serviceability/jvmti/jvmti-data-struct.drawio.svg" alt="图: JVMTI Data Structure">
 
 *图: JVMTI Data Structure*
 :::
