@@ -5,7 +5,9 @@
 
 
 
-HotSpot 虚拟机包含几种技术，允许另一个 Java 进程观察它的行为：
+在 Java/JVM 术语里，Serviceability 是指 HotSpot 虚拟机包含的几种技术，它们使另一个外部 Java 进程可以观察运行了 Serviceability 组件的 JVM 的行为。这些 Serviceability 技术最少包括：
+
+
 
 - **The Serviceability Agent(SA)**. The Serviceability Agent is a Sun private component in the HotSpot repository that was developed by HotSpot engineers to assist in debugging HotSpot. They then realized that SA could be used to craft serviceability tools for end users since it can expose Java objects as well as HotSpot data structures both in running processes and in core files.
   翻译一下：`Serviceability Agent(SA)` 原是 HotSpot 原码库中的 Sun 私有组件，由 HotSpot 工程师开发，用于协助调试 HotSpot OpenJDK。他们随后意识到 SA 可用于为最终用户制作 serviceability tools ，因为它可以在运行中的进程以及 Core Dump 文件中检视 Java 对象以及 HotSpot 数据结构。
