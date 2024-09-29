@@ -15,22 +15,22 @@
 SA 组件有以下功能：
 
 - 从正在执行的 Java 进程中读取内存，或读取 Java 进程生成的 core dump file。
-- 从原始内存中提取所有 HotSpot VM C++ 数据结构。
-- 从 HotSpot 数据结构中提取 Java 对象。
+- 从原始内存中提取所有 `HotSpot VM C++ 数据结构`。
+- 从 `HotSpot VM C++` 数据结构 中提取 Java 对象。
 
 
 
-请注意，SA 在与目标JVM进程不同的进程中运行，并且不执行目标进程中的代码。但是，当 SA 观察目标进程时，目标进程会停止(halted)。
+注意，SA 在与目标JVM进程不同的进程中运行，并且不会在目标进程中执行代码。但是，当 SA 观察目标进程时，目标进程会停止(halted)。
 
-SA 主要由 Java 类组成，但它包含少量 native code，用于从进程和 core dump file 中读取原始内存。在 Linux 上，SA 使用 /proc 和 ptrace（主要是后者）的组合来读取进程中的原始内存。对于 core dump file，SA 直接解析 ELF 文件。
-
-
-
-OpenJDK 9 以后出现的 jhsdb (Java HotSpot DeBug) 工具，就是基于 SA 开发的。在 OpenJDK 9 以前，是 JAVA_HOME/lib 中的 sa-jdi.jar 。
+SA 主要由 Java 类组成，但也包含少量 native code，用于从进程和 core dump file 中读取原始内存。在 Linux 上，SA 使用 `/proc` 和 `ptrace`（主要是后者）的组合来读取目标进程中的原始内存。对于 core dump file，SA 直接解析 ELF 文件。
 
 
 
-HotSpot `Serviceability Agent(SA)` 是一组用于 Java 编程语言的 API，用于为 Java HotSpot 虚拟机的状态建立模型。与大多数动态语言调试系统不同，它们基于一种 “协作(cooperative)” 模型，需要在目标进程运行代码来协助调试过程，而 SA 不需要在目标 VM 中运行代码。相反，它使用符号查找( symbol lookup) 和读取进程内存等原语来(primitives)实现其功能。SA 可以透明地检视运行中的进程或 core dump file，使其适合调试 navtive VM  code 和 Java code。
+在 OpenJDK 9 以前，是 OpenJDK 自带的基于 SA 的工具是 JAVA_HOME/lib 中的 sa-jdi.jar 。OpenJDK 9 以后变成了  jhsdb (Java HotSpot DeBug) 工具。
+
+
+
+HotSpot `Serviceability Agent(SA)` 是一组 Java 编程的 API，可为目标 Java HotSpot JVM 建立数据模型。与大多数动态语言调试系统不同，它们基于一种 “协作(cooperative)” 模型，需要在目标进程运行代码来协助调试过程，而 SA 不需要在目标 VM 中运行代码。相反，它使用符号查找( symbol lookup) 和读取进程内存等原语来(primitives)实现其功能。SA 可以透明地检视运行中的进程或 core dump file，使其适合调试 navtive VM  code 和 Java code。
 
 
 
@@ -149,7 +149,312 @@ SA 采用镜像 JVM  C++ 数据结构的方法。当 SA 要创建`目标 JVM 的
 
 
 
-目标 JVM 镜像对象的创建，如何才能做不到 hard code pointer offset ? 见 [The HotSpot Serviceability Agent: An out-of-process high level debugger for a JVM - usenix.org](https://www.usenix.org/legacy/events/jvm01/full_papers/russell/russell_html/index.html) 中的 [Describing C++ Types](https://www.usenix.org/legacy/events/jvm01/full_papers/russell/russell_html/index.html#:~:text=Describing%20C%2B%2B%20Types) 。其实这个需求有点像 eBPF 的 [BTF](https://docs.ebpf.io/concepts/btf/) 。由于不是本书的重点，这里不展开。有兴趣的读者可以参考 [Describing C++ Types](https://www.usenix.org/legacy/events/jvm01/full_papers/russell/russell_html/index.html#:~:text=Describing%20C%2B%2B%20Types) 或 OpenJDK 源码 [src/hotspot/share/runtime/vmStructs.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/vmStructs.hpp#L77) 与 [src/jdk.hotspot.agent/share/classes/sun/jvm/hotspot/HotSpotTypeDataBase.java](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/jdk.hotspot.agent/share/classes/sun/jvm/hotspot/HotSpotTypeDataBase.java#L46)  ，其中有大量注释讲解这个对象 Metadata  database 的编写和生成原理。
+目标 JVM 镜像对象的创建，如何才能做不到 hard code pointer offset ? 见 [The HotSpot Serviceability Agent: An out-of-process high level debugger for a JVM - usenix.org](https://www.usenix.org/legacy/events/jvm01/full_papers/russell/russell_html/index.html) 中的 [Describing C++ Types](https://www.usenix.org/legacy/events/jvm01/full_papers/russell/russell_html/index.html#:~:text=Describing%20C%2B%2B%20Types) 。其实这个需求有点像 eBPF 的 [BTF](https://docs.ebpf.io/concepts/btf/) 。由于不是本书的重点，这里不展开。
+
+有兴趣的读者可以参考 [Describing C++ Types](https://www.usenix.org/legacy/events/jvm01/full_papers/russell/russell_html/index.html#:~:text=Describing%20C%2B%2B%20Types) 或 OpenJDK 源码 [src/hotspot/share/runtime/vmStructs.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/vmStructs.hpp#L77) 与 [src/jdk.hotspot.agent/share/classes/sun/jvm/hotspot/HotSpotTypeDataBase.java](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/jdk.hotspot.agent/share/classes/sun/jvm/hotspot/HotSpotTypeDataBase.java#L46)  ，其中有大量注释讲解这个对象 Metadata  database 的编写和生成原理。
+
+[src/hotspot/share/runtime/vmStructs.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/vmStructs.hpp#L77)  包含每个 HotSpot 类及其字段的 “声明”。
+
+
+
+### 目标对象的解码例子
+
+如，oopDesc 这个数据结构。
+
+[src/hotspot/share/oops/oop.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/oops/oop.hpp#L52)
+
+```c++
+// oopDesc is the top baseclass for objects classes. The {name}Desc classes describe
+// the format of Java objects so the fields can be accessed from C++.
+// oopDesc is abstract.
+class oopDesc {
+ private:
+  volatile markWord _mark;
+  union _metadata {
+    Klass*      _klass;
+    narrowKlass _compressed_klass;
+  } _metadata;
+```
+
+
+
+[src/hotspot/share/oops/arrayOop.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/oops/arrayOop.hpp#L42)
+
+```c++
+class arrayOopDesc : public oopDesc {
+  // Accessors for array length.  There's not a member variable for
+  // it; see length_offset_in_bytes().
+  int length() {...    
+```
+
+
+
+[src/hotspot/share/oops/objArrayOop.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/oops/objArrayOop.hpp#L37)
+
+```c++
+class objArrayOopDesc : public arrayOopDesc {
+    Klass* element_klass();
+```
+
+
+
+vmStructs.cpp 中定义上面 Object 的 Meta-data 的代码如下：
+
+
+
+[src/hotspot/share/utilities/globalDefinitions_gcc.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/utilities/globalDefinitions_gcc.hpp#L142)
+
+```c++
+// gcc warns about applying offsetof() to non-POD object or calculating
+// offset directly when base address is null. The -Wno-invalid-offsetof
+// option could be used to suppress this warning, but we instead just
+// avoid the use of offsetof().
+//
+// FIXME: This macro is complex and rather arcane. Perhaps we should
+// use offsetof() instead, with the invalid-offsetof warning
+// temporarily disabled.
+#define offset_of(klass,field)                          \
+([]() {                                                 \
+  char space[sizeof (klass)] ATTRIBUTE_ALIGNED(16);     \
+  klass* dummyObj = (klass*)space;                      \
+  char* c = (char*)(void*)&dummyObj->field;             \
+  return (size_t)(c - space);                           \
+}())
+```
+
+
+
+对应于 [src/hotspot/share/runtime/vmStructs.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/vmStructs.hpp#L155)  的声明如下：
+
+```c++
+// This table encapsulates the debugging information required by the
+// serviceability agent in order to run. Specifically, we need to
+// understand the layout of certain C data structures (offsets, in
+// bytes, of their fields.)
+//
+// There are alternatives for the design of this mechanism, including
+// parsing platform-specific debugging symbols from a debug build into
+// a program database. While this current mechanism can be considered
+// to be a workaround for the inability to debug arbitrary C and C++
+// programs at the present time, it does have certain advantages.
+// First, it is platform-independent, which will vastly simplify the
+// initial bringup of the system both now and on future platforms.
+// Second, it is embedded within the VM, as opposed to being in a
+// separate program database; experience has shown that whenever
+// portions of a system are decoupled, version skew is problematic.
+// Third, generating a program database, for example for a product
+// build, would probably require two builds to be done: the desired
+// product build as well as an intermediary build with the PRODUCT
+// flag turned on but also compiled with -g, leading to a doubling of
+// the time required to get a serviceability agent-debuggable product
+// build. Fourth, and very significantly, this table probably
+// preserves more information about field types than stabs do; for
+// example, it preserves the fact that a field is a "jlong" rather
+// than transforming the type according to the typedef in jni_md.h,
+// which allows the Java-side code to identify "Java-sized" fields in
+// C++ data structures. If the symbol parsing mechanism was redone
+// using stabs, it might still be necessary to have a table somewhere
+// containing this information.
+//
+// Do not change the sizes or signedness of the integer values in
+// these data structures; they are fixed over in the serviceability
+// agent's Java code (for bootstrapping).
+
+typedef struct {
+  const char* typeName;            // The type name containing the given field (example: "Klass")
+  const char* fieldName;           // The field name within the type           (example: "_name")
+  const char* typeString;          // Quoted name of the type of this field (example: "Symbol*";
+                                   // parsed in Java to ensure type correctness
+  int32_t  isStatic;               // Indicates whether following field is an offset or an address
+  uint64_t offset;                 // Offset of field within structure; only used for nonstatic fields
+  void* address;                   // Address of field; only used for static fields
+                                   // ("offset" can not be reused because of apparent solstudio compiler bug
+                                   // in generation of initializer data)
+} VMStructEntry;
+
+// This class is a friend of most classes, to be able to access
+// private fields
+class VMStructs {
+public:
+  // The last entry is identified over in the serviceability agent by
+  // the fact that it has a null fieldName
+  static VMStructEntry localHotSpotVMStructs[];
+  ...
+
+  // The last entry is identified over in the serviceability agent by
+  // the fact that it has a null typeName
+  static VMTypeEntry   localHotSpotVMTypes[];
+  ...
+
+  /**
+   * Table of addresses.
+   */
+  static VMAddressEntry localHotSpotVMAddresses[];
+  ...
+}    
+
+// This utility macro quotes the passed string
+#define QUOTE(x) #x
+
+//--------------------------------------------------------------------------------
+// VMStructEntry macros
+//
+
+// This macro generates a VMStructEntry line for a nonstatic field
+#define GENERATE_NONSTATIC_VM_STRUCT_ENTRY(typeName, fieldName, type)              \
+ { QUOTE(typeName), QUOTE(fieldName), QUOTE(type), 0, offset_of(typeName, fieldName), nullptr },
+```
+
+注意上面的 static 声明。
+
+
+
+对应于 [src/hotspot/share/runtime/vmStructs.cpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/vmStructs.cpp#L1215)  的定义如下：
+
+```c++
+//--------------------------------------------------------------------------------
+// VM_STRUCTS
+//
+// This list enumerates all of the fields the serviceability agent
+// needs to know about. Be sure to see also the type table below this one.
+// NOTE that there are platform-specific additions to this table in
+// vmStructs_<os>_<cpu>.hpp.
+
+#define VM_STRUCTS(nonstatic_field, \
+                   static_field, \
+                   static_ptr_volatile_field, \
+                   unchecked_nonstatic_field, \
+                   volatile_nonstatic_field, \
+                   ...) \
+  /******************************************************************/ \
+  /* OopDesc and Klass hierarchies (NOTE: MethodData* incomplete)   */ \
+  /******************************************************************/ \
+  volatile_nonstatic_field(oopDesc, _mark, markWord) \
+  volatile_nonstatic_field(oopDesc, _metadata._klass, Klass*) \
+  volatile_nonstatic_field(oopDesc, _metadata._compressed_klass, narrowKlass) \
+  ...
+
+```
+
+
+
+
+
+```c++
+//
+// Instantiation of VMStructEntries, VMTypeEntries and VMIntConstantEntries
+//
+
+// These initializers are allowed to access private fields in classes
+// as long as class VMStructs is a friend
+VMStructEntry VMStructs::localHotSpotVMStructs[] = {
+
+  VM_STRUCTS(GENERATE_NONSTATIC_VM_STRUCT_ENTRY,
+             GENERATE_STATIC_VM_STRUCT_ENTRY,
+             GENERATE_STATIC_PTR_VOLATILE_VM_STRUCT_ENTRY,
+             GENERATE_UNCHECKED_NONSTATIC_VM_STRUCT_ENTRY,
+             GENERATE_NONSTATIC_VM_STRUCT_ENTRY, // <---
+             GENERATE_NONPRODUCT_NONSTATIC_VM_STRUCT_ENTRY,
+             GENERATE_C1_NONSTATIC_VM_STRUCT_ENTRY,
+             GENERATE_C2_NONSTATIC_VM_STRUCT_ENTRY,
+             GENERATE_C1_UNCHECKED_STATIC_VM_STRUCT_ENTRY,
+             GENERATE_C2_UNCHECKED_STATIC_VM_STRUCT_ENTRY)
+...
+```
+
+
+
+hotspot/variant-server/libjvm/objs/vmStructs.ii
+
+```c++
+VMStructEntry VMStructs::localHotSpotVMStructs[] = {
+...
+    {"oopDesc", "_mark", "markWord", 0, 
+     ([](){ 
+        char space[sizeof (oopDesc)] __attribute__((aligned(16)));
+        oopDesc* dummyObj = (oopDesc*)space; 
+        char* c = (char*)(void*)&dummyObj->_mark; 
+        return (size_t)(c - space); 
+     }()),//call a lamda expression to get offset of field within structure
+     nullptr},
+    {"oopDesc", "_metadata._klass", "Klass*", 0, ([](){ char space[sizeof (oopDesc)] __attribute__((aligned(16))); oopDesc* dummyObj = (oopDesc*)space; char* c = (char*)(void*)&dummyObj->_metadata._klass; return (size_t)(c - space); }()),
+     nullptr},
+    {"oopDesc", "_metadata._compressed_klass", "narrowKlass", 0, ([](){ char space[sizeof (oopDesc)] __attribute__((aligned(16))); oopDesc* dummyObj = (oopDesc*)space; char* c = (char*)(void*)&dummyObj->_metadata._compressed_klass; return (size_t)(c - space); }()),
+     nullptr},
+...
+```
+
+
+
+
+
+
+
+特定 cpu 架构相关的项（例如寄存器、sizeof 类型等）的声明，例如：
+
+- [src/hotspot/cpu/x86/vmStructs_x86.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/cpu/x86/vmStructs_x86.hpp#L32)
+
+```c++
+// These are the CPU-specific fields, types and integer
+// constants required by the Serviceability Agent. This file is
+// referenced by vmStructs.cpp.
+
+#define VM_STRUCTS_CPU(nonstatic_field, static_field, unchecked_nonstatic_field, volatile_nonstatic_field, nonproduct_nonstatic_field, c2_nonstatic_field, unchecked_c1_static_field, unchecked_c2_static_field)            \
+  volatile_nonstatic_field(JavaFrameAnchor, _last_Java_fp, intptr_t*)
+```
+
+
+
+- [src/hotspot/os/linux/vmStructs_linux.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/os/linux/vmStructs_linux.hpp#L34)
+
+```c++
+// These are the OS-specific fields, types and integer
+// constants required by the Serviceability Agent. This file is
+// referenced by vmStructs.cpp.
+
+#define VM_STRUCTS_OS(nonstatic_field, static_field, unchecked_nonstatic_field, volatile_nonstatic_field, nonproduct_nonstatic_field, c2_nonstatic_field, unchecked_c1_static_field, unchecked_c2_static_field)
+```
+
+
+
+- [src/hotspot/os_cpu/linux_x86/vmStructs_linux_x86.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/os_cpu/linux_x86/vmStructs_linux_x86.hpp#L32)
+
+```c++
+// These are the OS and CPU-specific fields, types and integer
+// constants required by the Serviceability Agent. This file is
+// referenced by vmStructs.cpp.
+
+#define VM_STRUCTS_OS_CPU(nonstatic_field, static_field, unchecked_nonstatic_field, volatile_nonstatic_field, nonproduct_nonstatic_field, c2_nonstatic_field, unchecked_c1_static_field, unchecked_c2_static_field) \
+ \
+  /******************************/ \
+  /* Threads (NOTE: incomplete) */ \
+  /******************************/ \
+  nonstatic_field(OSThread, _thread_id, OSThread::thread_id_t) \
+  nonstatic_field(OSThread, _pthread_id, pthread_t)
+
+```
+
+
+
+
+
+```bash
+objdump -t -C ./hotspot/variant-server/libjvm/objs/vmStructs.o | less
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
