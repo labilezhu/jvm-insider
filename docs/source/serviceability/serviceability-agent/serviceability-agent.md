@@ -77,13 +77,21 @@ SA 旨在诊断 JVM 故障。这一要求决定了几个设计决策，包括目
 
 > 📖 本节的阅读方法：
 >
-> 本节贴了比较多代码，建议电脑双屏阅读（其实整本书也是这个建议）。最少开两个窗口，同时阅读和引用回看不同部分的代码，除非你记忆力过人 😇
+> 本节贴了比较多代码。说实话，不讨厌在书中阅读代码，一般我会转成源码导航图，但这个 SA 的不好用图表达。下文的拆解的方法是按代码的依赖顺序，从底层到高层来解说。
+>
+> 建议电脑双屏阅读（其实整本书也是这个建议）。最少开两个窗口，同时阅读和引用回看不同部分的代码，除非你记忆力过人 😇
+>
+> 本节假设读者：
+>
+> - 对 linux 可执行文件格式(ELF) 了解，如果未有，可读我的[《ELF 格式简述 - eBPF基础知识 Part1》](https://blog.mygraphql.com/zh/notes/low-tec/elf/elf-format/)
+> - 对 Java 在 Linux 内存 mmap 内存区布局有了解，如果未有，可读我的[《把大象装入货柜里——Java容器内存拆解》](https://blog.mygraphql.com/zh/notes/java/native-mem/java-native-mem-case/)
+> - 对 OpenJDK 的 Oop 数据结构使用情况有了解
 
 
 
 ## 遍历线程列表
 
-HotSpot JVM 在内存中维护着一个 flag ，指明每个 Java 线程正在执行哪种代码：
+HotSpot JVM 为每个Java 线程在内存中维护着一个 flag ，指明每个 Java 线程正在执行哪种代码：
 
 - JVM 内部代码
 - “native”代码 
@@ -95,7 +103,7 @@ HotSpot JVM 在内存中维护着一个 flag ，指明每个 Java 线程正在�
 
 
 
-以下为遍历目标 JVM 的线程列表的简单示例：
+以下以 遍历目标 JVM 的线程列表 为例，说明 SA 的实现原理：
 
 ![图: SA 中 JVM 数据结构的镜像说明](serviceability-agent.assets/thread-list.jpg)
 
@@ -103,27 +111,13 @@ HotSpot JVM 在内存中维护着一个 flag ，指明每个 Java 线程正在�
 
 
 
-- (A) JVM 的 [JavaThread class C++ 代码](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/javaThread.hpp#L244)，包括线程的状态 [JavaThread 的 volatile JavaThreadState _thread_state](_thread_state) 以 线程列表等数据结构。
+- (A) JVM 的 [JavaThread class C++ 代码](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/javaThread.hpp#L244)，包括线程的状态 [JavaThread 的 volatile JavaThreadState _thread_state](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/javaThread.hpp#L244) 以 线程列表等数据结构。
 
 [enum JavaThreadState](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/utilities/globalDefinitions.hpp#L1030) 的定义如下：
 
 ```c++
 // JavaThreadState keeps track of which part of the code a thread is executing in. This
 // information is needed by the safepoint code.
-//
-// There are 4 essential states:
-//
-//  _thread_new         : Just started, but not executed init. code yet (most likely still in OS init code)
-//  _thread_in_native   : In native code. This is a safepoint region, since all oops will be in jobject handles
-//  _thread_in_vm       : Executing in the vm
-//  _thread_in_Java     : Executing either interpreted or compiled Java code (or could be in a stub)
-//
-// Each state has an associated xxxx_trans state, which is an intermediate state used when a thread is in
-// a transition from one state to another. These extra states makes it possible for the safepoint code to
-// handle certain thread_states without having to suspend the thread - making the safepoint code faster.
-//
-// Given a state, the xxxx_trans state can always be found by adding 1.
-//
 enum JavaThreadState {
   _thread_uninitialized     =  0, // should never happen (missing initialization)
   _thread_new               =  2, // just starting up, i.e., in process of being initialized
@@ -143,11 +137,10 @@ enum JavaThreadState {
 
 
 - (B) 说明了此数据结构在 JVM 地址空间中的内存布局；从全局线程列表开始，JavaThread 对象链接在一起*(基于 2001 年的 JVM 版本)*
-- (C) 访问这些数据结构的 SA 代码。
 
+- (C) 访问这些 JavaThread C++ 数据结构的 SA 映射代码 [sun/jvm/hotspot/runtime/JavaThread.java](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/build/linux-x86_64-server-slowdebug/support/src/src/jdk.hotspot.agent/share/classes/jdk.hotspot.agent/sun/jvm/hotspot/runtime/JavaThread.java#L43) 。
 
-
-SA 采用镜像 JVM  C++ 数据结构的方法。当 SA 要创建`目标 JVM 的对象`的镜像对象时，它会使用 `Address 抽象对象` 从目标地址中获取数据，该 `Address 抽象对象`  包含上图的 method 以及数据结构，以及Java 原始数据：如 `byte getJByteAt(long offset)` 和 `short getJShortAt(long offset)` 。
+  SA 采用镜像 JVM  C++ 数据结构的方法。当 SA 要创建`目标 JVM 的对象`的镜像对象时，它会使用 `Address 抽象对象` 从目标地址中获取数据，该 `Address 抽象对象`  包含上图的 method 以及数据结构，以及Java 原始数据。
 
 
 
@@ -462,6 +455,13 @@ VMTypeEntry VMStructs::localHotSpotVMTypes[] = {
            GENERATE_C2_TOPLEVEL_VM_TYPE_ENTRY)
 ...
 }
+
+extern "C" {
+...
+JNIEXPORT VMStructEntry* gHotSpotVMStructs = VMStructs::localHotSpotVMStructs;
+JNIEXPORT VMTypeEntry* gHotSpotVMTypes = VMStructs::localHotSpotVMTypes;
+...
+}    
 ```
 
 
@@ -497,9 +497,27 @@ VMTypeEntry VMStructs::localHotSpotVMTypes[] = {
     {"ObjArrayKlass", "ArrayKlass", 0, 0, 0, sizeof(ObjArrayKlass)}, 
     ...
 }
+
+extern "C" {
+...
+__attribute__((visibility("default"))) VMStructEntry *gHotSpotVMStructs = VMStructs::localHotSpotVMStructs;
+__attribute__((visibility("default"))) VMTypeEntry *gHotSpotVMTypes = VMStructs::localHotSpotVMTypes;
+...
+}    
 ```
 
 
+
+可见，为 jdk build 生成的目标 ./jdk/lib/server/libjvm.so 增加了 gHotSpotVMStructs 这个全局变量 symbol。
+
+```
+readelf -s ./jdk/lib/server/libjvm.so | egrep -C10 'gHotSpotVMStructs|gHotSpotVMTypes'
+
+630672: 000000000290a228     8 OBJECT  GLOBAL DEFAULT   27 gHotSpotVMTypes
+630673: 000000000290a220     8 OBJECT  GLOBAL DEFAULT   27 gHotSpotVMStructs
+```
+
+这个 `gHotSpotVMTypes`/`gHotSpotVMStructs` symbol 后面会使用到。
 
 
 
@@ -523,7 +541,9 @@ field oopDesc _metadata._compressed_klass narrowKlass false 8 0x0
 
 
 
-特定 cpu 架构/特定 OS 相关的项（例如寄存器、sizeof 类型等）的声明，例如：
+### 特定 CPU / OS
+
+特定 cpu 架构 / OS 相关的项（例如寄存器、sizeof 类型等）的声明，例如：
 
 - [src/hotspot/cpu/x86/vmStructs_x86.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/cpu/x86/vmStructs_x86.hpp#L32)
 
@@ -575,12 +595,6 @@ field oopDesc _metadata._compressed_klass narrowKlass false 8 0x0
 
 
 
-
-
-
-
-
-
 ## Attach  到目标 JVM 进程
 
 
@@ -595,7 +609,7 @@ Native debug 层，类似 gdb 的行为，如 `ptrace_attach(pid)` 发生在 src
 
 
 
-如果你对 SA 如何读取目标 JVM  内存有兴趣。如果用到 .so/ELF 文件 的 symbol table。下面就是相关的核心 JAVA 代码的调用  stack。
+如果你对 SA 如何读取目标 JVM  内存有兴趣。如何用到 .so/ELF 文件 的 symbol table。下面就是相关的核心 JAVA 代码的调用  stack。
 
 ```
 HotSpotTypeDataBase.readVMStructs()  (sun.jvm.hotspot)
@@ -622,6 +636,63 @@ HotSpotTypeDataBase.readVMStructs()  (sun.jvm.hotspot)
 
 
 
+而 SA 的实现就是通过 ELF symbol offset 定位目标 VM  内存地址的：
+
+还记得上面的：
+
+```
+readelf -s ./jdk/lib/server/libjvm.so | egrep -C10 'gHotSpotVMStructs|gHotSpotVMTypes'
+
+630672: 000000000290a228     8 OBJECT  GLOBAL DEFAULT   27 gHotSpotVMTypes
+630673: 000000000290a220     8 OBJECT  GLOBAL DEFAULT   27 gHotSpotVMStructs
+```
+
+
+
+然后看 src/jdk.hotspot.agent/share/classes/sun/jvm/hotspot/HotSpotTypeDataBase.java
+
+````java
+/** <P> This is the cross-platform TypeDataBase used by the Oop
+    hierarchy. The decision was made to make this cross-platform by
+    having the VM export the necessary symbols via a built-in table;
+    see src/share/vm/runtime/vmStructs.[ch]pp for more details. </P>
+
+    <P> <B>WARNING</B>: clients should refer to this class through the
+    TypeDataBase interface and not directly to the HotSpotTypeDataBase
+    type. </P>
+
+    <P> NOTE: since we are fetching the sizes of the Java primitive types
+ */
+
+public class HotSpotTypeDataBase extends BasicTypeDataBase {  
+  ...    
+  private void readVMTypes() {
+    // Get the variables we need in order to traverse the VMTypeEntry[]
+    ...
+    // Fetch the address of the VMTypeEntry*. We get this symbol first
+    // and try to use it to make sure that symbol lookup is working.
+    Address entryAddr = lookupInProcess("gHotSpotVMTypes");
+    //    System.err.println("gHotSpotVMTypes address = " + entryAddr);
+    // Dereference this once to get the pointer to the first VMTypeEntry
+    //    dumpMemory(entryAddr, 80);
+    entryAddr = entryAddr.getAddressAt(0);
+    ...
+  }
+  ...
+  private void readVMStructs() {
+    ...
+    // Fetch the address of the VMStructEntry*
+    Address entryAddr = lookupInProcess("gHotSpotVMStructs");
+    // Dereference this once to get the pointer to the first VMStructEntry
+    entryAddr = entryAddr.getAddressAt(0);
+    ...
+  }
+````
+
+就是在目标  JVM 内存中，根据 ELF symbol 与 mmap ，定位 gHotSpotVMTypes / gHotSpotVMStructs 两个全局变量了。
+
+
+
 好了，限于篇幅 不再展开了。
 
 
@@ -643,3 +714,6 @@ HotSpotTypeDataBase.readVMStructs()  (sun.jvm.hotspot)
 ## 参考
 
 -  [The HotSpot Serviceability Agent: An out-of-process high level debugger for a JVM - usenix.org](https://www.usenix.org/legacy/events/jvm01/full_papers/russell/russell_html/index.html)
+
+- [Java 黑科技——Serviceability Agent - 潘志超](https://juejin.cn/post/6992108216695930917)
+
