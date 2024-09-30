@@ -20,7 +20,7 @@ SA 组件有以下功能：
 
 
 
-> ❔ 问题：我只是想学习 JVM Internal 原理，为何要研究 SA 原理和实现?
+> ❔ 问题：我只是想学习 JVM Internal 原理，了解 SA API 和使用方法足够了，为何要研究 SA 原理和实现? 这个问题我后面才能回答。
 
 
 
@@ -75,7 +75,9 @@ SA 旨在诊断 JVM 故障。这一要求决定了几个设计决策，包括目
 
 
 
-
+> 📖 本节的阅读方法：
+>
+> 本节贴了比较多代码，建议电脑双屏阅读（其实整本书也是这个建议）。最少开两个窗口，同时阅读和引用回看不同部分的代码，除非你记忆力过人 😇
 
 
 
@@ -149,11 +151,11 @@ SA 采用镜像 JVM  C++ 数据结构的方法。当 SA 要创建`目标 JVM 的
 
 
 
-## 目标对象的解码
+## 目标对象的解释
 
 
 
-目标 JVM 镜像对象的创建，如何才能避免 hard code pointer offset ? 见 [The HotSpot Serviceability Agent: An out-of-process high level debugger for a JVM - usenix.org](https://www.usenix.org/legacy/events/jvm01/full_papers/russell/russell_html/index.html) 中的 [Describing C++ Types](https://www.usenix.org/legacy/events/jvm01/full_papers/russell/russell_html/index.html#:~:text=Describing%20C%2B%2B%20Types) 。其实这个需求有点像 eBPF 的 [BTF](https://docs.ebpf.io/concepts/btf/) 。
+目标 JVM 镜像对象的解释，如何才能避免 hard code pointer offset ? 见 [The HotSpot Serviceability Agent: An out-of-process high level debugger for a JVM - usenix.org](https://www.usenix.org/legacy/events/jvm01/full_papers/russell/russell_html/index.html) 中的 [Describing C++ Types](https://www.usenix.org/legacy/events/jvm01/full_papers/russell/russell_html/index.html#:~:text=Describing%20C%2B%2B%20Types) 。其实这个需求有点像 eBPF 的 [BTF](https://docs.ebpf.io/concepts/btf/) 。需要做的就是在程序中嵌入对象 memory layout meta-data 。
 
 
 
@@ -163,7 +165,7 @@ SA 采用镜像 JVM  C++ 数据结构的方法。当 SA 要创建`目标 JVM 的
 
 
 
-### 目标对象的解码例子
+### 目标对象解释例子
 
 以下以 `oopDesc` 这个数据结构为例，说明 meta data 的编写原理。
 
@@ -335,7 +337,11 @@ public:
  { QUOTE(type), nullptr,              0, 0, 0, sizeof(type) },
 ```
 
-注意上面的 static 声明。
+上面代码有几个要点：
+
+- 注意上面的 static 声明。
+- 每个 SA 需要解释的 JVM 对象将会映射到一个 `VMTypeEntry`
+- 每个 SA 需要解释的 `VMTypeEntry` 的 field 将会映射到一个 `VMStructEntry`
 
 
 
@@ -589,67 +595,40 @@ Native debug 层，类似 gdb 的行为，如 `ptrace_attach(pid)` 发生在 src
 
 
 
-## stack 还原
+如果你对 SA 如何读取目标 JVM  内存有兴趣。如果用到 .so/ELF 文件 的 symbol table。下面就是相关的核心 JAVA 代码的调用  stack。
+
+```
+HotSpotTypeDataBase.readVMStructs()  (sun.jvm.hotspot)
+    HotSpotTypeDataBase.HotSpotTypeDataBase(MachineDescription, VtblAccess, Debugger, String[])  (sun.jvm.hotspot)
+        HotSpotAgent.setupVM()(4 usages)  (sun.jvm.hotspot)
+            HotSpotAgent.go()  (sun.jvm.hotspot)
+                HotSpotAgent.attach(int)  (sun.jvm.hotspot)
+                    HSDB.attach(int)  (sun.jvm.hotspot)
+                        HSDB.run()  (sun.jvm.hotspot)
+                            HSDB.main(String[])  (sun.jvm.hotspot)
+                                SALauncher.runHSDB(String[])  (sun.jvm.hotspot)
+                                    SALauncher.toolMap  (sun.jvm.hotspot)
+                                        SALauncher.main(String[])  (sun.jvm.hotspot)
+```
+
+
+
+   几个核心文件：
+
+- [sun/jvm/hotspot/HotSpotAgent.java](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/jdk.hotspot.agent/share/classes/sun/jvm/hotspot/HotSpotAgent.java#L61)
+- [sun/jvm/hotspot/HotSpotTypeDataBase.java](sun/jvm/hotspot/HotSpotTypeDataBase.java)
+- [src/jdk.hotspot.agent/share/classes/sun/jvm/hotspot/debugger/linux/LinuxDebuggerLocal.java](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/jdk.hotspot.agent/share/classes/sun/jvm/hotspot/debugger/linux/LinuxDebuggerLocal.java#L295)
+- [src/jdk.hotspot.agent/linux/native/libsaproc/LinuxDebuggerLocal.cpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/jdk.hotspot.agent/linux/native/libsaproc/LinuxDebuggerLocal.cpp#L284)
+
+
+
+好了，限于篇幅 不再展开了。
+
+
+
+## Stack 还原
 
 见 [The HotSpot Serviceability Agent: An out-of-process high level debugger for a JVM - usenix.org] 中的 [Traversing the Stacks](https://www.usenix.org/legacy/events/jvm01/full_papers/russell/russell_html/index.html#:~:text=Traversing%20the%20Stacks) 。这个有点复杂，需要大量背景知识，有兴趣的读者还是自己阅读吧。
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
