@@ -1,5 +1,8 @@
 # 探视 Hotspot Build 的细节
 
+(探视_C_Preprocessor_生成代码)=
+## 探视 C Preprocessor 生成代码
+
 {doc}`/appendix-lab-env/build-jdk/build-slow-debug-jdk` 中，讲述了 OpenJDK 的构建。但有时候，我们在分析 OpenJDK 源码原理时，需要知道 build 过程的细节。如，OpenJDK 中大量使用  `C Macro` / `C Preprocessor` 的编写方法 。人要从这些参数化+多层嵌套的 `C Preprocessor` 代码中看到最终生成的代码，从而了解其真实的意图，有很大的困难。没事，我们可以让 gcc 在编译时保存一下这些  `C Preprocessor`  生成的中间代码。
 
 

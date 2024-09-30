@@ -456,7 +456,7 @@ VMTypeEntry VMStructs::localHotSpotVMTypes[] = {
 
 
 
-以上使用了 `C Macro` / `C Preprocessor` 的编写方法，人要从这些参数化+多层嵌套的程序中看到生成的代码有困难。没事，我们直接让 gcc 在编译时保存一下这些  `C Preprocessor`  生成的中间代码。生成方法见：{doc}`/appendix-lab-env/build-jdk/inspect-build`。 生成后的文件：hotspot/variant-server/libjvm/objs/vmStructs.ii 
+以上使用了 `C Macro` / `C Preprocessor` 的编写方法，人要从这些参数化+多层嵌套的程序中看到生成的代码有困难。没事，我们直接让 gcc 在编译时保存一下这些  `C Preprocessor`  生成的中间代码。生成方法见：{ref}`appendix-lab-env/build-jdk/inspect-build:探视_C_Preprocessor_生成代码`。 生成后的文件：hotspot/variant-server/libjvm/objs/vmStructs.ii 
 
 ```c++
 VMStructEntry VMStructs::localHotSpotVMStructs[] = {
