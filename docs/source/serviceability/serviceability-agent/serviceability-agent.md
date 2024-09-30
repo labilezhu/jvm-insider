@@ -462,14 +462,14 @@ VMTypeEntry VMStructs::localHotSpotVMTypes[] = {
 
 以上使用了 `C Macro` / `C Preprocessor` 的编写方法，人要从这些参数化+多层嵌套的程序中看到生成的代码有困难。没事，我们直接让 gcc 在编译时保存一下这些  `C Preprocessor`  生成的中间代码。生成方法见：
 
-1. [1](/appendix-lab-env/build-jdk/inspect-build#inspect-c-preprocessor-gen-code)
-2. [2](/appendix-lab-env/build-jdk/inspect-build#inspect-c-preprocessor-gen-code)
-3. [3](/appendix-lab-env/build-jdk/inspect-build#探视-c-preprocessor-生成代码)
-4. [4](/appendix-lab-env/build-jdk/inspect-build#c-preprocessor)
-5. [1](appendix-lab-env/build-jdk/inspect-build#inspect-c-preprocessor-gen-code)
-6. [2](appendix-lab-env/build-jdk/inspect-build#inspect-c-preprocessor-gen-code)
-7. [3](appendix-lab-env/build-jdk/inspect-build#探视-c-preprocessor-生成代码)
-8. [4](appendix-lab-env/build-jdk/inspect-build#c-preprocessor)
+1. [1](/appendix-lab-env/build-jdk/inspect-build.md#inspect-c-preprocessor-gen-code)
+2. [2](/appendix-lab-env/build-jdk/inspect-build.md#inspect-c-preprocessor-gen-code)
+3. [3](/appendix-lab-env/build-jdk/inspect-build.md#探视-c-preprocessor-生成代码)
+4. [4](/appendix-lab-env/build-jdk/inspect-build.md#c-preprocessor)
+5. [1](appendix-lab-env/build-jdk/inspect-build.md#inspect-c-preprocessor-gen-code)
+6. [2](appendix-lab-env/build-jdk/inspect-build.md#inspect-c-preprocessor-gen-code)
+7. [3](appendix-lab-env/build-jdk/inspect-build.md#探视-c-preprocessor-生成代码)
+8. [4](appendix-lab-env/build-jdk/inspect-build.md#c-preprocessor)
 9. {ref}`appendix-lab-env/build-jdk/inspect-build:inspect_c_preprocessor_gen_code`
 
 
