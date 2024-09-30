@@ -4,4 +4,5 @@
 build-slow-debug-jdk.md
 build-running-native-test.md
 source-directory.md
+inspect-build.md
 ```

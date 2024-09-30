@@ -149,7 +149,9 @@ SA 采用镜像 JVM  C++ 数据结构的方法。当 SA 要创建`目标 JVM 的
 
 
 
-目标 JVM 镜像对象的创建，如何才能做不到 hard code pointer offset ? 见 [The HotSpot Serviceability Agent: An out-of-process high level debugger for a JVM - usenix.org](https://www.usenix.org/legacy/events/jvm01/full_papers/russell/russell_html/index.html) 中的 [Describing C++ Types](https://www.usenix.org/legacy/events/jvm01/full_papers/russell/russell_html/index.html#:~:text=Describing%20C%2B%2B%20Types) 。其实这个需求有点像 eBPF 的 [BTF](https://docs.ebpf.io/concepts/btf/) 。由于不是本书的重点，这里不展开。
+目标 JVM 镜像对象的创建，如何才能避免 hard code pointer offset ? 见 [The HotSpot Serviceability Agent: An out-of-process high level debugger for a JVM - usenix.org](https://www.usenix.org/legacy/events/jvm01/full_papers/russell/russell_html/index.html) 中的 [Describing C++ Types](https://www.usenix.org/legacy/events/jvm01/full_papers/russell/russell_html/index.html#:~:text=Describing%20C%2B%2B%20Types) 。其实这个需求有点像 eBPF 的 [BTF](https://docs.ebpf.io/concepts/btf/) 。
+
+
 
 有兴趣的读者可以参考 [Describing C++ Types](https://www.usenix.org/legacy/events/jvm01/full_papers/russell/russell_html/index.html#:~:text=Describing%20C%2B%2B%20Types) 或 OpenJDK 源码 [src/hotspot/share/runtime/vmStructs.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/vmStructs.hpp#L77) 与 [src/jdk.hotspot.agent/share/classes/sun/jvm/hotspot/HotSpotTypeDataBase.java](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/jdk.hotspot.agent/share/classes/sun/jvm/hotspot/HotSpotTypeDataBase.java#L46)  ，其中有大量注释讲解这个对象 Metadata  database 的编写和生成原理。
 
@@ -159,7 +161,7 @@ SA 采用镜像 JVM  C++ 数据结构的方法。当 SA 要创建`目标 JVM 的
 
 ### 目标对象的解码例子
 
-如，oopDesc 这个数据结构。
+以下以 `oopDesc` 这个数据结构为例，说明 meta data 的编写原理。
 
 [src/hotspot/share/oops/oop.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/oops/oop.hpp#L52)
 
@@ -198,11 +200,13 @@ class objArrayOopDesc : public arrayOopDesc {
 
 
 
-vmStructs.cpp 中定义上面 Object 的 Meta-data 的代码如下：
+
+
+#### vmStructs.hpp
 
 
 
-[src/hotspot/share/utilities/globalDefinitions_gcc.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/utilities/globalDefinitions_gcc.hpp#L142)
+oop field offset 的计算公式：[src/hotspot/share/utilities/globalDefinitions_gcc.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/utilities/globalDefinitions_gcc.hpp#L142)
 
 ```c++
 // gcc warns about applying offsetof() to non-POD object or calculating
@@ -221,6 +225,8 @@ vmStructs.cpp 中定义上面 Object 的 Meta-data 的代码如下：
   return (size_t)(c - space);                           \
 }())
 ```
+
+
 
 
 
@@ -272,6 +278,16 @@ typedef struct {
                                    // in generation of initializer data)
 } VMStructEntry;
 
+typedef struct {
+  const char* typeName;            // Type name (example: "Method")
+  const char* superclassName;      // Superclass name, or null if none (example: "oopDesc")
+  int32_t isOopType;               // Does this type represent an oop typedef? (i.e., "Method*" or
+                                   // "Klass*", but NOT "Method")
+  int32_t isIntegerType;           // Does this type represent an integer type (of arbitrary size)?
+  int32_t isUnsigned;              // If so, is it unsigned?
+  uint64_t size;                   // Size, in bytes, of the type
+} VMTypeEntry;
+
 // This class is a friend of most classes, to be able to access
 // private fields
 class VMStructs {
@@ -303,13 +319,25 @@ public:
 // This macro generates a VMStructEntry line for a nonstatic field
 #define GENERATE_NONSTATIC_VM_STRUCT_ENTRY(typeName, fieldName, type)              \
  { QUOTE(typeName), QUOTE(fieldName), QUOTE(type), 0, offset_of(typeName, fieldName), nullptr },
+
+//--------------------------------------------------------------------------------
+// VMTypeEntry macros
+//
+
+#define GENERATE_VM_TYPE_ENTRY(type, superclass) \
+ { QUOTE(type), QUOTE(superclass), 0, 0, 0, sizeof(type) },
+
+#define GENERATE_TOPLEVEL_VM_TYPE_ENTRY(type) \
+ { QUOTE(type), nullptr,              0, 0, 0, sizeof(type) },
 ```
 
 注意上面的 static 声明。
 
 
 
-对应于 [src/hotspot/share/runtime/vmStructs.cpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/vmStructs.cpp#L1215)  的定义如下：
+#### vmStructs.cpp
+
+对应于 [src/hotspot/share/runtime/vmStructs.cpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/vmStructs.cpp#L1215)  的定义上面 Object 的 Meta-data 的代码如下：
 
 ```c++
 //--------------------------------------------------------------------------------
@@ -334,6 +362,56 @@ public:
   volatile_nonstatic_field(oopDesc, _metadata._compressed_klass, narrowKlass) \
   ...
 
+      
+      
+//--------------------------------------------------------------------------------
+// VM_TYPES
+//
+// This list must enumerate at least all of the types in the above
+// list. For the types in the above list, the entry below must have
+// exactly the same spacing since string comparisons are done in the
+// code which verifies the consistency of these tables (in the debug
+// build).
+//
+// In addition to the above types, this list is required to enumerate
+// the JNI's java types, which are used to indicate the size of Java
+// fields in this VM to the SA. Further, oop types are currently
+// distinguished by name (i.e., ends with "oop") over in the SA.
+//
+// The declare_toplevel_type macro should be used to declare types
+// which do not have a superclass.
+//
+// The declare_integer_type and declare_unsigned_integer_type macros
+// are required in order to properly identify C integer types over in
+// the SA. They should be used for any type which is otherwise opaque
+// and which it is necessary to coerce into an integer value. This
+// includes, for example, the type uintptr_t. Note that while they
+// will properly identify the type's size regardless of the platform,
+// since it is does not seem possible to deduce or check signedness at
+// compile time using the pointer comparison tricks, it is currently
+// required that the given types have the same signedness across all
+// platforms.
+//
+// NOTE that there are platform-specific additions to this table in
+// vmStructs_<os>_<cpu>.hpp.
+
+#define VM_TYPES(declare_type,                                            \
+                 declare_toplevel_type,                                   \
+                 declare_oop_type,                                        \
+                 declare_integer_type,                                    \
+                 declare_unsigned_integer_type,                           \
+                 declare_c1_toplevel_type,                                \
+                 declare_c2_type,                                         \
+                 declare_c2_toplevel_type)                                \
+...                                                                       \
+  /******************************************/                            \
+  /* OopDesc hierarchy (NOTE: some missing) */                            \
+  /******************************************/                            \
+                                                                          \
+  declare_toplevel_type(oopDesc)                                          \
+    declare_type(arrayOopDesc, oopDesc)                                   \
+      declare_type(objArrayOopDesc, arrayOopDesc)                         \
+    declare_type(instanceOopDesc, oopDesc)                                \
 ```
 
 
@@ -360,11 +438,25 @@ VMStructEntry VMStructs::localHotSpotVMStructs[] = {
              GENERATE_C1_UNCHECKED_STATIC_VM_STRUCT_ENTRY,
              GENERATE_C2_UNCHECKED_STATIC_VM_STRUCT_ENTRY)
 ...
+}
+
+VMTypeEntry VMStructs::localHotSpotVMTypes[] = {
+
+  VM_TYPES(GENERATE_VM_TYPE_ENTRY,
+           GENERATE_TOPLEVEL_VM_TYPE_ENTRY,
+           GENERATE_OOP_VM_TYPE_ENTRY,
+           GENERATE_INTEGER_VM_TYPE_ENTRY,
+           GENERATE_UNSIGNED_INTEGER_VM_TYPE_ENTRY,
+           GENERATE_C1_TOPLEVEL_VM_TYPE_ENTRY,
+           GENERATE_C2_VM_TYPE_ENTRY,
+           GENERATE_C2_TOPLEVEL_VM_TYPE_ENTRY)
+...
+}
 ```
 
 
 
-hotspot/variant-server/libjvm/objs/vmStructs.ii
+以上使用了 `C Macro` / `C Preprocessor` 的编写方法，人要从这些参数化+多层嵌套的程序中看到生成的代码有困难。没事，我们直接让 gcc 在编译时保存一下这些  `C Preprocessor`  生成的中间代码。生成方法见：{doc}`/appendix-lab-env/build-jdk/inspect-build`。 生成后的文件：hotspot/variant-server/libjvm/objs/vmStructs.ii 
 
 ```c++
 VMStructEntry VMStructs::localHotSpotVMStructs[] = {
@@ -382,6 +474,37 @@ VMStructEntry VMStructs::localHotSpotVMStructs[] = {
     {"oopDesc", "_metadata._compressed_klass", "narrowKlass", 0, ([](){ char space[sizeof (oopDesc)] __attribute__((aligned(16))); oopDesc* dummyObj = (oopDesc*)space; char* c = (char*)(void*)&dummyObj->_metadata._compressed_klass; return (size_t)(c - space); }()),
      nullptr},
 ...
+}
+
+
+VMTypeEntry VMStructs::localHotSpotVMTypes[] = {
+    ...
+    {"oopDesc", nullptr, 0, 0, 0, sizeof(oopDesc)}, 
+    {"arrayOopDesc", "oopDesc", 0, 0, 0, sizeof(arrayOopDesc)}, 
+    {"objArrayOopDesc", "arrayOopDesc", 0, 0, 0, sizeof(objArrayOopDesc)}, 
+    {"instanceOopDesc", "oopDesc", 0, 0, 0, sizeof(instanceOopDesc)}, 
+    {"ArrayKlass", "Klass", 0, 0, 0, sizeof(ArrayKlass)}, 
+    {"ObjArrayKlass", "ArrayKlass", 0, 0, 0, sizeof(ObjArrayKlass)}, 
+    ...
+}
+```
+
+
+
+
+
+```
+hsdb> vmstructsdump
+
+type instanceOopDesc oopDesc false false false 16
+type oopDesc null false false false 16 
+type arrayOopDesc oopDesc false false false 16
+type objArrayOopDesc arrayOopDesc false false false 16
+
+
+field oopDesc _mark markWord false 0 0x0
+field oopDesc _metadata._klass Klass* false 8 0x0
+field oopDesc _metadata._compressed_klass narrowKlass false 8 0x0
 ```
 
 
@@ -390,7 +513,7 @@ VMStructEntry VMStructs::localHotSpotVMStructs[] = {
 
 
 
-特定 cpu 架构相关的项（例如寄存器、sizeof 类型等）的声明，例如：
+特定 cpu 架构/特定 OS 相关的项（例如寄存器、sizeof 类型等）的声明，例如：
 
 - [src/hotspot/cpu/x86/vmStructs_x86.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/cpu/x86/vmStructs_x86.hpp#L32)
 
@@ -433,18 +556,6 @@ VMStructEntry VMStructs::localHotSpotVMStructs[] = {
   nonstatic_field(OSThread, _pthread_id, pthread_t)
 
 ```
-
-
-
-
-
-```bash
-objdump -t -C ./hotspot/variant-server/libjvm/objs/vmStructs.o | less
-```
-
-
-
-
 
 
 
