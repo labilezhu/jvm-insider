@@ -20,6 +20,10 @@ SA 组件有以下功能：
 
 
 
+> ❔ 问题：我只是想学习 JVM Internal 原理，为何要研究 SA 原理和实现?
+
+
+
 注意，SA 在与目标JVM进程不同的进程中运行，并且不会在目标进程中执行代码。但是，当 SA 观察目标进程时，目标进程会停止(halted)。
 
 SA 主要由 Java 类组成，但也包含少量 native code，用于从进程和 core dump file 中读取原始内存。在 Linux 上，SA 使用 `/proc` 和 `ptrace`（主要是后者）的组合来读取目标进程中的原始内存。对于 core dump file，SA 直接解析 ELF 文件。
@@ -456,7 +460,7 @@ VMTypeEntry VMStructs::localHotSpotVMTypes[] = {
 
 
 
-以上使用了 `C Macro` / `C Preprocessor` 的编写方法，人要从这些参数化+多层嵌套的程序中看到生成的代码有困难。没事，我们直接让 gcc 在编译时保存一下这些  `C Preprocessor`  生成的中间代码。生成方法见：{ref}`appendix-lab-env/build-jdk/inspect-build:探视_C_Preprocessor_生成代码`。 生成后的文件：hotspot/variant-server/libjvm/objs/vmStructs.ii 
+以上使用了 `C Macro` / `C Preprocessor` 的编写方法，人要从这些参数化+多层嵌套的程序中看到生成的代码有困难。没事，我们直接让 gcc 在编译时保存一下这些  `C Preprocessor`  生成的中间代码。生成方法见：{ref}`appendix-lab-env/build-jdk/inspect-build:探视_c_preprocessor_生成代码`。 生成后的文件：hotspot/variant-server/libjvm/objs/vmStructs.ii 
 
 ```c++
 VMStructEntry VMStructs::localHotSpotVMStructs[] = {
