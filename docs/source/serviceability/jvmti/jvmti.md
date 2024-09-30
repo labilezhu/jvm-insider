@@ -8,7 +8,7 @@ typora-root-url: ../../
 
 ## JVMTI 相关数据结构
 
-说到 JNI，对于 Java 开发工具及其实现有兴趣的同学，不得不提一下基于 JNI 基础架构上的 JVMTI。
+说到 JNI，对于 Java 观察工具及其实现有兴趣的同学，不得不提一下基于 JNI 基础架构上的 JVMTI。
 
 
 :::{figure-md} 图: JVMTI Data Structure
@@ -101,7 +101,9 @@ JVM TI 实现层 \- jvmtiExport 代码位于： [src/hotspot/share/prims/jvmtiEx
 
 
 
-![Function Architecture - from JVM TI Impl - ReobertField](/native-interface/jvmti/jvmti.assets/image-20240926165627386.png)
+
+
+![Function Architecture - from JVM TI Impl - ReobertField](./jvmti.assets/image-20240926165627386.png)
 
 *图: Function Architecture - from [JVM TI Impl - ReobertField](https://openjdk.org/groups/hotspot/docs/jvmtiImpl.pdf)*
 
@@ -109,7 +111,7 @@ JVM TI 实现层 \- jvmtiExport 代码位于： [src/hotspot/share/prims/jvmtiEx
 
 
 
-![image-20240926170439162](/native-interface/jvmti/jvmti.assets/image-20240926170439162.png)
+![image-20240926170439162](jvmti.assets/image-20240926170439162.png)
 
 *图: Function Flow - from [JVM TI Impl - ReobertField](https://openjdk.org/groups/hotspot/docs/jvmtiImpl.pdf)*
 
@@ -117,7 +119,7 @@ JVM TI 实现层 \- jvmtiExport 代码位于： [src/hotspot/share/prims/jvmtiEx
 
 
 
-![image-20240926170634828](/native-interface/jvmti/jvmti.assets/image-20240926170634828.png)
+![image-20240926170634828](jvmti.assets/image-20240926170634828.png)
 
 *图: Event Architecture - from [JVM TI Impl - ReobertField](https://openjdk.org/groups/hotspot/docs/jvmtiImpl.pdf)*
 
@@ -125,7 +127,7 @@ JVM TI 实现层 \- jvmtiExport 代码位于： [src/hotspot/share/prims/jvmtiEx
 
 
 
-![image-20240926170724341](/native-interface/jvmti/jvmti.assets/image-20240926170724341.png)
+![image-20240926170724341](jvmti.assets/image-20240926170724341.png)
 
 *图: Event Flow - from [JVM TI Impl - ReobertField](https://openjdk.org/groups/hotspot/docs/jvmtiImpl.pdf)*
 
@@ -135,7 +137,7 @@ JVM TI 实现层 \- jvmtiExport 代码位于： [src/hotspot/share/prims/jvmtiEx
 
 #### 线程与环境数据
 
-![image-20240926172423843](/native-interface/jvmti/jvmti.assets/image-20240926172423843.png)
+![image-20240926172423843](jvmti.assets/image-20240926172423843.png)
 
 *图: 线程与环境数据 - from [JVM TI Impl - ReobertField](https://openjdk.org/groups/hotspot/docs/jvmtiImpl.pdf)*
 
