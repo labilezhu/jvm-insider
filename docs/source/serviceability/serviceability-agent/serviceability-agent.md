@@ -89,62 +89,23 @@ SA 旨在诊断 JVM 故障。这一要求决定了几个设计决策，包括目
 
 
 
-## 遍历线程列表
+## 术语
 
-HotSpot JVM 为每个Java 线程在内存中维护着一个 flag ，指明每个 Java 线程正在执行哪种代码：
+正文前，先说说术语，以免后面的误解。
 
-- JVM 内部代码
-- “native”代码 
-- Java 代码。
+- `debugger` vs `debuggee` : `debugger`  指运行调试器的进程，一般也可以叫 `debug client`。 `debuggee` 指被调试者 。
 
+   In debugging, the `debuggee` is the process that is being debugged, while the `debugger` is the software tool that helps identify coding errors. The `debuggee` includes the application being debugged, the VM running the application, and the debugger's back-end.
 
+  在调试中，被调试者是被调试的进程，而调试器是帮助识别编码错误的软件工具。被调试者包括被调试的应用程序、运行应用程序的虚拟机和调试器的后端。
 
-> 由于参考文章 [The HotSpot Serviceability Agent: An out-of-process high level debugger for a JVM - usenix.org](https://www.usenix.org/legacy/events/jvm01/full_papers/russell/russell_html/index.html) 是 2001 年的旧文，本小节部分内容可能已经在 2024 年有大变化。但 SA 的设计细想和原理基本不变。
-
-
-
-以下以 遍历目标 JVM 的线程列表 为例，说明 SA 的实现原理：
-
-![图: SA 中 JVM 数据结构的镜像说明](serviceability-agent.assets/thread-list.jpg)
-
-*图: SA 中 JVM 数据结构的镜像说明(基于 2001 年的 JVM 版本)*
+  在本文 SA 的语境下：`debugger` 是调用 SA API 并运行 SA implementation 的工具或进程 ； `debuggee` 是带有符合 SA metadata 规范数据的 Java 进程或 core dump file 。
 
 
 
-- (A) JVM 的 [JavaThread class C++ 代码](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/javaThread.hpp#L244)，包括线程的状态 [JavaThread 的 volatile JavaThreadState _thread_state](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/javaThread.hpp#L244) 以 线程列表等数据结构。
+## Debuggee type database
 
-[enum JavaThreadState](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/utilities/globalDefinitions.hpp#L1030) 的定义如下：
-
-```c++
-// JavaThreadState keeps track of which part of the code a thread is executing in. This
-// information is needed by the safepoint code.
-enum JavaThreadState {
-  _thread_uninitialized     =  0, // should never happen (missing initialization)
-  _thread_new               =  2, // just starting up, i.e., in process of being initialized
-  _thread_new_trans         =  3, // corresponding transition state (not used, included for completeness)
-  _thread_in_native         =  4, // running in native code
-  _thread_in_native_trans   =  5, // corresponding transition state
-  _thread_in_vm             =  6, // running in VM
-  _thread_in_vm_trans       =  7, // corresponding transition state
-  _thread_in_Java           =  8, // running in Java or in stub code
-  _thread_in_Java_trans     =  9, // corresponding transition state (not used, included for completeness)
-  _thread_blocked           = 10, // blocked in vm
-  _thread_blocked_trans     = 11, // corresponding transition state
-  _thread_max_state         = 12  // maximum thread state+1 - used for statistics allocation
-};
-```
-
-
-
-- (B) 说明了此数据结构在 JVM 地址空间中的内存布局；从全局线程列表开始，JavaThread 对象链接在一起*(基于 2001 年的 JVM 版本)*
-
-- (C) 访问这些 JavaThread C++ 数据结构的 SA 映射代码 [sun/jvm/hotspot/runtime/JavaThread.java](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/build/linux-x86_64-server-slowdebug/support/src/src/jdk.hotspot.agent/share/classes/jdk.hotspot.agent/sun/jvm/hotspot/runtime/JavaThread.java#L43) 。
-
-  SA 采用镜像 JVM  C++ 数据结构的方法。当 SA 要创建`目标 JVM 的对象`的镜像对象时，它会使用 `Address 抽象对象` 从目标地址中获取数据，该 `Address 抽象对象`  包含上图的 method 以及数据结构，以及Java 原始数据。
-
-
-
-## 目标对象的解释
+ debugger 要解释 debuggee 的数据结构，但又不能 hard code 数据结构的 memory layout，那么，只能在 debuggee 中嵌入（声明）其数据结构的 layout 了，我们把这个数据结构的声明叫 Type Database，有时叫 VMStruct，有时也叫 Metadata。
 
 
 
@@ -152,13 +113,15 @@ enum JavaThreadState {
 
 
 
-有兴趣的读者可以参考 [Describing C++ Types](https://www.usenix.org/legacy/events/jvm01/full_papers/russell/russell_html/index.html#:~:text=Describing%20C%2B%2B%20Types) 或 OpenJDK 源码 [src/hotspot/share/runtime/vmStructs.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/vmStructs.hpp#L77) 与 [src/jdk.hotspot.agent/share/classes/sun/jvm/hotspot/HotSpotTypeDataBase.java](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/jdk.hotspot.agent/share/classes/sun/jvm/hotspot/HotSpotTypeDataBase.java#L46)  ，其中有大量注释讲解这个对象 Metadata  database 的编写和生成原理。
+可以参考 [Describing C++ Types](https://www.usenix.org/legacy/events/jvm01/full_papers/russell/russell_html/index.html#:~:text=Describing%20C%2B%2B%20Types) 或 OpenJDK 源码 [src/hotspot/share/runtime/vmStructs.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/vmStructs.hpp#L77) 与 [src/jdk.hotspot.agent/share/classes/sun/jvm/hotspot/HotSpotTypeDataBase.java](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/jdk.hotspot.agent/share/classes/sun/jvm/hotspot/HotSpotTypeDataBase.java#L46)  ，其中有大量注释讲解这个对象 Metadata  database 的编写和生成原理。
 
 [src/hotspot/share/runtime/vmStructs.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/vmStructs.hpp#L77)  包含每个 HotSpot 类及其字段的 “声明”。
 
 
 
-### 目标对象解释例子
+### Debuggee Types
+
+先看看 debuggee 中，需要 debugger inspect 的核心数据类型。
 
 以下以 `oopDesc` 这个数据结构为例，说明 meta data 的编写原理。
 
@@ -201,9 +164,9 @@ class objArrayOopDesc : public arrayOopDesc {
 
 
 
+### Type database 构建
+
 #### vmStructs.hpp
-
-
 
 oop field offset 的计算公式：[src/hotspot/share/utilities/globalDefinitions_gcc.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/utilities/globalDefinitions_gcc.hpp#L142)
 
@@ -537,11 +500,7 @@ field oopDesc _metadata._compressed_klass narrowKlass false 8 0x0
 
 
 
-
-
-
-
-### 特定 CPU / OS
+#### 特定 CPU / OS
 
 特定 cpu 架构 / OS 相关的项（例如寄存器、sizeof 类型等）的声明，例如：
 
@@ -593,11 +552,66 @@ field oopDesc _metadata._compressed_klass narrowKlass false 8 0x0
 
 
 
+### 例子：遍历线程列表
+
+HotSpot JVM 为每个Java 线程在内存中维护着一个 flag ，指明每个 Java 线程正在执行哪种代码：
+
+- JVM 内部代码
+- “native”代码 
+- Java 代码。
 
 
-## Attach  到目标 JVM 进程
+
+> 由于本小节参考文章 [The HotSpot Serviceability Agent: An out-of-process high level debugger for a JVM - usenix.org](https://www.usenix.org/legacy/events/jvm01/full_papers/russell/russell_html/index.html) 是 2001 年的旧文，本小节部分内容可能已经在 2024 年有大变化。但 SA 的设计细想和原理基本不变。
 
 
+
+以下以 遍历目标 JVM 的线程列表 为例，说明 SA 的实现原理：
+
+![图: SA 中 JVM 数据结构的镜像说明](serviceability-agent.assets/thread-list.jpg)
+
+*图: SA 中 JVM 数据结构的镜像说明(基于 2001 年的 JVM 版本)*
+
+
+
+- (A) JVM 的 [JavaThread class C++ 代码](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/javaThread.hpp#L244)，包括线程的状态 [JavaThread 的 volatile JavaThreadState _thread_state](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/javaThread.hpp#L244) 以 线程列表等数据结构。
+
+[enum JavaThreadState](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/utilities/globalDefinitions.hpp#L1030) 的定义如下：
+
+```c++
+// JavaThreadState keeps track of which part of the code a thread is executing in. This
+// information is needed by the safepoint code.
+enum JavaThreadState {
+  _thread_uninitialized     =  0, // should never happen (missing initialization)
+  _thread_new               =  2, // just starting up, i.e., in process of being initialized
+  _thread_new_trans         =  3, // corresponding transition state (not used, included for completeness)
+  _thread_in_native         =  4, // running in native code
+  _thread_in_native_trans   =  5, // corresponding transition state
+  _thread_in_vm             =  6, // running in VM
+  _thread_in_vm_trans       =  7, // corresponding transition state
+  _thread_in_Java           =  8, // running in Java or in stub code
+  _thread_in_Java_trans     =  9, // corresponding transition state (not used, included for completeness)
+  _thread_blocked           = 10, // blocked in vm
+  _thread_blocked_trans     = 11, // corresponding transition state
+  _thread_max_state         = 12  // maximum thread state+1 - used for statistics allocation
+};
+```
+
+
+
+- (B) 说明了此数据结构在 JVM 地址空间中的内存布局；从全局线程列表开始，JavaThread 对象链接在一起*(基于 2001 年的 JVM 版本)*
+
+- (C) 访问这些 JavaThread C++ 数据结构的 SA 映射代码 [sun/jvm/hotspot/runtime/JavaThread.java](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/build/linux-x86_64-server-slowdebug/support/src/src/jdk.hotspot.agent/share/classes/jdk.hotspot.agent/sun/jvm/hotspot/runtime/JavaThread.java#L43) 。
+
+  SA 采用镜像 JVM  C++ 数据结构的方法。当 SA 要创建`目标 JVM 的对象`的镜像对象时，它会使用 `Address 抽象对象` 从目标地址中获取数据，该 `Address 抽象对象`  包含上图的 method 以及数据结构，以及Java 原始数据。
+
+
+
+
+
+## Debugger 解释对象
+
+### Attach  到目标 JVM 进程
 
 有兴趣知道 SA 是如何 attach 到 JVM 的读者，见：[src/jdk.hotspot.agent/share/classes/sun/jvm/hotspot/debugger/linux/LinuxDebuggerLocal.java 中的 void attach(int processID)](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/jdk.hotspot.agent/share/classes/sun/jvm/hotspot/debugger/linux/LinuxDebuggerLocal.java#L295)
 
@@ -608,6 +622,10 @@ field oopDesc _metadata._compressed_klass narrowKlass false 8 0x0
 Native debug 层，类似 gdb 的行为，如 `ptrace_attach(pid)` 发生在 src/jdk.hotspot.agent/linux/native/libsaproc/ps_proc.c 的 [Pgrab(pid_t pid, ...)](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/jdk.hotspot.agent/linux/native/libsaproc/ps_proc.c#L443) 
 
 
+
+### Type database 的解释
+
+#### Type database 的入口地址定位
 
 如果你对 SA 如何读取目标 JVM  内存有兴趣。如何用到 .so/ELF 文件 的 symbol table。下面就是相关的核心 JAVA 代码的调用  stack。
 
@@ -693,17 +711,41 @@ public class HotSpotTypeDataBase extends BasicTypeDataBase {
 
 
 
-好了，限于篇幅 不再展开了。
+#### 读取对象内 offset
+
+[src/jdk.hotspot.agent/share/classes/sun/jvm/hotspot/oops/Oop.java](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/jdk.hotspot.agent/share/classes/sun/jvm/hotspot/oops/Oop.java#L47)
+
+```java
+public class Oop {
+  static {
+    VM.registerVMInitializedObserver(new Observer() {
+        public void update(Observable o, Object data) {
+          initialize(VM.getVM().getTypeDataBase());
+        }
+      });
+  }
+
+  private static synchronized void initialize(TypeDataBase db) throws WrongTypeException {
+    Type type  = db.lookupType("oopDesc");
+    mark       = new CIntField(type.getCIntegerField("_mark"), 0);
+    klass      = new MetadataField(type.getAddressField("_metadata._klass"), 0);
+    compressedKlass  = new NarrowKlassField(type.getAddressField("_metadata._compressed_klass"), 0);
+    headerSize = type.getSize();
+  }
+    
+  private static CIntField mark;
+  private static MetadataField  klass;
+  private static NarrowKlassField compressedKlass;    
+
+```
+
+`TypeDataBase db` 就是上面的 `HotSpotTypeDataBase ` 。
 
 
 
 ## Stack 还原
 
 见 [The HotSpot Serviceability Agent: An out-of-process high level debugger for a JVM - usenix.org] 中的 [Traversing the Stacks](https://www.usenix.org/legacy/events/jvm01/full_papers/russell/russell_html/index.html#:~:text=Traversing%20the%20Stacks) 。这个有点复杂，需要大量背景知识，有兴趣的读者还是自己阅读吧。
-
-
-
-
 
 
 
