@@ -371,9 +371,127 @@ void VMThread::loop() {
 
 [src/hotspot/share/runtime/vmOperation.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/vmOperation.hpp#L124)
 
+```c++
+// VM_Operation 的类型
+// Note: When new VM_XXX comes up, add 'XXX' to the template table.
+#define VM_OPS_DO(template)                       \
+  template(Halt)                                  \
+  template(SafepointALot)                         \
+  template(Cleanup)                               \
+  template(ThreadDump)                            \
+  template(PrintThreads)                          \
+  template(FindDeadlocks)                         \
+  template(ClearICs)                              \
+  template(ForceSafepoint)                        \
+  template(DeoptimizeFrame)                       \
+  template(DeoptimizeAll)                         \
+  template(ZombieAll)                             \
+  template(Verify)                                \
+  template(HeapDumper)                            \
+  template(CollectForMetadataAllocation)          \
+  template(CollectForCodeCacheAllocation)         \
+  template(GC_HeapInspection)                     \
+  template(GenCollectFull)                        \
+  template(GenCollectForAllocation)               \
+  template(ParallelGCFailedAllocation)            \
+  template(ParallelGCSystemGC)                    \
+  template(G1CollectForAllocation)                \
+  template(G1CollectFull)                         \
+  template(G1PauseRemark)                         \
+  template(G1PauseCleanup)                        \
+  template(G1TryInitiateConcMark)                 \
+  template(ZMarkEndOld)                           \
+  template(ZMarkEndYoung)                         \
+  template(ZMarkFlushOperation)                   \
+  template(ZMarkStartYoung)                       \
+  template(ZMarkStartYoungAndOld)                 \
+  template(ZRelocateStartOld)                     \
+  template(ZRelocateStartYoung)                   \
+  template(ZRendezvousGCThreads)                  \
+  template(ZVerifyOld)                            \
+  template(XMarkStart)                            \
+  template(XMarkEnd)                              \
+  template(XRelocateStart)                        \
+  template(XVerify)                               \
+  template(HandshakeAllThreads)                   \
+  template(PopulateDumpSharedSpace)               \
+  template(JNIFunctionTableCopier)                \
+  template(RedefineClasses)                       \
+  template(GetObjectMonitorUsage)                 \
+  template(GetAllStackTraces)                     \
+  template(GetThreadListStackTraces)              \
+  template(VirtualThreadGetStackTrace)            \
+  template(VirtualThreadGetFrameCount)            \
+  template(ChangeBreakpoints)                     \
+  template(GetOrSetLocal)                         \
+  template(VirtualThreadGetOrSetLocal)            \
+  template(VirtualThreadGetCurrentLocation)       \
+  template(ChangeSingleStep)                      \
+  template(SetNotifyJvmtiEventsMode)              \
+  template(HeapWalkOperation)                     \
+  template(HeapIterateOperation)                  \
+  template(ReportJavaOutOfMemory)                 \
+  template(JFRCheckpoint)                         \
+  template(ShenandoahFullGC)                      \
+  template(ShenandoahInitMark)                    \
+  template(ShenandoahFinalMarkStartEvac)          \
+  template(ShenandoahInitUpdateRefs)              \
+  template(ShenandoahFinalUpdateRefs)             \
+  template(ShenandoahFinalRoots)                  \
+  template(ShenandoahDegeneratedGC)               \
+  template(Exit)                                  \
+  template(LinuxDllLoad)                          \
+  template(WhiteBoxOperation)                     \
+  template(JVMCIResizeCounters)                   \
+  template(ClassLoaderStatsOperation)             \
+  template(ClassLoaderHierarchyOperation)         \
+  template(DumpHashtable)                         \
+  template(CleanClassLoaderDataMetaspaces)        \
+  template(PrintCompileQueue)                     \
+  template(PrintClassHierarchy)                   \
+  template(PrintClasses)                          \
+  template(ICBufferFull)                          \
+  template(PrintMetadata)                         \
+  template(GTestExecuteAtSafepoint)               \
+  template(GTestStopSafepoint)                    \
+  template(JFROldObject)                          \
+  template(JvmtiPostObjectFree)                   \
+  template(RendezvousGCThreads)
 
+class VM_Operation : public StackObj {
+ public:
+  enum VMOp_Type {
+    VM_OPS_DO(VM_OP_ENUM)
+    VMOp_Terminating
+  };
 
-Clients request safepoint operations from the VMThread, by enqueuing objects of type VM_Operation, with evaluate_at_safepoint() set to true. The VMThread will wait for, dequeue and intiate the safepoint process to serve submitted requests.
+ private:
+  Thread*         _calling_thread;
+
+  // The VM operation name array
+  static const char* _names[];
+
+ public:
+  VM_Operation() : _calling_thread(nullptr) {}
+
+  // Called by VM thread - does in turn invoke doit(). Do not override this
+  void evaluate();
+
+  // evaluate() is called by the VMThread and in turn calls doit().
+  // If the thread invoking VMThread::execute((VM_Operation*) is a JavaThread,
+  // doit_prologue() is called in that thread before transferring control to
+  // the VMThread.
+  // If doit_prologue() returns true the VM operation will proceed, and
+  // doit_epilogue() will be called by the JavaThread once the VM operation
+  // completes. If doit_prologue() returns false the VM operation is cancelled.
+  virtual void doit()                            = 0;
+  virtual bool doit_prologue()                   { return true; };
+  virtual void doit_epilogue()                   {};
+
+  // An operation can either be done inside a safepoint
+  // or concurrently with Java threads running.
+  virtual bool evaluate_at_safepoint() const { return true; }
+```
 
 
 
@@ -385,7 +503,7 @@ Clients request safepoint operations from the VMThread, by enqueuing objects of 
 
 1. Global safepoint request 
 
-   1.1 Java 线程向  `VM Thread` 提出了进入 safepoint 的请求(VM_Operation)，请求中带上 `safepoint operation` 参数，参数其实是  STOP THE WORLD(STW) 后要执行的 Callback 操作 。可能是触发 GC。也可能是其它原因。
+   1.1 可能是分配内存失败触发 GC，也可能是其它原因，Java 线程向  `VM Thread` 提出了进入 safepoint 的请求(`VM_Operation`)，请求中带上 `safepoint operation` 参数，参数其实是  STOP THE WORLD(STW) 后要执行的 Callback 操作 。
 
    1.2 `VM Thread` 线程在收到 safepoint request 后，修改一个 JVM 全局的 `safepoint flag `为 true（这个 flag 可以是操作系统的内存页权限标识） 。
 
@@ -393,7 +511,145 @@ Clients request safepoint operations from the VMThread, by enqueuing objects of 
 
    1.4 其它应用线程（App thread）其实会高频检查这个 safepoint flag ，当发现为 true 时，就到达（进入） safepoint 状态。
 
-   [源码 SafepointSynchronize::begin() ](https://github.com/openjdk/jdk/blob/dfacda488bfbe2e11e8d607a6d08527710286982/src/hotspot/share/runtime/safepoint.cpp#L339)
+   [src/hotspot/share/runtime/safepoint.cpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/safepoint.cpp#L352)
+
+   ```c++
+   // Roll all threads forward to a safepoint and suspend them all
+   void SafepointSynchronize::begin() {
+   ...
+     int nof_threads = Threads::number_of_threads();
+     _nof_threads_hit_polling_page = 0;
+   ...
+     // Arms the safepoint, _current_jni_active_count and _waiting_to_block must be set before.
+     arm_safepoint();
+     // Will spin until all threads are safe.
+     int iterations = synchronize_threads(safepoint_limit_time, nof_threads, &initial_running);
+     ...
+   }
+   
+   void SafepointSynchronize::arm_safepoint() {
+     // Begin the process of bringing the system to a safepoint.
+     // Java threads can be in several different states and are
+     // stopped by different mechanisms:
+     //
+     //  1. Running interpreted
+     //     When executing branching/returning byte codes interpreter
+     //     checks if the poll is armed, if so blocks in SS::block().
+     //  2. Running in native code
+     //     When returning from the native code, a Java thread must check
+     //     the safepoint _state to see if we must block.  If the
+     //     VM thread sees a Java thread in native, it does
+     //     not wait for this thread to block.  The order of the memory
+     //     writes and reads of both the safepoint state and the Java
+     //     threads state is critical.  In order to guarantee that the
+     //     memory writes are serialized with respect to each other,
+     //     the VM thread issues a memory barrier instruction.
+     //  3. Running compiled Code
+     //     Compiled code reads the local polling page that
+     //     is set to fault if we are trying to get to a safepoint.
+     //  4. Blocked
+     //     A thread which is blocked will not be allowed to return from the
+     //     block condition until the safepoint operation is complete.
+     //  5. In VM or Transitioning between states
+     //     If a Java thread is currently running in the VM or transitioning
+     //     between states, the safepointing code will poll the thread state
+     //     until the thread blocks itself when it attempts transitions to a
+     //     new state or locking a safepoint checked monitor.
+   
+     // We must never miss a thread with correct safepoint id, so we must make sure we arm
+     // the wait barrier for the next safepoint id/counter.
+     // Arming must be done after resetting _current_jni_active_count, _waiting_to_block.
+   ...
+     for (JavaThreadIteratorWithHandle jtiwh; JavaThread *cur = jtiwh.next(); ) {
+       // Make sure the threads start polling, it is time to yield.
+       SafepointMechanism::arm_local_poll(cur);
+     }    
+   ```
+
+   
+
+   [src/hotspot/share/runtime/javaThread.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/javaThread.hpp#L246)
+
+   ```c++
+   class JavaThread: public Thread {
+       ...
+    private:
+     SafepointMechanism::ThreadData _poll_data;
+     ThreadSafepointState*          _safepoint_state;              // Holds information about a thread during a safepoint
+     address                        _saved_exception_pc;           // Saved pc of instruction where last implicit exception happened
+   ```
+
+   
+
+   [src/hotspot/share/runtime/safepointMechanism.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/safepointMechanism.hpp#L68)
+
+   ```c++
+   class SafepointMechanism {
+     struct ThreadData {
+       volatile uintptr_t _polling_word;
+       volatile uintptr_t _polling_page;
+       ...
+     };
+   ```
+
+   
+
+   [src/hotspot/share/runtime/safepointMechanism.inline.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/safepointMechanism.inline.hpp#L94)
+
+   ```c++
+   void SafepointMechanism::arm_local_poll(JavaThread* thread) {
+     thread->poll_data()->set_polling_word(_poll_word_armed_value);
+     thread->poll_data()->set_polling_page(_poll_page_armed_value);
+   }
+   
+   inline void SafepointMechanism::ThreadData::set_polling_word(uintptr_t poll_value) {
+     Atomic::store(&_polling_word, poll_value);
+   }
+   
+   inline void SafepointMechanism::ThreadData::set_polling_page(uintptr_t poll_value) {
+     Atomic::store(&_polling_page, poll_value);
+   }
+   ```
+
+   
+
+   [src/hotspot/share/runtime/safepointMechanism.cpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/safepointMechanism.cpp#L74)
+
+   ```c++
+   uintptr_t SafepointMechanism::_poll_word_armed_value;
+   uintptr_t SafepointMechanism::_poll_page_armed_value;
+   
+   //   const static intptr_t _poll_bit = 1;
+   
+   void SafepointMechanism::default_initialize() {
+     // Poll bit values
+     _poll_word_armed_value    = poll_bit();
+     _poll_word_disarmed_value = ~_poll_word_armed_value;
+   
+   ...
+       // Polling page
+       const size_t page_size = os::vm_page_size();
+       const size_t allocation_size = 2 * page_size;
+       char* polling_page = os::reserve_memory(allocation_size);
+       os::commit_memory_or_exit(polling_page, allocation_size, false, "Unable to commit Safepoint polling page");
+       MemTracker::record_virtual_memory_type((address)polling_page, mtSafepoint);
+   
+       char* bad_page  = polling_page;
+       char* good_page = polling_page + page_size;
+   
+       os::protect_memory(bad_page,  page_size, os::MEM_PROT_NONE);
+       os::protect_memory(good_page, page_size, os::MEM_PROT_READ);
+   
+       log_info(os)("SafePoint Polling address, bad (protected) page:" INTPTR_FORMAT ", good (unprotected) page:" INTPTR_FORMAT, p2i(bad_page), p2i(good_page));
+   
+       // Poll address values
+       _poll_page_armed_value    = reinterpret_cast<uintptr_t>(bad_page);
+       _poll_page_disarmed_value = reinterpret_cast<uintptr_t>(good_page);
+       _polling_page = (address)bad_page;
+   }
+   ```
+
+   
 
    
 
