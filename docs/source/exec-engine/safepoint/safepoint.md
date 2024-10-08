@@ -336,36 +336,11 @@ class JavaFrameAnchor {
 
 
 
+### 监听 Safepoint Request
 
 
 
-
-VMThread 线程作为协调者(coordinator) ，循环监听 `safepoint request`  队列中的请求，并执行队列中的操作。
-
-
-
-[src/hotspot/share/runtime/vmThread.cpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/vmThread.cpp#L487)
-
-```c++
-void VMThread::loop() {
-  assert(_cur_vm_operation == nullptr, "no current one should be executing");
-
-  SafepointSynchronize::init(_vm_thread);
-
-  // Need to set a calling thread for ops not passed
-  // via the normal way.
-  cleanup_op.set_calling_thread(_vm_thread);
-  safepointALot_op.set_calling_thread(_vm_thread);
-
-  while (true) {
-    if (should_terminate()) break;
-    wait_for_operation();
-    if (should_terminate()) break;
-    assert(_next_vm_operation != nullptr, "Must have one");
-    inner_execute(_next_vm_operation);
-  }
-}
-```
+VMThread 线程作为协调者(coordinator) ，循环监听 `safepoint request`  队列中的  `VM_Operation` 请求，并执行队列中的操作。
 
 
 
@@ -497,175 +472,289 @@ class VM_Operation : public StackObj {
 
 
 
+[src/hotspot/share/runtime/vmThread.cpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/vmThread.cpp#L487)
+
+```c++
+void VMThread::loop() {
+  assert(_cur_vm_operation == nullptr, "no current one should be executing");
+
+  SafepointSynchronize::init(_vm_thread);
+
+  // Need to set a calling thread for ops not passed
+  // via the normal way.
+  cleanup_op.set_calling_thread(_vm_thread);
+  safepointALot_op.set_calling_thread(_vm_thread);
+
+  while (true) {
+    if (should_terminate()) break;
+    wait_for_operation();
+    if (should_terminate()) break;
+    assert(_next_vm_operation != nullptr, "Must have one");
+    inner_execute(_next_vm_operation);
+  }
+}
+```
+
+
+
+### 接收 Safepoint Request
+
+可能是分配内存失败触发 GC，也可能是其它原因，Java 线程向  `VM Thread` 提出了进入 safepoint 的请求(`VM_Operation`)，请求中带上 `safepoint operation` 参数，参数其实是  STOP THE WORLD(STW) 后要执行的 Callback 操作 。
+
+```c++
+void VMThread::inner_execute(VM_Operation* op) {
+...
+  if (_cur_vm_operation->evaluate_at_safepoint() &&
+      !SafepointSynchronize::is_at_safepoint()) {
+    SafepointSynchronize::begin(); // <<<----
+    if (has_timeout_task) {
+      _timeout_task->arm(_cur_vm_operation->name());
+    }
+    end_safepoint = true;
+  }
+
+  evaluate_operation(_cur_vm_operation);
+
+  if (end_safepoint) {
+    if (has_timeout_task) {
+      _timeout_task->disarm();
+    }
+    SafepointSynchronize::end(); // <<<----
+  }
+
+...
+}
+```
 
 
 
 
-1. Global safepoint request 
 
-   1.1 可能是分配内存失败触发 GC，也可能是其它原因，Java 线程向  `VM Thread` 提出了进入 safepoint 的请求(`VM_Operation`)，请求中带上 `safepoint operation` 参数，参数其实是  STOP THE WORLD(STW) 后要执行的 Callback 操作 。
+### 标记所有线程， Global Safepoint 开始
 
-   1.2 `VM Thread` 线程在收到 safepoint request 后，修改一个 JVM 全局的 `safepoint flag `为 true（这个 flag 可以是操作系统的内存页权限标识） 。
+`VM Thread` 线程在收到 safepoint request 后，修改一个 JVM 全局的 `safepoint flag `为 true（这个 flag 可以是操作系统的内存页权限标识） 。
 
-   1.3 然后这个  `VM Thread`   就开始等待其它应用线程（App thread） 到达（进入） safepoint 。
 
-   1.4 其它应用线程（App thread）其实会高频检查这个 safepoint flag ，当发现为 true 时，就到达（进入） safepoint 状态。
 
-   [src/hotspot/share/runtime/safepoint.cpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/safepoint.cpp#L352)
+先看看相关的数据结构：
 
-   ```c++
-   // Roll all threads forward to a safepoint and suspend them all
-   void SafepointSynchronize::begin() {
-   ...
-     int nof_threads = Threads::number_of_threads();
-     _nof_threads_hit_polling_page = 0;
-   ...
-     // Arms the safepoint, _current_jni_active_count and _waiting_to_block must be set before.
-     arm_safepoint();
-     // Will spin until all threads are safe.
-     int iterations = synchronize_threads(safepoint_limit_time, nof_threads, &initial_running);
-     ...
-   }
-   
-   void SafepointSynchronize::arm_safepoint() {
-     // Begin the process of bringing the system to a safepoint.
-     // Java threads can be in several different states and are
-     // stopped by different mechanisms:
-     //
-     //  1. Running interpreted
-     //     When executing branching/returning byte codes interpreter
-     //     checks if the poll is armed, if so blocks in SS::block().
-     //  2. Running in native code
-     //     When returning from the native code, a Java thread must check
-     //     the safepoint _state to see if we must block.  If the
-     //     VM thread sees a Java thread in native, it does
-     //     not wait for this thread to block.  The order of the memory
-     //     writes and reads of both the safepoint state and the Java
-     //     threads state is critical.  In order to guarantee that the
-     //     memory writes are serialized with respect to each other,
-     //     the VM thread issues a memory barrier instruction.
-     //  3. Running compiled Code
-     //     Compiled code reads the local polling page that
-     //     is set to fault if we are trying to get to a safepoint.
-     //  4. Blocked
-     //     A thread which is blocked will not be allowed to return from the
-     //     block condition until the safepoint operation is complete.
-     //  5. In VM or Transitioning between states
-     //     If a Java thread is currently running in the VM or transitioning
-     //     between states, the safepointing code will poll the thread state
-     //     until the thread blocks itself when it attempts transitions to a
-     //     new state or locking a safepoint checked monitor.
-   
-     // We must never miss a thread with correct safepoint id, so we must make sure we arm
-     // the wait barrier for the next safepoint id/counter.
-     // Arming must be done after resetting _current_jni_active_count, _waiting_to_block.
-   ...
-     for (JavaThreadIteratorWithHandle jtiwh; JavaThread *cur = jtiwh.next(); ) {
-       // Make sure the threads start polling, it is time to yield.
-       SafepointMechanism::arm_local_poll(cur);
-     }    
-   ```
+[src/hotspot/share/runtime/javaThread.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/javaThread.hpp#L246)
 
-   
+```c++
+class JavaThread: public Thread {
+    ...
+ private:
+  SafepointMechanism::ThreadData _poll_data;
+  ThreadSafepointState*          _safepoint_state;              // Holds information about a thread during a safepoint
+  address                        _saved_exception_pc;           // Saved pc of instruction where last implicit exception happened
+```
 
-   [src/hotspot/share/runtime/javaThread.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/javaThread.hpp#L246)
 
-   ```c++
-   class JavaThread: public Thread {
-       ...
-    private:
-     SafepointMechanism::ThreadData _poll_data;
-     ThreadSafepointState*          _safepoint_state;              // Holds information about a thread during a safepoint
-     address                        _saved_exception_pc;           // Saved pc of instruction where last implicit exception happened
-   ```
 
-   
+[src/hotspot/share/runtime/safepointMechanism.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/safepointMechanism.hpp#L68)
 
-   [src/hotspot/share/runtime/safepointMechanism.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/safepointMechanism.hpp#L68)
+```c++
+class SafepointMechanism {
+  struct ThreadData {
+    volatile uintptr_t _polling_word;
+    volatile uintptr_t _polling_page;
+    ...
+  };
+```
 
-   ```c++
-   class SafepointMechanism {
-     struct ThreadData {
-       volatile uintptr_t _polling_word;
-       volatile uintptr_t _polling_page;
-       ...
-     };
-   ```
 
-   
 
-   [src/hotspot/share/runtime/safepointMechanism.inline.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/safepointMechanism.inline.hpp#L94)
+JVM 在启动时，就已经初始化了两个 Memory Page ，用于 safepoint 。一个 bad_page 不可读，如在它上执行 `test` x86指令，线程会因收到信号而挂起并跳转到信号处理器代码 。一个 good_page 可读，可正常执行 `test` x86指令：
 
-   ```c++
-   void SafepointMechanism::arm_local_poll(JavaThread* thread) {
-     thread->poll_data()->set_polling_word(_poll_word_armed_value);
-     thread->poll_data()->set_polling_page(_poll_page_armed_value);
-   }
-   
-   inline void SafepointMechanism::ThreadData::set_polling_word(uintptr_t poll_value) {
-     Atomic::store(&_polling_word, poll_value);
-   }
-   
-   inline void SafepointMechanism::ThreadData::set_polling_page(uintptr_t poll_value) {
-     Atomic::store(&_polling_page, poll_value);
-   }
-   ```
+[src/hotspot/share/runtime/safepointMechanism.cpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/safepointMechanism.cpp#L74)
 
-   
+```c++
+uintptr_t SafepointMechanism::_poll_word_armed_value;
+uintptr_t SafepointMechanism::_poll_page_armed_value;
 
-   [src/hotspot/share/runtime/safepointMechanism.cpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/safepointMechanism.cpp#L74)
+//   const static intptr_t _poll_bit = 1;
 
-   ```c++
-   uintptr_t SafepointMechanism::_poll_word_armed_value;
-   uintptr_t SafepointMechanism::_poll_page_armed_value;
-   
-   //   const static intptr_t _poll_bit = 1;
-   
-   void SafepointMechanism::default_initialize() {
-     // Poll bit values
-     _poll_word_armed_value    = poll_bit();
-     _poll_word_disarmed_value = ~_poll_word_armed_value;
-   
-   ...
-       // Polling page
-       const size_t page_size = os::vm_page_size();
-       const size_t allocation_size = 2 * page_size;
-       char* polling_page = os::reserve_memory(allocation_size);
-       os::commit_memory_or_exit(polling_page, allocation_size, false, "Unable to commit Safepoint polling page");
-       MemTracker::record_virtual_memory_type((address)polling_page, mtSafepoint);
-   
-       char* bad_page  = polling_page;
-       char* good_page = polling_page + page_size;
-   
-       os::protect_memory(bad_page,  page_size, os::MEM_PROT_NONE);
-       os::protect_memory(good_page, page_size, os::MEM_PROT_READ);
-   
-       log_info(os)("SafePoint Polling address, bad (protected) page:" INTPTR_FORMAT ", good (unprotected) page:" INTPTR_FORMAT, p2i(bad_page), p2i(good_page));
-   
-       // Poll address values
-       _poll_page_armed_value    = reinterpret_cast<uintptr_t>(bad_page);
-       _poll_page_disarmed_value = reinterpret_cast<uintptr_t>(good_page);
-       _polling_page = (address)bad_page;
-   }
-   ```
+void SafepointMechanism::default_initialize() {
+  // Poll bit values
+  _poll_word_armed_value    = poll_bit();
+  _poll_word_disarmed_value = ~_poll_word_armed_value;
 
-   
+...
+    // Polling page
+    const size_t page_size = os::vm_page_size();
+    const size_t allocation_size = 2 * page_size;
+    char* polling_page = os::reserve_memory(allocation_size);
+    os::commit_memory_or_exit(polling_page, allocation_size, false, "Unable to commit Safepoint polling page");
+    MemTracker::record_virtual_memory_type((address)polling_page, mtSafepoint);
 
-   
+    char* bad_page  = polling_page;
+    char* good_page = polling_page + page_size;
 
-2. Global safepoint
+    os::protect_memory(bad_page,  page_size, os::MEM_PROT_NONE);
+    os::protect_memory(good_page, page_size, os::MEM_PROT_READ);
 
-   当 `VM Thread`   发现所有 App thread 都到达 safepoint （真实的 STW 的开始） 。就开始执行 `safepoint operation` 。`GC 操作` 是 `safepoint operation` 其中一种可能类型。
+    log_info(os)("SafePoint Polling address, bad (protected) page:" INTPTR_FORMAT ", good (unprotected) page:" INTPTR_FORMAT, p2i(bad_page), p2i(good_page));
 
-   [源码 RuntimeService::record_safepoint_synchronized()](https://github.com/openjdk/jdk/blob/dfacda488bfbe2e11e8d607a6d08527710286982/src/hotspot/share/runtime/safepoint.cpp#L1108)
+    // Poll address values
+    _poll_page_armed_value    = reinterpret_cast<uintptr_t>(bad_page);
+    _poll_page_disarmed_value = reinterpret_cast<uintptr_t>(good_page);
+    _polling_page = (address)bad_page;
+}
+```
 
-   
 
-3. End of safepoint operation 
 
-   `safepoint operation`  执行完毕， `VM Thread`  结束 STW 。
 
-   [源码 SafepointSynchronize::end()](https://github.com/openjdk/jdk/blob/dfacda488bfbe2e11e8d607a6d08527710286982/src/hotspot/share/runtime/safepoint.cpp#L487-L488)
+
+[src/hotspot/share/runtime/safepoint.cpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/safepoint.cpp#L352)
+
+```c++
+// Roll all threads forward to a safepoint and suspend them all
+void SafepointSynchronize::begin() {
+...
+  int nof_threads = Threads::number_of_threads();
+  _nof_threads_hit_polling_page = 0;
+...
+  // Arms the safepoint, _current_jni_active_count and _waiting_to_block must be set before.
+  arm_safepoint();
+  // Will spin until all threads are safe.
+  int iterations = synchronize_threads(safepoint_limit_time, nof_threads, &initial_running);
+  ...
+}
+
+void SafepointSynchronize::arm_safepoint() {
+  // Begin the process of bringing the system to a safepoint.
+  // Java threads can be in several different states and are
+  // stopped by different mechanisms:
+  //
+  //  1. Running interpreted
+  //     When executing branching/returning byte codes interpreter
+  //     checks if the poll is armed, if so blocks in SS::block().
+  //  2. Running in native code
+  //     When returning from the native code, a Java thread must check
+  //     the safepoint _state to see if we must block.  If the
+  //     VM thread sees a Java thread in native, it does
+  //     not wait for this thread to block.  The order of the memory
+  //     writes and reads of both the safepoint state and the Java
+  //     threads state is critical.  In order to guarantee that the
+  //     memory writes are serialized with respect to each other,
+  //     the VM thread issues a memory barrier instruction.
+  //  3. Running compiled Code
+  //     Compiled code reads the local polling page that
+  //     is set to fault if we are trying to get to a safepoint.
+  //  4. Blocked
+  //     A thread which is blocked will not be allowed to return from the
+  //     block condition until the safepoint operation is complete.
+  //  5. In VM or Transitioning between states
+  //     If a Java thread is currently running in the VM or transitioning
+  //     between states, the safepointing code will poll the thread state
+  //     until the thread blocks itself when it attempts transitions to a
+  //     new state or locking a safepoint checked monitor.
+
+  // We must never miss a thread with correct safepoint id, so we must make sure we arm
+  // the wait barrier for the next safepoint id/counter.
+  // Arming must be done after resetting _current_jni_active_count, _waiting_to_block.
+...
+  for (JavaThreadIteratorWithHandle jtiwh; JavaThread *cur = jtiwh.next(); ) {
+    // Make sure the threads start polling, it is time to yield.
+    SafepointMechanism::arm_local_poll(cur);
+  }    
+```
+
+可见，`vm thread` 逐一 `arm` 所有的应用线程 。这个 arm 可以直译成 “武装” ，但我翻译成`设置标志`。
+
+
+
+[src/hotspot/share/runtime/safepointMechanism.inline.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/safepointMechanism.inline.hpp#L94)
+
+```c++
+void SafepointMechanism::arm_local_poll(JavaThread* thread) {
+  thread->poll_data()->set_polling_word(_poll_word_armed_value);
+  thread->poll_data()->set_polling_page(_poll_page_armed_value);
+}
+
+inline void SafepointMechanism::ThreadData::set_polling_word(uintptr_t poll_value) {
+  Atomic::store(&_polling_word, poll_value);
+}
+
+inline void SafepointMechanism::ThreadData::set_polling_page(uintptr_t poll_value) {
+  Atomic::store(&_polling_page, poll_value);
+}
+```
+
+
+
+
+
+- 对于 绿色 `immutable thread state` 状态的 JavaThread:  
+
+  `vm thread`  通过 `arm` Java 线程的 polling page，这实际上消除了线程从所有绿色 `immutable thread state` 中唤醒/返回后，转换到任何红色 unsafe `mutable thread state` 的可能：
+
+![HotSpot JVM Deep Dive - Safepoint 19-43 screenshot](./safepoint.assets/disable-to-mutable-thread-state-by-sp-check.png)
+
+*图: 当 JavaThread  被`arm`  polling page 后的状态机变化 。Source: [HotSpot JVM Deep Dive - Safepoint](https://youtu.be/JkbWPPNc4SI?si=c5YYAKHYBPROZAZ_&t=576)*
+
+
+
+- 对于 红色 `mutable thread state` 状态的 JavaThread: 
+
+  `vm thread`  通过 `arm` Java 线程的 polling page， 触发 Java 线程从 `mutable thread state` 转换为 `immutable thread state` 状态。并且作为此转换的结果，线程本地 GC 路由被发布到 JavaThread 对象。
+
+
+
+
+
+
+
+### 等待应用线程到达 Safepoint
+
+然后这个  `VM Thread`   就开始等待其它应用线程（App thread） 到达（进入） safepoint 。
+
+[src/hotspot/share/runtime/safepoint.cpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/safepoint.cpp#L218)
+
+```c++
+int SafepointSynchronize::synchronize_threads(jlong safepoint_limit_time, int nof_threads, int* initial_running)
+{
+  // Iterate through all threads until it has been determined how to stop them all at a safepoint.
+  int still_running = nof_threads;
+  ThreadSafepointState *tss_head = nullptr;
+  ThreadSafepointState **p_prev = &tss_head;
+  for (; JavaThread *cur = jtiwh.next(); ) {
+    ThreadSafepointState *cur_tss = cur->safepoint_state();
+    assert(cur_tss->get_next() == nullptr, "Must be null");
+    if (thread_not_running(cur_tss)) {
+      --still_running;
+    } else {
+      *p_prev = cur_tss;
+      p_prev = cur_tss->next_ptr();
+    }
+  }
+  ...
+```
+
+
+
+
+
+### 应用线程陷入 Safepoint
+
+其它应用线程（App thread）其实会高频检查这个 safepoint flag(safepoint check/polling) ，当发现为 true 时，就到达（进入） safepoint 状态。
+
+
+
+### Global safepoint - The World Stopped
+
+当 `VM Thread`   发现所有 App thread 都到达 safepoint （真实的 STW 的开始） 。就开始执行 `safepoint operation` 。`GC 操作` 是 `safepoint operation` 其中一种可能类型。
+
+[源码 RuntimeService::record_safepoint_synchronized()](https://github.com/openjdk/jdk/blob/dfacda488bfbe2e11e8d607a6d08527710286982/src/hotspot/share/runtime/safepoint.cpp#L1108)
+
+
+
+### Safepoint operation 结束
+
+`safepoint operation`  执行完毕， `VM Thread`  结束 STW 。
+
+[源码 SafepointSynchronize::end()](https://github.com/openjdk/jdk/blob/dfacda488bfbe2e11e8d607a6d08527710286982/src/hotspot/share/runtime/safepoint.cpp#L487-L488)
 
 
 
@@ -734,3 +823,4 @@ class VM_Operation : public StackObj {
 ## 参考
 
 - [HotSpot JVM Deep Dive - Safepoint](https://www.youtube.com/watch?v=JkbWPPNc4SI&ab_channel=Java)
+- [Async-profiler - manual by use cases](https://krzysztofslusarski.github.io/2022/12/12/async-manual.html#tts)
