@@ -513,7 +513,7 @@ void VMThread::inner_execute(VM_Operation* op) {
     end_safepoint = true;
   }
 
-  evaluate_operation(_cur_vm_operation);
+  evaluate_operation(_cur_vm_operation); // <<<----
 
   if (end_safepoint) {
     if (has_timeout_task) {
@@ -661,7 +661,7 @@ void SafepointSynchronize::arm_safepoint() {
   }    
 ```
 
-可见，`vm thread` 逐一 `arm` 所有的应用线程 。这个 arm 可以直译成 “武装” ，但我翻译成`设置标志`。
+可见，`vm thread` 逐一 `arm` 所有的应用线程 。这个 arm 可以直译成 “武装/装备” ，但我翻译成`设置标志`。
 
 
 
@@ -688,7 +688,15 @@ inline void SafepointMechanism::ThreadData::set_polling_page(uintptr_t poll_valu
 
 - 对于 绿色 `immutable thread state` 状态的 JavaThread:  
 
-  `vm thread`  通过 `arm` Java 线程的 polling page，这实际上消除了线程从所有绿色 `immutable thread state` 中唤醒/返回后，转换到任何红色 unsafe `mutable thread state` 的可能：
+  `vm thread`  通过 `arm` Java 线程的 polling page，这实际上在 arm safepoint 期间阻止了线程从所有绿色 `immutable thread state` 中唤醒/返回后，转换到任何红色 unsafe `mutable thread state` 。见 [src/hotspot/share/utilities/globalDefinitions.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/utilities/globalDefinitions.hpp#L1030)：
+
+  ```c++
+  // Each state has an associated xxxx_trans state, which is an intermediate state used when a thread is in
+  // a transition from one state to another. These extra states makes it possible for the safepoint code to
+  // handle certain thread_states without having to suspend the thread - making the safepoint code faster.
+  ```
+
+  
 
 ![HotSpot JVM Deep Dive - Safepoint 19-43 screenshot](./safepoint.assets/disable-to-mutable-thread-state-by-sp-check.png)
 
@@ -698,9 +706,11 @@ inline void SafepointMechanism::ThreadData::set_polling_page(uintptr_t poll_valu
 
 - 对于 红色 `mutable thread state` 状态的 JavaThread: 
 
-  `vm thread`  通过 `arm` Java 线程的 polling page， 触发 Java 线程从 `mutable thread state` 转换为 `immutable thread state` 状态。并且作为此转换的结果，线程本地 GC 路由被发布到 JavaThread 对象。
+  `vm thread`  通过 `arm` Java 线程的 polling page， 触发 Java 线程从 `mutable thread state` 转换为 `immutable thread state` 状态。并且作为此转换的结果，线程本地 GC 树被同步到 JavaThread 对象。
 
+  对于 `VM state` 的线程，这意味着需要等待线程自行完成转换。`VM state` 中只有少数几个地方显式执行安全点检查。例如，在争夺 `VM mutex 互斥锁`或 `VM monitor` 时。此设计的前提是 Java 线程应尽可能少地处于 `VM state`。但对于在 `state java`  下运行的线程，情况有所不同。
 
+  
 
 
 
@@ -738,7 +748,7 @@ int SafepointSynchronize::synchronize_threads(jlong safepoint_limit_time, int no
 
 ### 应用线程陷入 Safepoint
 
-其它应用线程（App thread）其实会高频检查这个 safepoint flag(safepoint check/polling) ，当发现为 true 时，就到达（进入） safepoint 状态。
+其它应用线程（App thread）其实会高频检查这个 safepoint flag(safepoint check/polling) ，当发现为 true（arm) 时，就到达（进入） safepoint 状态。
 
 
 
@@ -822,5 +832,7 @@ int SafepointSynchronize::synchronize_threads(jlong safepoint_limit_time, int no
 
 ## 参考
 
-- [HotSpot JVM Deep Dive - Safepoint](https://www.youtube.com/watch?v=JkbWPPNc4SI&ab_channel=Java)
-- [Async-profiler - manual by use cases](https://krzysztofslusarski.github.io/2022/12/12/async-manual.html#tts)
+- [HotSpot JVM Deep Dive - Safepoint - Youtube Java Channel](https://www.youtube.com/watch?v=JkbWPPNc4SI&ab_channel=Java)
+- [Async-profiler - manual by use cases - krzysztofslusarski.github.io](https://krzysztofslusarski.github.io/2022/12/12/async-manual.html#tts)
+- [Safepoints: Meaning, Side Effects and Overheads - psy-lob-saw.blogspot.com](https://psy-lob-saw.blogspot.com/2015/12/safepoints.html)
+- [Where is my safepoint? - psy-lob-saw.blogspot.com](https://psy-lob-saw.blogspot.com/2014/03/where-is-my-safepoint.html)
