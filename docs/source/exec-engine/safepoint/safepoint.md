@@ -400,6 +400,14 @@ class JavaThread: public Thread {
 
 ```c++
 class SafepointMechanism {
+  static uintptr_t _poll_page_armed_value;
+  static uintptr_t _poll_page_disarmed_value;
+
+  static uintptr_t _poll_word_armed_value;
+  static uintptr_t _poll_word_disarmed_value;
+
+  static address _polling_page;
+...    
   struct ThreadData {
     volatile uintptr_t _polling_word;
     volatile uintptr_t _polling_page;
@@ -529,6 +537,14 @@ inline void SafepointMechanism::ThreadData::set_polling_page(uintptr_t poll_valu
 
 
 
+可以用下图说明 polling_page 的切换：
+
+![safepoint-switch-poll-page.png](./safepoint.assets/safepoint-switch-poll-page.png)
+
+*图: polling_page 的切换. Source: [The Inner Workings of Safepoints 2023 - mostlynerdless.de](https://mostlynerdless.de/blog/2023/07/31/the-inner-workings-of-safepoints/)*
+
+
+
 
 
 - 对于 绿色 `immutable thread state` 状态的 JavaThread:  
@@ -629,55 +645,11 @@ int SafepointSynchronize::synchronize_threads(jlong safepoint_limit_time, int no
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## 参考
 
 - [HotSpot JVM Deep Dive - Safepoint - Youtube Java Channel](https://www.youtube.com/watch?v=JkbWPPNc4SI&ab_channel=Java)
 - [Async-profiler - manual by use cases - krzysztofslusarski.github.io](https://krzysztofslusarski.github.io/2022/12/12/async-manual.html#tts)
 - [Safepoints: Meaning, Side Effects and Overheads - psy-lob-saw.blogspot.com](https://psy-lob-saw.blogspot.com/2015/12/safepoints.html)
 - [Where is my safepoint? - psy-lob-saw.blogspot.com](https://psy-lob-saw.blogspot.com/2014/03/where-is-my-safepoint.html)
+- [The Inner Workings of Safepoints 2023 - mostlynerdless.de](https://mostlynerdless.de/blog/2023/07/31/the-inner-workings-of-safepoints/)
+- 
