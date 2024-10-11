@@ -1,3 +1,9 @@
+---
+typora-root-url: ../../
+---
+
+
+
 # JPDA
 
 ## Java 调试支持技术栈
@@ -20,5 +26,7 @@ Java 调试支持技术栈也有这个问题。下图尝试总结一下技术栈
 *[用 Draw.io 打开](https://app.diagrams.net/?ui=sketch#Uhttps%3A%2F%2Fjvm-insider.mygraphql.com%2Fzh-cn%2Flatest%2F_images%2Fdebugging-tec-stack.drawio.svg)*
 
 ## 参考
+
 - [A Short Primer on Java Debugging Internals - Johannes-Bechberger@foojay.io](https://foojay.io/today/a-short-primer-on-java-debugging-internals/)
 - [Virtual Threads and Debugger Support - OpenJDK Wiki](https://wiki.openjdk.org/display/loom/Debugger+Support)
+- [Java JDPA - www.tianxiaohui.com](https://www.tianxiaohui.com/index.php/Troubleshooting/Java-JDPA.html)

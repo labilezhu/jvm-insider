@@ -643,6 +643,10 @@ int SafepointSynchronize::synchronize_threads(jlong safepoint_limit_time, int no
 
 
 
+关于 "Polling Safepoint and Reach Safepoint - 应用线程 polling 并陷入 Safepoint" 的内容，更多细节见本书的 [JIT 编译后的 Polling 与 Reach Safepoint](jit-polling-reach-sp.md) 一节。
+
+
+
 ### Global safepoint - The World Stopped
 
 当 `VM Thread`   发现所有 App thread 都到达 safepoint （真实的 STW 的开始） 。就开始执行 `safepoint operation` 。`GC 操作` 是 `safepoint operation` 其中一种可能类型。
@@ -682,4 +686,8 @@ int SafepointSynchronize::synchronize_threads(jlong safepoint_limit_time, int no
 - [Safepoints: Meaning, Side Effects and Overheads - psy-lob-saw.blogspot.com](https://psy-lob-saw.blogspot.com/2015/12/safepoints.html)
 - [Where is my safepoint? - psy-lob-saw.blogspot.com](https://psy-lob-saw.blogspot.com/2014/03/where-is-my-safepoint.html)
 - [The Inner Workings of Safepoints 2023 - mostlynerdless.de](https://mostlynerdless.de/blog/2023/07/31/the-inner-workings-of-safepoints/)
-- 
+
+
+```{toctree}
+jit-polling-reach-sp.md
+```
