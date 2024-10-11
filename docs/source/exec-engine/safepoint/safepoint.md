@@ -1,5 +1,5 @@
 ---
-
+typora-root-url: ../../
 ---
 
 # Safepoint
