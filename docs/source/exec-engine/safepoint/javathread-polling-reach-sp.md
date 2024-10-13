@@ -185,9 +185,9 @@ void SafepointMechanism::default_initialize() {
     log_info(os)("SafePoint Polling address, bad (protected) page:" INTPTR_FORMAT ", good (unprotected) page:" INTPTR_FORMAT, p2i(bad_page), p2i(good_page));
 
     // Poll address values
-    _poll_page_armed_value    = reinterpret_cast<uintptr_t>(bad_page);
-    _poll_page_disarmed_value = reinterpret_cast<uintptr_t>(good_page);
-    _polling_page = (address)bad_page;
+    _poll_page_armed_value    = reinterpret_cast<uintptr_t>(bad_page); // <<<<<<<
+    _poll_page_disarmed_value = reinterpret_cast<uintptr_t>(good_page); // <<<<<<<
+    _polling_page = (address)bad_page; // <<<<<<<
 }
 ```
 
@@ -219,12 +219,7 @@ class JavaThread: public Thread {
 
 ```c++
 class SafepointMechanism {
-  static uintptr_t _poll_page_armed_value;
-  static uintptr_t _poll_page_disarmed_value;
-
-  static uintptr_t _poll_word_armed_value;
-  static uintptr_t _poll_word_disarmed_value;
-
+...
   static address _polling_page;
 ...    
   struct ThreadData {
@@ -240,6 +235,8 @@ class SafepointMechanism {
 
 
 
+#### JIT 编译后的 Polling
+
 可以用下图说明 polling_page 的切换：
 
 ![safepoint-switch-poll-page.png](./javathread-polling-reach-sp.assets/safepoint-switch-poll-page.png)
@@ -254,41 +251,31 @@ class SafepointMechanism {
 
 
 
+上图意为，读取本线程对应的 JavaThread._poll_data(SafepointMechanism::ThreadData).polling_page 指向的地址。其中 R15 寄存器一般会指向本线程对应的  JavaThread。
+
 
 
 ```c++
 // Generated poll in JIT 
+// poll-offset: JavaThread._poll_data(SafepointMechanism::ThreadData).polling_page 在 JavaThread 的 offset
+// thread_reg: 一般指 R15 寄存器,用于保存本线程对应的 JavaThread
 mov poll-offset + thread_reg, reg 
 test rax, reg
-
-// Non trapping for non JIT code 
-bool SafepointMechanism:: local_poll_armed(JavaThread thread) {
-  return thread->get_polling_word() & poll_bit(); 
-} 
-
-// Arming one thread 
-thread->set_polling_page(poll_armed_value()) 
-
-// Disarming one thread 
-thread->set_polling_page(poll_disarmed_value()) 
-
-// Arming/disarming many threads 
-for (JavaThreadIteratorWithHandle jtiwh; JavaThread cur jtiwh.next(); ) {     
-    SafepointMechanism::arm_local_poll/disarm_local_poll(cur); 
-}
 ```
 
 Source: [Robbin Ehn: Handshaking HotSpot - Youtube Java Channel - 2020](https://www.youtube.com/watch?v=VBCOfAJ409s&ab_channel=Java)
 
 
 
+上面显示需要两条机器指令，才能完成 polling。如果你看过 [OpenJDK11 之前的资料](https://psy-lob-saw.blogspot.com/2014/03/where-is-my-safepoint.html)，之前应该就一条机器指令就够了：
+
+```
+test   DWORD PTR [rip+0xa2b0966],eax  
+```
 
 
 
-
-#### JIT 编译后的 Polling
-
-
+主要原因是  OpenJDK 默认启用 [JEP 312: Thread-Local Handshakes](https://openjdk.org/jeps/312) 的设计，要求每条 Thread 有自己的 polling_page 指针，所以需要多一条机器命令来多一层寻址。
 
 
 

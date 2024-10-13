@@ -234,20 +234,14 @@ class JavaFrameAnchor {
 Safepoint 协作流程可以划分为以下几步：
 
 1.  应用线程 Polling Safepoint
-
-2. 监听 Safepoint Request
-
-3. 接收 Safepoint Request
-
-4. Arm Safepoint - 标记所有线程
-
-5. 等待应用线程到达 Safepoint
-
+2.  监听 Safepoint Request
+3.  接收 Safepoint Request
+4.  Arm Safepoint - 标记所有线程
+5.  等待应用线程到达 Safepoint
 6.  应用线程陷入 Safepoint
-
-7. Global safepoint - The World Stopped
-
-8. Safepoint operation 结束
+7.  Global safepoint - The World Stopped
+8.  Safepoint operation 结束
+9.  Disarming Safepoint
 
 
 
@@ -455,6 +449,18 @@ Java 线程会高频检查 safepoint flag(safepoint check/polling) ，当发现�
 [源码 SafepointSynchronize::end()](https://github.com/openjdk/jdk/blob/dfacda488bfbe2e11e8d607a6d08527710286982/src/hotspot/share/runtime/safepoint.cpp#L487-L488)
 
 
+
+### Disarming Safepoint
+
+[src/hotspot/share/runtime/safepointMechanism.inline.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/safepointMechanism.inline.hpp#L101)
+
+```c++
+// Disarming one thread 
+void SafepointMechanism::disarm_local_poll(JavaThread* thread) {
+  thread->poll_data()->set_polling_word(_poll_word_disarmed_value);
+  thread->poll_data()->set_polling_page(_poll_page_disarmed_value);
+}
+```
 
 
 
