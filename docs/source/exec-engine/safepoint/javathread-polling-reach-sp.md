@@ -113,12 +113,18 @@ enum JavaThreadState {
 
 
 
-## Base
+## 基础知识
 
-$RBP `callee-saved` others are `caller-saved`
-$r12 - Java Heap base
-$r15 - 存放 本线程的  JavaThread 指针
+### JIT 生成代码的寄存器分类
 
+#### 固定寄存器
+
+- $r12 - 存放 Java Heap base
+- $r15 - 存放 thread local 的 JavaThread 指针
+
+### 寄存器在 Frame 间保存
+- $rbp - 由 `callee-saved` 
+- 其它通用寄存器 - 由 `caller-saved`
 
 
 (polling)=
@@ -229,9 +235,19 @@ class SafepointMechanism {
   };
 ```
 
+从上面代码，可以猜到 `SafepointMechanism._polling_page` 是个 Global var。对应着 Global Safepoint。 而  `JavaThread._poll_data._polling_page` 是 Thread Local 的，对应着 Thread-Local Handshakes 。
+
+自从 OpenJDK10 的 [JEP 312: Thread-Local Handshakes - 2017年](https://openjdk.org/jeps/312) 后，就有了非 JVM Global 的 Safepoint - Thread Safepoint 。而 JVM Global 的 Safepoint 好像也修改为基于 `Thread-Local Handshakes` 去实现，即对每一条 JavaThread 执行 `Thread-Local Handshakes`。
 
 
-自从 OpenJDK11 的 [JEP 312: Thread-Local Handshakes - 2017年](https://openjdk.org/jeps/312) 后，就有了非 JVM Global 的 Safepoint - Thread Safepoint 。而 JVM Global 的 Safepoint 好像也修改为基于 `Thread-Local Handshakes` 去实现，即对每一条 JavaThread 执行 `Thread-Local Handshakes`。
+
+在 OpenJDK10 时，可以通过 `-XX:-ThreadLocalHandshakes` 去禁用 ThreadLocalHandshakes ，但以下几个过程后就不可以禁用了：
+
+- Deprecated in JDK13
+- Obsoleted in JDK14
+- Expired in JDK15
+
+原因当然是 OpenJDK 已经强依赖于这个特性了： [Obsolete ThreadLocalHandshakes - bugs.openjdk.org](https://bugs.openjdk.org/browse/JDK-8220049) .
 
 
 
@@ -275,7 +291,7 @@ test   DWORD PTR [rip+0xa2b0966],eax
 
 
 
-主要原因是  OpenJDK 默认启用 [JEP 312: Thread-Local Handshakes](https://openjdk.org/jeps/312) 的设计，要求每条 Thread 有自己的 polling_page 指针，所以需要多一条机器命令来多一层寻址。
+主要原因是  OpenJDK11 默认启用 [JEP 312: Thread-Local Handshakes](https://openjdk.org/jeps/312) 的设计，要求每条 Thread 有自己的 polling_page 指针，所以需要多一条机器命令来多一层寻址。
 
 
 
@@ -286,7 +302,6 @@ test   DWORD PTR [rip+0xa2b0966],eax
 
 
 (reach)=
-
 ## Reach and handle
 
 在 VMThread arm safepoint (详见本书的 [Safepoint - Arm Safepoint - 标记所有线程](/exec-engine/safepoint/safepoint.md#arming_safepoint)） 后。polling 的应用线程最终会感知到 safepoint 的聚集要求(arming)。
@@ -331,15 +346,15 @@ test   DWORD PTR [rip+0xa2b0966],eax
 
 
 
-- 绿色箭头：java state thread and running CPU
-- 黄色箭头：java state thread and off CPU (因 CPU 资源不足等原因)
+- 绿色箭头：java state thread and running **on CPU**
+- 黄色箭头：java state thread and **off CPU** (因 CPU 资源不足等原因)
 - 红色箭头：JNI state thread
 
 
 
 从 VMThread arm safepoint 到 应用线程 Reach Safepoint 的延迟，叫 `Time To Safe Point(TTSP)` ：
 
-每个线程在遇到安全点轮询时都会进入安全点。但到达安全点轮询需要执行未知数量的指令。上图中，我们可以看到：
+每个线程在进行 safepoint check 时如发现 safepoint arming 都会进入安全点。但到达 safepoint check  前需要执行机器指令的数量不是固定的。上图中，我们可以看到：
 
 - J1 直接命中安全点轮询并被暂停。J2 和 J3 正在争夺可用的 CPU 时间。J3 抢占了一些 CPU 时间，将 J2 推入运行队列，但 J2 并未进入安全点。J3 到达安全点并暂停，从而腾出内核，让 J2 取得足够的进展，进入安全点轮询。
 
@@ -347,7 +362,8 @@ test   DWORD PTR [rip+0xa2b0966],eax
 
 
 
-`-XX:+PrintGCApplicationStoppedTime` 可以打印出 TTSP 。
+OpenJDK9 前，用 `-XX:+PrintGCApplicationStoppedTime` 可以打印出 TTSP 。OpenJDK9 后，由于采用了 `Unified Logging for GC logging` 的设计，配置修改成：
+`-Xlog:safepoint` 。
 
 
 

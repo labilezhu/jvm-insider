@@ -289,7 +289,6 @@ void VMThread::inner_execute(VM_Operation* op) {
 
 
 (arming_safepoint)=
-
 ### Arm Safepoint - 标记所有线程
 
 `VM Thread` 线程在收到 safepoint request 后，修改一个 JVM 全局的 `safepoint flag `为 true（这个 flag 可以是操作系统的内存页权限标识） 。
@@ -359,7 +358,7 @@ void SafepointSynchronize::arm_safepoint() {
 
 
 
-自从 OpenJDK11 的 [JEP 312: Thread-Local Handshakes - 2017年](https://openjdk.org/jeps/312) 后，就有了非 JVM Global 的 Safepoint - Thread Safepoint 。而 JVM Global 的 Safepoint 好像也修改为基于 `Thread-Local Handshakes` 去实现，即对每一条 JavaThread 执行 `Thread-Local Handshakes`。
+自从 OpenJDK10 的 [JEP 312: Thread-Local Handshakes - 2017年](https://openjdk.org/jeps/312) 后，就有了非 JVM Global 的 Safepoint - Thread Safepoint 。而 JVM Global 的 Safepoint 好像也修改为基于 `Thread-Local Handshakes` 去实现，即对每一条 JavaThread 执行 `Thread-Local Handshakes`。
 
 
 
@@ -467,9 +466,11 @@ void SafepointMechanism::disarm_local_poll(JavaThread* thread) {
 
 
 
+## Safepoint 问题排查
+Safepoint 是 JVM 性能问题的热点爆发地。我之前写有一些文章去排查相关问题：
 
-
-
+- [eBPF 求证坊间传闻：Java GC 日志可导致整个 JVM 服务卡顿？](https://blog.mygraphql.com/zh/notes/java/java-gc-log-stuck/)
+- [eBPF 求证坊间传闻：mmap + Java Safepoint 可导致整个 JVM 服务卡顿？](https://blog.mygraphql.com/zh/notes/java/java-reach-safepoint-stalled/)
 
 
 
