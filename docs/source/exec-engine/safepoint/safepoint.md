@@ -181,6 +181,8 @@ class JavaFrameAnchor {
 
 
 
+> [来自: HotSpot JVM Deep Dive - Safepoint](https://www.youtube.com/watch?v=JkbWPPNc4SI&ab_channel=Java)
+>
 > Global jvm state the second clause was that thread local gc routes for all java threads are accessible or published to the jvm. All current garbage collectors are tracing collectors which means they follow or trace the reachability trees starting out from what is called a root set. That is a set of immediately available oops. 
 >
 > Proper subset of the route set is the set of routes that is local to and reachable from java threads.

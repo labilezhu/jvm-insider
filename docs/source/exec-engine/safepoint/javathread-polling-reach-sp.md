@@ -122,13 +122,15 @@ enum JavaThreadState {
 - $r12 - 存放 Java Heap base
 - $r15 - 存放 thread local 的 JavaThread 指针
 
-### 寄存器在 Frame 间保存
+#### 非固定(通用)寄存器在 Frame 间保存
+
 - $rbp - 由 `callee-saved` 
 - 其它通用寄存器 - 由 `caller-saved`
 
 
-(polling)=
 
+
+(polling)=
 ## Polling
 
 Java 线程会高频检查 safepoint flag(safepoint check/polling) ，当发现为 true（arm) 时，就到达（进入） safepoint 状态。
@@ -292,6 +294,198 @@ test   DWORD PTR [rip+0xa2b0966],eax
 
 
 主要原因是  OpenJDK11 默认启用 [JEP 312: Thread-Local Handshakes](https://openjdk.org/jeps/312) 的设计，要求每条 Thread 有自己的 polling_page 指针，所以需要多一条机器命令来多一层寻址。
+
+
+
+##### JIT Polling 实验
+
+下面，用实验观察的方法 fact check 一下。直接采用本书的 [Stack Memory Anatomy - 堆栈内存剖析 - Java Options](/exec-engine/stack-mem-anatomy/stack-mem-anatomy.md#java_options) 一节中的示例环境、程序、输出。尝试在 `java ... -XX:+PrintAssembly ... -XX:LogFile=./round3/mylogfile.log` 输出的 JIT 汇编 mylogfile.log 文件中，找出 Polling 指令。
+
+1. 启动 GDB Debugger，见 [Stack Memory Anatomy - 堆栈内存剖析 - 启动 debugger](/exec-engine/stack-mem-anatomy/stack-mem-anatomy.md#start_debugger) 一节
+2. Inspect `JavaThread` object layout。详见 [GDB JVM FAQ - Inspect Object Layout](/appendix-lab-env/gdb/gdb-faq.md#inspect_object_layout) 一节
+
+```
+(gdb) ptype /xo 'Thread'
+/* offset      |    size */  type = class Thread : public ThreadShadow {
+                             private:
+                               static class Thread *_thr_current;
+/* 0x0020      |  0x0008 */    uint64_t _nmethod_disarmed_guard_value;
+...                             public:
+/* 0x048c      |  0x0004 */    volatile enum JavaThreadState _thread_state;
+                             private:
+/* 0x0490      |  0x0010 */    struct SafepointMechanism::ThreadData {
+/* 0x0490      |  0x0008 */        volatile uintptr_t _polling_word;
+/* 0x0498      |  0x0008 */        volatile uintptr_t _polling_page;
+
+                                   /* total size (bytes):   16 */
+                               } _poll_data;
+/* 0x04a0      |  0x0008 */    class ThreadSafepointState *_safepoint_state;
+/* 0x04a8      |  0x0008 */    address _saved_exception_pc;
+```
+
+3. 找到 Poll 指令
+
+可见，_polling_page 的 offset 为 0x0498，即 0x498 。于是，在 mylogfile.log 中找 0x498 。发现几百个，抽其中一个：
+
+```
+[Entry Point]
+  # {method} {0x00007ffbf4249ab8} &apos;enqueue&apos; &apos;(Ljava/util/concurrent/locks/AbstractQueuedSynchronizer$ConditionNode;)V&apos; in &apos;java/util/concurrent/locks/AbstractQueuedSynchronizer&apos;
+  # this:     rsi:rsi   = &apos;java/util/concurrent/locks/AbstractQueuedSynchronizer&apos;
+  # parm0:    rdx:rdx   = &apos;java/util/concurrent/locks/AbstractQueuedSynchronizer$ConditionNode&apos;
+  #           [sp+0x40]  (sp of caller)
+...  
+  0x00007fffed738747:   call   0x00007fffed1170a0           ; ImmutableOopMap {[0]=Oop [16]=Derived_oop_[0] [8]=Oop [24]=Oop }
+                                                            ;*invokevirtual setPrevRelaxed {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - java.util.concurrent.locks.AbstractQueuedSynchronizer::enqueue@31 (line 614)
+                                                            ;   {optimized virtual_call}
+  0x00007fffed73874c:   nop    DWORD PTR [rax+rax*1+0x23c]  ;   {other}
+...
+  0x00007fffed738786:   mov    BYTE PTR [r9+r10*1],0x0      ;*ifeq {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - java.util.concurrent.locks.AbstractQueuedSynchronizer::enqueue@40 (line 615)
+ ;; B8: #	out( B3 B9 ) &lt;- in( B7 B6 )  Freq: 8.17349
+  0x00007fffed73878b:   mov    r10,QWORD PTR [r15+0x498]    ; ImmutableOopMap {rdx=Oop [0]=Oop r8=Derived_oop_[0] [24]=Oop }
+                                                            ;*ifeq {reexecute=1 rethrow=0 return_oop=0}
+                                                            ; - (reexecute) java.util.concurrent.locks.AbstractQueuedSynchronizer::enqueue@40 (line 615)
+  0x00007fffed738792:   test   DWORD PTR [r10],eax          ;   {poll}
+  0x00007fffed738795:   test   r11d,r11d
+  0x00007fffed738798:   je     0x00007fffed738722
+```
+
+其中
+
+```
+0x00007fffed73878b:   mov    r10,QWORD PTR [r15+0x498]
+0x00007fffed738792:   test   DWORD PTR [r10],eax
+```
+
+即为 Safepoint polling。 上文已经介绍过， r15 寄存器保存 Thread Local 的 JavaThread 对象指针。还可以看到一些 OopMap 的身影。
+
+
+
+Java 源码：
+
+[src/java.base/share/classes/java/util/concurrent/locks/AbstractQueuedSynchronizer.java](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/java.base/share/classes/java/util/concurrent/locks/AbstractQueuedSynchronizer.java#L606)
+
+```
+606:     final void enqueue(ConditionNode node) {
+607:         if (node != null) {
+608:             boolean unpark = false;
+609:             for (Node t;;) {
+610:                 if ((t = tail) == null && (t = tryInitializeHead()) == null) {
+611:                     unpark = true;             
+612:                     break;
+613:                 }
+614:                 node.setPrevRelaxed(t);        // <<<< Safe point pool after call
+615:                 if (casTail(t, node)) { 
+616:                     t.next = node;
+617:                     if (t.status < 0)         
+618:                         unpark = true;
+619:                     break;
+620:                 }
+621:             }
+622:             if (unpark)
+623:                 LockSupport.unpark(node.waiter);
+624:         }
+625:     }
+```
+
+
+
+4. 进一步探索
+
+这时，再看看 JavaThread 的属性。要知道 JavaThread 的属性，首先要知道 JavaThread 的地址。这时用 jhsdb：
+
+```
+hsdb> threads
+513811 main
+State: BLOCKED
+Stack in use by Java: 0x00007ffff5285740 .. 0x00007ffff5285830
+Base of Stack: 0x00007ffff5287000
+Last_Java_SP: 0x00007ffff5285740
+Last_Java_FP: null
+Last_Java_PC: 0x00007fffed72c9af
+Thread id: 513811
+
+hsdb> threadcontext 513811
+Thread "main" id=513811 Address=0x00007ffff002b3c0
+```
+
+可见，main JavaThread 的地址为 Address=0x00007ffff002b3c0 。hsdb inspect 一下:
+```
+hsdb> inspect 0x00007ffff002b3c0
+Type is JavaThread (size of 1904)
+oop ThreadShadow::_pending_exception: null
+char* ThreadShadow::_exception_file: char @ null
+int ThreadShadow::_exception_line: 0
+ThreadLocalAllocBuffer Thread::_tlab: ThreadLocalAllocBuffer @ 0x00007ffff002b580
+jlong Thread::_allocated_bytes: 0
+ResourceArea* Thread::_resource_area: ResourceArea @ 0x00007ffff0018ba0
+LockStack JavaThread::_lock_stack: LockStack @ 0x00007ffff002bae8
+OopHandle JavaThread::_threadObj: OopHandle @ 0x00007ffff002b770
+OopHandle JavaThread::_vthread: OopHandle @ 0x00007ffff002b778
+OopHandle JavaThread::_jvmti_vthread: OopHandle @ 0x00007ffff002b780
+OopHandle JavaThread::_scopedValueCache: OopHandle @ 0x00007ffff002b788
+JavaFrameAnchor JavaThread::_anchor: JavaFrameAnchor @ 0x00007ffff002b798
+oop JavaThread::_vm_result: null
+Metadata* JavaThread::_vm_result_2: Metadata @ null
+ObjectMonitor* JavaThread::_current_pending_monitor: ObjectMonitor @ null
+bool JavaThread::_current_pending_monitor_is_from_java: 1
+ObjectMonitor* JavaThread::_current_waiting_monitor: ObjectMonitor @ null
+uint32_t JavaThread::_suspend_flags: 0
+oop JavaThread::_exception_oop: null
+address JavaThread::_exception_pc: address @ 0x00007ffff002b918
+int JavaThread::_is_method_handle_return: 0
+address JavaThread::_saved_exception_pc: address @ 0x00007ffff002b868
+JavaThreadState JavaThread::_thread_state: 10
+OSThread* JavaThread::_osthread: OSThread @ 0x00007ffff002d9a0
+address JavaThread::_stack_base: address @ 0x00007ffff002b718
+size_t JavaThread::_stack_size: 1048576
+vframeArray* JavaThread::_vframe_array_head: vframeArray @ null
+vframeArray* JavaThread::_vframe_array_last: vframeArray @ 0x00007ffff031da90
+JNIHandleBlock* JavaThread::_active_handles: JNIHandleBlock @ 0x00007ffff01686f0
+JavaThread::TerminatedTypes JavaThread::_terminated: 57002
+```
+
+还是 gdb 的信息会比 hsdb 多：
+
+```
+$1 = (class JavaThread *) 0x7ffff002b3c0
+(gdb) p *((JavaThread*)0x00007ffff002b3c0)
+$2 = {<Thread> = {<ThreadShadow> = {<CHeapObj<(MEMFLAGS)2>> = {<No data fields>}, _vptr.ThreadShadow = 0x7ffff7b4c4c8 <vtable for JavaThread+16>, _pending_exception = 0x0, _exception_file = 0x0, _exception_line = 0}, _nmethod_disarmed_guard_value = 1, ...
+
+(gdb) p /x ((JavaThread*)0x00007ffff002b3c0)->_poll_data._polling_page
+$4 = 0x7ffff7fa1000
+```
+
+然后，在 这前 pmap 的输出文件 pmap.txt 中找到：
+
+```
+         Address Perm   Offset Device    Inode     Size     Rss     Pss Referenced Anonymous LazyFree ShmemPmdMapped FilePmdMapped Shared_Hugetlb Private_Hugetlb Swap SwapPss Locked THPeligible Mapping
+
+    7ffff7fa1000 ---p 00000000  00:00        0        4       0       0          0         0        0              0             0              0               0    0       0      0           0 
+    7ffff7fa2000 r--p 00000000  00:00        0        4       0       0          0         0        0              0             0              0               0    0       0      0           0 
+```
+
+可见，在 core dump 时，thread local 的 _polling_page 指向了 bad page(没有 `r` Perm) 。即是 arming 状态。
+
+
+
+再好奇一下 SafepointMechanism 的 static page 指针。
+
+```
+p/x SafepointMechanism::_poll_page_armed_value
+$5 = 0x7ffff7fa1000 (Perm:---p)
+p/x SafepointMechanism::_poll_page_disarmed_value
+$6 = 0x7ffff7fa2000 (Perm:r--p)
+p/x SafepointMechanism::_polling_page
+$7 = 0x7ffff7fa1000
+```
+
+
+
+##### 更多 JIT Polling 实现方式
+
+以上是 JIT Polling 方式的一个重要实现方式，JIT 对于不同类型的场景，可能会使用不同的方式。如： //TBD .
 
 
 

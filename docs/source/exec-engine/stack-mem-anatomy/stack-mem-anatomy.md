@@ -82,6 +82,7 @@ public class TestStaticObjA {
 
 ```
 
+(java_options)=
 ### Java Options
 
 
@@ -98,6 +99,7 @@ Flame Graphs - Brendan Gregg](https://www.brendangregg.com/Slides/JavaOne2015_Mi
  - `-Xcomp -XX:-TieredCompilation -XX:-BackgroundCompilation` 让代码跳过 interpreter 直接 JIT 编译。因为本节的重点是 JIT 。`-XX:-BackgroundCompilation` 与 `-Xbatch` 同义，均为不在异步后台编译，直接在工作线程中等待编译完成。
  - `-XX:+PrintAssembly -XX:PrintAssemblyOptions=intel -XX:CompileCommand=dontinline -Xlog:class+load=info -XX:+LogCompilation -XX:LogFile=./round3/mylogfile.log -XX:+DebugNonSafepoints -XX:+PrintInterpreter` 这些参数目的是保存 JIT 汇编输出。对于本节实验这是可选的。参数使用说明见： https://wiki.openjdk.org/display/HotSpot/PrintAssembly
 
+(save_debug_output)=
 ### 保存现场
 
 
@@ -130,7 +132,7 @@ sudo gdb -p $JAVA_PID
 已经放到 [github 中](https://github.com/labilezhu/pub-diy/blame/main/jvm-insider-book/exec-engine/stack-mem-anatomy/round3/)。
 
 
-
+(start_debugger)=
 ### 启动 debugger
 
 jhsdb
