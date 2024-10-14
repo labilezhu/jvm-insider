@@ -375,7 +375,7 @@ Java 源码：
 611:                     unpark = true;             
 612:                     break;
 613:                 }
-614:                 node.setPrevRelaxed(t);        // <<<< Safe point pool after call
+614:                 node.setPrevRelaxed(t);        // <<<< Safe point polled after call
 615:                 if (casTail(t, node)) { 
 616:                     t.next = node;
 617:                     if (t.status < 0)         
