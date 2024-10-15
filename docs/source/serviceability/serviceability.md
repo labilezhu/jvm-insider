@@ -1,6 +1,15 @@
 # JVM Serviceability
 
 
+```{toctree}
+:hidden:
+:includehidden:
+
+jvmti/jvmti.md
+serviceability-agent/serviceability-agent.md
+```
+
+
 > 参考：[Serviceability in HotSpot - openjdk.org](https://openjdk.org/groups/hotspot/docs/Serviceability.html)
 
 
@@ -33,8 +42,3 @@
 - [Serviceability in the J2SE Repository - openjdk.org](https://openjdk.org/groups/serviceability/svcjdk.html#tsa)
 - [Usenix Serviceability Agent paper](https://www.usenix.org/legacy/events/jvm01/full_papers/russell/russell_html/index.html)
 
-
-```{toctree}
-jvmti/jvmti.md
-serviceability-agent/serviceability-agent.md
-```

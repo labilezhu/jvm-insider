@@ -2,11 +2,17 @@
 typora-root-url: ../../
 ---
 
-
-
-
-
 # Thread Management
+
+```{toctree}
+:hidden:
+:includehidden:
+
+internal-vm-threads.md
+java-thread/java-thread.md
+vm-threads-cooperative/vm-operation.md
+```
+
 
 需要 JVM 管理控制的线程有几类：
 - 由 Java 代码（无论是应用程序代码还是 Java 库代码）创建的线程。
@@ -84,11 +90,7 @@ attach native thread 的一个特殊情况是通过 JNI `CreateJavaVM` 调用初
 
 
 
-```{toctree}
-internal-vm-threads.md
-java-thread/java-thread.md
-vm-threads-cooperative/vm-operation.md
-```
+
 
 
 

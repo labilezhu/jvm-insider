@@ -1,5 +1,12 @@
 # Serviceability Agent
 
+```{toctree}
+:hidden:
+:includehidden:
+
+jhsdb.md
+```
+
 > 参考：
 >
 > - [The HotSpot Serviceability Agent: An out-of-process high level debugger for a JVM - usenix.org](https://www.usenix.org/legacy/events/jvm01/full_papers/russell/russell_html/index.html)
@@ -759,6 +766,3 @@ public class Oop {
 
 - [Java 黑科技——Serviceability Agent - 潘志超](https://juejin.cn/post/6992108216695930917)
 
-```{toctree}
-jhsdb.md
-```
