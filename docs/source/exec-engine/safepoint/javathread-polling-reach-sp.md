@@ -3,7 +3,7 @@
 
 
 
-(javathread_state)=
+(javathread-state)=
 ## JavaThread - State
 
 
@@ -202,7 +202,7 @@ void SafepointMechanism::default_initialize() {
 
 
 
-(do_polling)=
+(do-polling)=
 
 ### 真正 Polling
 
@@ -299,10 +299,10 @@ test   DWORD PTR [rip+0xa2b0966],eax
 
 ##### JIT Polling 实验
 
-下面，用实验观察的方法 fact check 一下。直接采用本书的 [Stack Memory Anatomy - 堆栈内存剖析 - Java Options](/exec-engine/stack-mem-anatomy/stack-mem-anatomy.md#java_options) 一节中的示例环境、程序、输出。尝试在 `java ... -XX:+PrintAssembly ... -XX:LogFile=./round3/mylogfile.log` 输出的 JIT 汇编 mylogfile.log 文件中，找出 Polling 指令。
+下面，用实验观察的方法 fact check 一下。直接采用本书的 [Stack Memory Anatomy - 堆栈内存剖析 - Java Options](/exec-engine/stack-mem-anatomy/stack-mem-anatomy.md#java-options) 一节中的示例环境、程序、输出。尝试在 `java ... -XX:+PrintAssembly ... -XX:LogFile=./round3/mylogfile.log` 输出的 JIT 汇编 mylogfile.log 文件中，找出 Polling 指令。
 
-1. 启动 GDB Debugger，见 [Stack Memory Anatomy - 堆栈内存剖析 - 启动 debugger](/exec-engine/stack-mem-anatomy/stack-mem-anatomy.md#start_debugger) 一节
-2. Inspect `JavaThread` object layout。详见 [GDB JVM FAQ - Inspect Object Layout](/appendix-lab-env/gdb/gdb-faq.md#inspect_object_layout) 一节
+1. 启动 GDB Debugger，见 [Stack Memory Anatomy - 堆栈内存剖析 - 启动 debugger](/exec-engine/stack-mem-anatomy/stack-mem-anatomy.md#start-debugger) 一节
+2. Inspect `JavaThread` object layout。详见 [GDB JVM FAQ - Inspect Object Layout](/appendix-lab-env/gdb/gdb-faq.md#inspect-object-layout) 一节
 
 ```
 (gdb) ptype /xo 'Thread'
@@ -499,7 +499,7 @@ $7 = 0x7ffff7fa1000
 
 ## Reach and handle
 
-在 VMThread arm safepoint (详见本书的 [Safepoint - Arm Safepoint - 标记所有线程](/exec-engine/safepoint/safepoint.md#arming_safepoint)） 后。polling 的应用线程最终会感知到 safepoint 的聚集要求(arming)。
+在 VMThread arm safepoint (详见本书的 [Safepoint - Arm Safepoint - 标记所有线程](/exec-engine/safepoint/safepoint.md#arming-safepoint)） 后。polling 的应用线程最终会感知到 safepoint 的聚集要求(arming)。
 
 
 

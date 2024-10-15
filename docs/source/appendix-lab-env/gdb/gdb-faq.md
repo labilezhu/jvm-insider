@@ -2,7 +2,7 @@
 
 ## C++
 
-(inspect_object_layout)=
+(inspect-object-layout)=
 ### Inspect Object Layout
 
 ```

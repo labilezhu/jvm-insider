@@ -137,7 +137,7 @@ Safepoint 作为 Java 最让 end-user 讨厌，但又最让 JVM 实现者爱恨�
 
 ##  JavaThread - State
 
-详见本书的 [JavaThread Polling 与 Reach Safepoint - JavaThread - State](/exec-engine/safepoint/javathread-polling-reach-sp.md#javathread_state) 一节。
+详见本书的 [JavaThread Polling 与 Reach Safepoint - JavaThread - State](/exec-engine/safepoint/javathread-polling-reach-sp.md#javathread-state) 一节。
 
 
 
@@ -297,7 +297,7 @@ void VMThread::inner_execute(VM_Operation* op) {
 
 
 
-(arming_safepoint)=
+(arming-safepoint)=
 ### Arm Safepoint - 标记所有线程
 
 `VM Thread` 线程在收到 safepoint request 后，修改一个 JVM 全局的 `safepoint flag `为 true（这个 flag 可以是操作系统的内存页权限标识） 。
