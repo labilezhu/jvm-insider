@@ -4,6 +4,12 @@
 
 # Safepoint
 
+```{toctree}
+:hidden:
+:includehidden:
+
+javathread-polling-reach-sp.md
+```
 
 
 
