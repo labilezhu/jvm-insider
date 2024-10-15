@@ -483,7 +483,6 @@ Safepoint 是 JVM 性能问题的热点爆发地。我之前写有一些文章�
 
 
 
-
 ## 参考
 
 - [HotSpot JVM Deep Dive - Safepoint - Youtube Java Channel](https://www.youtube.com/watch?v=JkbWPPNc4SI&ab_channel=Java)
@@ -492,7 +491,8 @@ Safepoint 是 JVM 性能问题的热点爆发地。我之前写有一些文章�
 - [Where is my safepoint? - psy-lob-saw.blogspot.com](https://psy-lob-saw.blogspot.com/2014/03/where-is-my-safepoint.html)
 - [The Inner Workings of Safepoints 2023 - mostlynerdless.de](https://mostlynerdless.de/blog/2023/07/31/the-inner-workings-of-safepoints/)
 - [Robbin Ehn: Handshaking HotSpot - Youtube Java Channel - 2020](https://www.youtube.com/watch?v=VBCOfAJ409s&ab_channel=Java)
-
+- [Robbin Ehn: HotSpot Handshaking - Jfokus 2020](https://www.jfokus.se/jfokus20-preso/Handshaking-in-HotSpot.pdf)
+- [JVM Anatomy Quark #22: Safepoint Polls](https://shipilev.net/jvm/anatomy-quarks/22-safepoint-polls/)
 
 
 

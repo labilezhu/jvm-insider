@@ -263,7 +263,7 @@ class SafepointMechanism {
 
 
 
-![image-20241012232124643](./javathread-polling-reach-sp.assets/image-20241012232124643.png)
+![image-20241015150032675](./javathread-polling-reach-sp.assets/polling-implementation.png)
 
 *图: JavaThread 与 R15 寄存器. Source: [Robbin Ehn: Handshaking HotSpot - Youtube Java Channel - 2020](https://www.youtube.com/watch?v=VBCOfAJ409s&ab_channel=Java)*
 
@@ -496,6 +496,7 @@ $7 = 0x7ffff7fa1000
 
 
 (reach)=
+
 ## Reach and handle
 
 在 VMThread arm safepoint (详见本书的 [Safepoint - Arm Safepoint - 标记所有线程](/exec-engine/safepoint/safepoint.md#arming_safepoint)） 后。polling 的应用线程最终会感知到 safepoint 的聚集要求(arming)。
