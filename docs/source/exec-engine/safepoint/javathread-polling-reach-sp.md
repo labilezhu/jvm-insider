@@ -115,18 +115,7 @@ enum JavaThreadState {
 
 ## 基础知识
 
-### JIT 生成代码的寄存器分类
-
-#### 固定寄存器
-
-- $r12 - 存放 Java Heap base
-- $r15 - 存放 thread local 的 JavaThread 指针
-
-#### 非固定(通用)寄存器在 Frame 间保存
-
-- $rbp - 由 `callee-saved` 
-- 其它通用寄存器 - 由 `caller-saved`
-
+- [JIT 生成代码的寄存器分类](/exec-engine/calling-convention/calling-convention.md#jit-code-registers)
 
 
 
