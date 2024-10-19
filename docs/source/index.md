@@ -143,6 +143,7 @@ native-interface/native-interface.md
 serviceability/serviceability.md
 share/services/services.md
 exec-engine/exec-engine.md
+memory/memory.md
 ```
 
 # 附录
