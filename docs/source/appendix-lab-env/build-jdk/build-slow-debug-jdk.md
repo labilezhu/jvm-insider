@@ -248,10 +248,10 @@ To use `./build/linux-x86_64-server-slowdebug-hsdis/jdk.code-workspace`, choose 
 [编译数据库(Compilation Database) ](https://clang.llvm.org/docs/JSONCompilationDatabase.html) 可以让 IDE 知道跨文件和目录的代码之间的关系。用这个关系就可以方便地在 IDE 实现代码跳转功能。
 
 ```bash
-make compile-commands CONF=linux-x86_64-server-slowdebug
+make compile-commands CONF=linux-x86_64-server-slowdebug-hsdis
 ```
 
-这会生成 `./build/linux-x86_64-server-slowdebug-hsdis compile_commands.json` 文件。下面是其中一行采样内容：
+这会生成 `./build/linux-x86_64-server-slowdebug-hsdis/compile_commands.json` 文件。下面是其中一行采样内容：
 
 ```json
 { "directory": "/home/labile/opensource/jdk/make", "file": "/home/labile/opensource/jdk/src/java.management/share/native/libmanagement/MemoryManagerImpl.c", "command": "/usr/bin/gcc -I/home/labile/opensource/jdk/build/support/modules_include/java.base -I/home/labile/opensource/jdk/build/linux-x86_64-server-slowdebug-hsdis/support/modules_include/java.base/linux -I/home/labile/opensource/jdk/src/java.base/share/native/libjava -I/home/labile/opensource/jdk/src/java.base/unix/native/libjava -I/home/labile/opensource/jdk/src/hotspot/share/include -I/home/labile/opensource/jdk/src/hotspot/os/posix/include -pipe -fstack-protector -DLIBC=gnu -D_GNU_SOURCE -D_REENTRANT -D_LARGEFILE64_SOURCE -DLINUX -DDEBUG -fstack-protector-all --param ssp-buffer-size=1 -g -gdwarf-4 -std=c11 -fno-strict-aliasing -Wall -Wextra -Wformat=2 -Wpointer-arith -Wsign-compare -Wunused-function -Wundef -Wunused-value -Wreturn-type -Wtrampolines -m64 -D_LITTLE_ENDIAN -DARCH='\"amd64\"' -Damd64 -D_LP64=1 -fno-omit-frame-pointer -fno-delete-null-pointer-checks -fno-lifetime-dse -fPIC -fvisibility=hidden -I/home/labile/opensource/jdk/src/java.management/share/native/libmanagement -I/home/labile/opensource/jdk/build/linux-x86_64-server-slowdebug-hsdis/support/headers/java.management -g -gdwarf-4 -Wno-unused-parameter -Wno-unused -Werror -O0 -c -o /home/labile/opensource/jdk/build/linux-x86_64-server-slowdebug-hsdis/support/native/java.management/libmanagement/MemoryManagerImpl.o /home/labile/opensource/jdk/src/java.management/share/native/libmanagement/MemoryManagerImpl.c -frandom-seed=\"MemoryManagerImpl.c\"" },

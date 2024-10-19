@@ -1,5 +1,11 @@
 # GDB JVM FAQ
 
+## signal handle
+```
+# Disable stopping on signals handled by the JVM
+(gdb) handle SIGSEGV noprint nostop
+```
+
 ## C++
 
 (inspect-object-layout)=
@@ -41,8 +47,14 @@
 
 ```
 
+> - https://sourceware.org/gdb/current/onlinedocs/gdb.html/Memory.html
+> - https://sourceware.org/gdb/current/onlinedocs/gdb.html/Output-Formats.html
+
+
+
 #### Inspect Java Thread
 
 ```
 (gdb) p *((JavaThread*)0x00007ffff002b3c0)
 ```
+

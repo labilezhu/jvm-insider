@@ -43,7 +43,9 @@
 > - `-H`: (Optional) Human readable format (BOOLEAN, false)
 
 
-
+```bash
+/home/labile/opensource/jdk/build/linux-x86_64-server-slowdebug-hsdis/jdk/bin/jcmd 168171 System.map
+```
 
 
 
