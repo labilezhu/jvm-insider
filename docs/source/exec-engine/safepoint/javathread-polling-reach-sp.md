@@ -624,29 +624,26 @@ Signal Handler 实现：
 bool PosixSignals::pd_hotspot_signal_handler(int sig, siginfo_t* info,
                                              ucontext_t* uc, JavaThread* thread) {
 ...
+    pc = (address) os::Posix::ucontext_get_pc(uc); // <<<<< 引发 SIGSEGV 的机器指令地址
+
+    if (sig == SIGSEGV && info->si_addr == 0 && info->si_code == SI_KERNEL) {
+      // An irrecoverable SI_KERNEL SIGSEGV has occurred.
+      // It's likely caused by dereferencing an address larger than TASK_SIZE.
+      return false;
+    }
+
+    // Handle ALL stack overflow variations here
+    if (sig == SIGSEGV) {
+      address addr = (address) info->si_addr; // <<<<< 引发 SIGSEGV 的寻址地址                                             
+...
     if (thread->thread_state() == _thread_in_Java) {
       // Java thread running in Java code => find exception handler if any
       // a fault inside compiled code, the interpreter, or a stub
 
-      if (sig == SIGSEGV && SafepointMechanism::is_poll_address((address)info->si_addr)) {
+      if (sig == SIGSEGV && SafepointMechanism::is_poll_address((address)info->si_addr)) {  // <<<<< 引发 SIGSEGV 的寻址地址是 JVM自己初始化时建立的 bad page
         stub = SharedRuntime::get_poll_stub(pc); //  <<<<----
-      } else if (sig == SIGBUS /* && info->si_code == BUS_OBJERR */) {..}
-      ...
-      } else if (sig == SIGSEGV &&
-                 MacroAssembler::uses_implicit_null_check(info->si_addr)) {
-          // Determination of interpreter/vtable stub/compiled code null exception
-          stub = SharedRuntime::continuation_for_implicit_exception(thread, pc, SharedRuntime::IMPLICIT_NULL);
-      }
-    } else if ((thread->thread_state() == _thread_in_vm ||
-                thread->thread_state() == _thread_in_native) &&
-               (sig == SIGBUS && /* info->si_code == BUS_OBJERR && */
-               thread->doing_unsafe_access())) {
-        address next_pc = Assembler::locate_next_instruction(pc);
-        if (UnsafeCopyMemory::contains_pc(pc)) {
-          next_pc = UnsafeCopyMemory::page_error_continue_pc(pc);
-        }
-        stub = SharedRuntime::handle_unsafe_access(thread, next_pc);
-    }
+      } else ...
+    } else ...
     // jni_fast_Get<Primitive>Field can trap at certain pc's if a GC kicks in
     // and the heap gets shrunk before the field access.
     if ((sig == SIGSEGV) || (sig == SIGBUS)) {
@@ -869,6 +866,75 @@ SafepointBlob* SharedRuntime::generate_handler_blob(address call_ptr, int poll_t
   // Fill-out other meta info
   return SafepointBlob::create(&buffer, oop_maps, frame_size_in_words);
 }
+```
+
+
+
+## Wait to exit safepoint
+
+call stack:
+
+```
+libc.so.6!syscall() (syscall.S:38)
+libjvm.so!futex(volatile int * addr, int futex_op, int op_arg) (/jdk/src/hotspot/os/linux/waitBarrier_linux.cpp:49)
+libjvm.so!LinuxWaitBarrier::wait(LinuxWaitBarrier * const this, int barrier_tag) (/jdk/src/hotspot/os/linux/waitBarrier_linux.cpp:76)
+libjvm.so!WaitBarrierType<LinuxWaitBarrier>::wait(WaitBarrierType<LinuxWaitBarrier> * const this, int barrier_tag) (/jdk/src/hotspot/share/utilities/waitBarrier.hpp:128)
+libjvm.so!SafepointSynchronize::block(JavaThread * thread) (/jdk/src/hotspot/share/runtime/safepoint.cpp:742)
+libjvm.so!SafepointMechanism::process(JavaThread * thread, bool allow_suspend, bool check_async_exception) (/jdk/src/hotspot/share/runtime/safepointMechanism.cpp:148)
+libjvm.so!SafepointMechanism::process_if_requested(JavaThread * thread, bool allow_suspend, bool check_async_exception) (/jdk/src/hotspot/share/runtime/safepointMechanism.inline.hpp:83)
+libjvm.so!SafepointMechanism::process_if_requested_with_exit_check(JavaThread * thread, bool check_async_exception) (/jdk/src/hotspot/share/runtime/safepointMechanism.inline.hpp:88)
+libjvm.so!ThreadSafepointState::handle_polling_page_exception(ThreadSafepointState * const this) (/jdk/src/hotspot/share/runtime/safepoint.cpp:985)
+libjvm.so!SafepointSynchronize::handle_polling_page_exception(JavaThread * thread) (/jdk/src/hotspot/share/runtime/safepoint.cpp:778)
+[Unknown/Just-In-Time compiled code] (Unknown Source:0)
+```
+
+
+
+相关代码：
+
+```c++
+// Process pending operation.
+void ThreadSafepointState::handle_polling_page_exception() {
+...
+    // Process pending operation
+    // We never deliver an async exception at a polling point as the
+    // compiler may not have an exception handler for it (polling at
+    // a return point is ok though). We will check for a pending async
+    // exception below and deoptimize if needed. We also cannot deoptimize
+    // and still install the exception here because live registers needed
+    // during deoptimization are clobbered by the exception path. The
+    // exception will just be delivered once we get into the interpreter.
+    SafepointMechanism::process_if_requested_with_exit_check(self, false /* check asyncs */);
+```
+
+
+
+```c++
+// Implementation of Safepoint blocking point
+
+void SafepointSynchronize::block(JavaThread *thread) {
+
+  // Threads shouldn't block if they are in the middle of printing, but...
+  ttyLocker::break_tty_lock_for_safepoint(os::current_thread_id());
+
+  ...
+  JavaThreadState state = thread->thread_state();
+  thread->frame_anchor()->make_walkable();
+
+  uint64_t safepoint_id = SafepointSynchronize::safepoint_counter();
+
+  // We have no idea where the VMThread is, it might even be at next safepoint.
+  // So we can miss this poll, but stop at next.
+
+  // Load dependent store, it must not pass loading of safepoint_id.
+  thread->safepoint_state()->set_safepoint_id(safepoint_id); // Release store
+
+  // This part we can skip if we notice we miss or are in a future safepoint.
+  OrderAccess::storestore();
+  // Load in wait barrier should not float up
+  thread->set_thread_state_fence(_thread_blocked);
+
+  _wait_barrier->wait(static_cast<int>(safepoint_id));
 ```
 
 

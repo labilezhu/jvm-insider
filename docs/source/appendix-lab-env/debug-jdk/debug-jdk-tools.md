@@ -1,6 +1,41 @@
-# Debug JDK Tools
+# 用 VSCode gdb 去 debug JVM 
 
-## gdb 调试 jstack
+以下操作基于 [JDK 构建、调试环境](/appendix-lab-env/build-jdk/build-slow-debug-jdk.md) 一节的环境。
+
+(vscode-gdb-attach-jvm-process)=
+## VSCode gdb attach JVM 进程
+.vscode/launch.json :
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "java-pid",
+            "type": "cppdbg",
+            "request": "attach",
+            "program": "/home/labile/opensource/jdk/build/linux-x86_64-server-slowdebug-hsdis/jdk/bin/java",
+            "processId": "${command:pickProcess}",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "osx": {
+                "MIMode": "lldb",
+            },
+            "linux": {
+                "MIMode": "gdb",
+                "setupCommands": [
+                    {
+                        "text": "handle SIGSEGV print nostop",
+                        "description": "Disable stopping on signals handled by the JVM"
+                    }
+                ],
+            },
+        }
+    ]
+}        
+```
+
+更多说明见：[GDB JVM FAQ - attach process](/appendix-lab-env/gdb/gdb-faq.md#attach-process)
+
+## VSCode gdb 调试 jstack
 
 .vscode/launch.json
 

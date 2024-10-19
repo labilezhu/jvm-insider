@@ -252,7 +252,9 @@ Safepoint 协作流程可以划分为以下几步：
 8.  Safepoint operation 结束
 9.  Disarming Safepoint
 
+### 实验环境
 
+以下结合示例代码 [SafepointGDB.java](https://github.com/labilezhu/pub-diy/blob/f9e68a10cc79a4aa24c33d2724967a527c90eb25/jvm-insider-book/memory/java-obj-layout/src/com/mygraphql/jvm/insider/safepoint/SafepointGDB.java#L14) ，以及本书实验环境一节 [用 VSCode gdb 去 debug JVM](/appendix-lab-env/debug-jdk/debug-jdk-tools.md#vscode-gdb-attach-jvm-process) 的环境，来理论结合实验 fact check 分析一下内存分配失败后诱发 GC 的 Safepoint 流程。
 
 ### 应用线程 Polling Safepoint
 
@@ -426,7 +428,22 @@ int SafepointSynchronize::synchronize_threads(jlong safepoint_limit_time, int no
   ...
 ```
 
-
+Stack example:
+```
+libc.so.6!__GI___clock_nanosleep(clockid_t clock_id, int flags, const struct timespec * req, struct timespec * rem) (clock_nanosleep.c:78)
+libc.so.6!__GI___nanosleep(const struct timespec * req, struct timespec * rem) (nanosleep.c:25)
+libjvm.so!os::naked_short_nanosleep(jlong ns) (/jdk/src/hotspot/os/posix/os_posix.cpp:892)
+libjvm.so!back_off(int64_t start_time) (/jdk/src/hotspot/share/runtime/safepoint.cpp:212)
+libjvm.so!SafepointSynchronize::synchronize_threads(jlong safepoint_limit_time, int nof_threads, int * initial_running) (/jdk/src/hotspot/share/runtime/safepoint.cpp:284)
+libjvm.so!SafepointSynchronize::begin() (/jdk/src/hotspot/share/runtime/safepoint.cpp:393)
+libjvm.so!VMThread::inner_execute(VMThread * const this, VM_Operation * op) (/jdk/src/hotspot/share/runtime/vmThread.cpp:428)
+libjvm.so!VMThread::loop(VMThread * const this) (/jdk/src/hotspot/share/runtime/vmThread.cpp:502)
+libjvm.so!VMThread::run(VMThread * const this) (/jdk/src/hotspot/share/runtime/vmThread.cpp:175)
+libjvm.so!Thread::call_run(Thread * const this) (/jdk/src/hotspot/share/runtime/thread.cpp:217)
+libjvm.so!thread_native_entry(Thread * thread) (/jdk/src/hotspot/os/linux/os_linux.cpp:778)
+libc.so.6!start_thread(void * arg) (pthread_create.c:442)
+libc.so.6!clone3() (clone3.S:81)
+```
 
 
 
@@ -446,8 +463,147 @@ Java 线程会高频检查 safepoint flag(safepoint check/polling) ，当发现�
 
 当 `VM Thread`   发现所有 App thread 都到达 safepoint （真实的 STW 的开始） 。就开始执行 `safepoint operation` 。`GC 操作` 是 `safepoint operation` 其中一种可能类型。
 
-[源码 RuntimeService::record_safepoint_synchronized()](https://github.com/openjdk/jdk/blob/dfacda488bfbe2e11e8d607a6d08527710286982/src/hotspot/share/runtime/safepoint.cpp#L1108)
 
+[src/hotspot/share/runtime/vmThread.cpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/vmThread.cpp#L271)
+```c++
+void VMThread::evaluate_operation(VM_Operation* op) {
+  ResourceMark rm;
+
+  {
+    PerfTraceTime vm_op_timer(perf_accumulated_vm_operation_time());
+    HOTSPOT_VMOPS_BEGIN(
+                     (char *) op->name(), strlen(op->name()),
+                     op->evaluate_at_safepoint() ? 0 : 1);
+
+    EventExecuteVMOperation event;
+    op->evaluate();
+    if (event.should_commit()) {
+      post_vm_operation_event(&event, op);
+    }
+
+    HOTSPOT_VMOPS_END(
+                     (char *) op->name(), strlen(op->name()),
+                     op->evaluate_at_safepoint() ? 0 : 1);
+  }
+
+}
+```
+
+call stack e.g:
+```
+libjvm.so!VMThread::evaluate_operation(VMThread * const this, VM_Operation * op) (/jdk/src/hotspot/share/runtime/vmThread.cpp:272)
+libjvm.so!VMThread::inner_execute(VMThread * const this, VM_Operation * op) (/jdk/src/hotspot/share/runtime/vmThread.cpp:435)
+libjvm.so!VMThread::loop(VMThread * const this) (/jdk/src/hotspot/share/runtime/vmThread.cpp:502)
+libjvm.so!VMThread::run(VMThread * const this) (/jdk/src/hotspot/share/runtime/vmThread.cpp:175)
+libjvm.so!Thread::call_run(Thread * const this) (/jdk/src/hotspot/share/runtime/thread.cpp:217)
+libjvm.so!thread_native_entry(Thread * thread) (/jdk/src/hotspot/os/linux/os_linux.cpp:778)
+libc.so.6!start_thread(void * arg) (pthread_create.c:442)
+libc.so.6!clone3() (clone3.S:81)
+```
+
+#### Stop The World - GC
+[src/hotspot/share/gc/shared/gcVMOperations.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/gc/shared/gcVMOperations.hpp#L87)
+```c++
+// The following class hierarchy represents
+// a set of operations (VM_Operation) related to GC.
+//
+//  VM_Operation
+//    VM_GC_Sync_Operation
+//      VM_GC_Operation
+//        VM_GC_HeapInspection
+//        VM_PopulateDynamicDumpSharedSpace
+//        VM_GenCollectFull
+//        VM_ParallelGCSystemGC
+//        VM_CollectForAllocation
+//          VM_GenCollectForAllocation
+//          VM_ParallelGCFailedAllocation
+//      VM_Verify
+//      VM_PopulateDumpSharedSpace
+//
+//  VM_GC_Sync_Operation
+//   - implements only synchronization with other VM operations of the
+//     same kind using the Heap_lock, not actually doing a GC.
+//
+//  VM_GC_Operation
+//   - implements methods common to all operations that perform garbage collections,
+//     checking that the VM is in a state to do GC and preventing multiple GC
+//     requests.
+//
+//  VM_GC_HeapInspection
+//   - prints class histogram on SIGBREAK if PrintClassHistogram
+//     is specified; and also the attach "inspectheap" operation
+//
+//  VM_CollectForAllocation
+//  VM_GenCollectForAllocation
+//  VM_ParallelGCFailedAllocation
+//   - this operation is invoked when allocation is failed;
+//     operation performs garbage collection and tries to
+//     allocate afterwards;
+//
+//  VM_GenCollectFull
+//  VM_ParallelGCSystemGC
+//   - these operations perform full collection of heaps of
+//     different kind
+//
+//  VM_Verify
+//   - verifies the heap
+//
+//  VM_PopulateDynamicDumpSharedSpace
+//   - populates the CDS archive area with the information from the archive file.
+//
+//  VM_PopulateDumpSharedSpace
+//   - creates the CDS archive
+//
+
+class VM_GC_Sync_Operation : public VM_Operation {...}
+
+class VM_GC_Operation: public VM_GC_Sync_Operation {
+ protected:
+  uint           _gc_count_before;         // gc count before acquiring the Heap_lock
+  uint           _full_gc_count_before;    // full gc count before acquiring the Heap_lock
+  bool           _full;                    // whether a "full" collection
+  bool           _prologue_succeeded;      // whether doit_prologue succeeded
+  GCCause::Cause _gc_cause;                // the putative cause for this gc op
+  bool           _gc_locked;               // will be set if gc was locked
+...}
+
+
+```
+
+从上 class 继承关系可见 `VM_GenCollectForAllocation` 实现了 `VM_Operation` 接口。
+
+
+[src/hotspot/share/gc/shared/gcVMOperations.cpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/gc/shared/gcVMOperations.cpp#L198)
+```c++
+void VM_GenCollectForAllocation::doit() {
+  SvcGCMarker sgcm(SvcGCMarker::MINOR);
+
+  GenCollectedHeap* gch = GenCollectedHeap::heap();
+  GCCauseSetter gccs(gch, _gc_cause);
+  _result = gch->satisfy_failed_allocation(_word_size, _tlab);
+  assert(_result == nullptr || gch->is_in_reserved(_result), "result not in heap");
+
+  if (_result == nullptr && GCLocker::is_active_and_needs_gc()) {
+    set_gc_locked();
+  }
+}
+```
+
+通过 gdb breakpoint ，可以观察到， `VM_GenCollectForAllocation._gc_cause` 类型为 `GCCause::_allocation_failure`
+
+call stack e.g:
+```
+libjvm.so!VM_GenCollectForAllocation::doit(VM_GenCollectForAllocation * const this) (/jdk/src/hotspot/share/gc/shared/gcVMOperations.cpp:199)
+libjvm.so!VM_Operation::evaluate(VM_Operation * const this) (/jdk/src/hotspot/share/runtime/vmOperations.cpp:71)
+libjvm.so!VMThread::evaluate_operation(VMThread * const this, VM_Operation * op) (/jdk/src/hotspot/share/runtime/vmThread.cpp:281)
+libjvm.so!VMThread::inner_execute(VMThread * const this, VM_Operation * op) (/jdk/src/hotspot/share/runtime/vmThread.cpp:435)
+libjvm.so!VMThread::loop(VMThread * const this) (/jdk/src/hotspot/share/runtime/vmThread.cpp:502)
+libjvm.so!VMThread::run(VMThread * const this) (/jdk/src/hotspot/share/runtime/vmThread.cpp:175)
+libjvm.so!Thread::call_run(Thread * const this) (/jdk/src/hotspot/share/runtime/thread.cpp:217)
+libjvm.so!thread_native_entry(Thread * thread) (/jdk/src/hotspot/os/linux/os_linux.cpp:778)
+libc.so.6!start_thread(void * arg) (pthread_create.c:442)
+libc.so.6!clone3() (clone3.S:81)
+```
 
 
 ### Safepoint operation 结束

@@ -1,10 +1,48 @@
 # GDB JVM FAQ
 
+
+(attach-process)=
+## attach process
+
+### ptrace attach process
+
+默认的 Linux 配置下， attach 一个进程， gdb/vscode 使用的 ptrace 要求 root 用户。VSCode 在启动 debug 时，会说: "Superuser access is required to attach to a process" 。
+以下配置可以不使用 root 用户：
+
+```bash
+echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+
+# and then, after I'm done :
+echo 1 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+```
+
+如果想修改永久化，使用：
+```bash
+vi /etc/sysctl.d/10-ptrace.conf 
+
+kernel.yama.ptrace_scope = 0
+```
+
+### gdb attach 外部启动的 jvm 并观察 jvm 初始化
+
+有时间，出于环境变量等等理由，不能用 gdb 在启动 jvm 。要在一个 terminal 中启动 JVM 。但又要在 jvm 启动前设置好断点，并观察 JVM 的启动过程。这时， bash 的 exec 可以救命。
+
+```bash
+$ bash
+$ echo $$
+709394
+# Now in other terminal/window: gdb --pid 709394
+$ exec java ... MyMainClass
+# Happy gdb java
+```
+
+
 ## signal handle
 ```
 # Disable stopping on signals handled by the JVM
 (gdb) handle SIGSEGV noprint nostop
 ```
+
 
 ## C++
 
@@ -58,3 +96,17 @@
 (gdb) p *((JavaThread*)0x00007ffff002b3c0)
 ```
 
+## JavaThread
+
+### JavaThread Iterator
+
+```c++
+    JavaThreadIteratorWithHandle jtiwh;
+      for (JavaThread* thr = jtiwh.next(); thr != nullptr; thr = jtiwh.next()) {
+      }
+```
+
+要 gdb watch `JavaThread` 的 tid :
+```
+thr->_osthread._thread_id
+```
