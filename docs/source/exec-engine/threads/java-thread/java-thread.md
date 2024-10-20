@@ -111,3 +111,46 @@ enum JavaThreadState {
 ![](/exec-engine/safepoint/safepoint.assets/java-thread-state-machine.png)
 
 *图: JavaThread 状态机。Source: [Java Thread state machine](https://youtu.be/JkbWPPNc4SI?si=c5YYAKHYBPROZAZ_&t=576)*
+
+## JVM 内部 Thread Local
+
+### current thread
+
+[src/hotspot/share/utilities/globalDefinitions_gcc.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/utilities/globalDefinitions_gcc.hpp#L156)
+```c++
+#define THREAD_LOCAL __thread
+```
+
+[src/hotspot/share/runtime/thread.cpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/thread.cpp#L57)
+```c++
+THREAD_LOCAL Thread* Thread::_thr_current = nullptr;
+```
+
+[src/hotspot/share/runtime/thread.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/thread.hpp#L660)
+```c++
+void Thread::initialize_thread_current() {
+  _thr_current = this;
+}
+
+// Inline implementation of Thread::current()
+inline Thread* Thread::current() {
+  Thread* current = current_or_null();
+  assert(current != nullptr, "Thread::current() called on detached thread");
+  return current;
+}
+```
+
+[src/hotspot/os/linux/os_linux.cpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/os/linux/os_linux.cpp#L739)
+```c++
+//////////////////////////////////////////////////////////////////////////////
+// create new thread
+
+// Thread start routine for all newly created threads
+static void *thread_native_entry(Thread *thread) {
+
+  thread->record_stack_base_and_size();
+  thread->initialize_thread_current();
+```
+
+
+

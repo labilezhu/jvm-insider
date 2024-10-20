@@ -243,22 +243,37 @@ class JavaFrameAnchor {
 Safepoint 协作流程可以划分为以下几步：
 
 1.  应用线程 Polling Safepoint
-2.  监听 Safepoint Request
-3.  接收 Safepoint Request
-4.  Arm Safepoint - 标记所有线程
-5.  等待应用线程到达 Safepoint
-6.  应用线程陷入 Safepoint
-7.  Global safepoint - The World Stopped
-8.  Safepoint operation 结束
-9.  Disarming Safepoint
+2.  一个应用线程 Request Safepoint
+3.  监听 Safepoint Request
+4.  接收 Safepoint Request
+5.  Arm Safepoint - 标记所有线程
+6.  等待应用线程到达 Safepoint
+7.  应用线程陷入 Safepoint
+8.  Global safepoint - The World Stopped
+9.  Safepoint operation 结束
+10.  Disarming Safepoint
+
+
 
 ### 实验环境
 
 以下结合示例代码 [SafepointGDB.java](https://github.com/labilezhu/pub-diy/blob/f9e68a10cc79a4aa24c33d2724967a527c90eb25/jvm-insider-book/memory/java-obj-layout/src/com/mygraphql/jvm/insider/safepoint/SafepointGDB.java#L14) ，以及本书实验环境一节 [用 VSCode gdb 去 debug JVM](/appendix-lab-env/debug-jdk/debug-jdk-tools.md#vscode-gdb-attach-jvm-process) 的环境，来理论结合实验 fact check 分析一下内存分配失败后诱发 GC 的 Safepoint 流程。
 
+```bash
+bash -c 'echo $$ > /tmp/jvm-insider.pid && exec setarch $(uname -m) --addr-no-randomize /home/labile/opensource/jdk/build/linux-x86_64-server-slowdebug-hsdis/jdk/bin/java -XX:+AlwaysPreTouch  -Xms100m -Xmx100m -XX:MaxTenuringThreshold=5 -server -XX:+UseSerialGC  -XX:-UseCompressedOops -XX:+UnlockDiagnosticVMOptions "-Xlog:gc*=debug::tid" -Xlog:safepoint=debug::tid -cp /home/labile/pub-diy/jvm-insider-book/memory/java-obj-layout/out/production/java-obj-layout com.mygraphql.jvm.insider.safepoint.SafepointGDB'
+```
+
+
+
 ### 应用线程 Polling Safepoint
 
 详见本书的 [JavaThread Polling 与 Reach Safepoint - Polling](/exec-engine/safepoint/javathread-polling-reach-sp.md#polling) 一节。
+
+
+
+### 一个应用线程 Request Safepoint
+
+详见本书的 [VMThread - VM Operations - VM Operation Request](/exec-engine/threads/vm-threads-cooperative/vm-operation.md#vm-operation-request) 一节。
 
 
 
