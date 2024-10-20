@@ -37,6 +37,17 @@ serviceability-agent/serviceability-agent.md
 
 
 
+:::{figure-md} 图: JVM Serviceability Tech Stack
+
+<img src="serviceability-tec-stack.drawio.svg" alt="图: JVM Serviceability Tech Stack">
+
+*图: JVM Serviceability Tech Stack*
+:::
+*[用 Draw.io 打开](https://app.diagrams.net/?ui=sketch#Uhttps%3A%2F%2Fjvm-insider.mygraphql.com%2Fzh-cn%2Flatest%2F_images%2Fserviceability-tec-stack.drawio.svg)*
+
+
+
+
 ## 参考
 - [Serviceability in HotSpot - openjdk.org](https://openjdk.org/groups/hotspot/docs/Serviceability.html)
 - [Serviceability in the J2SE Repository - openjdk.org](https://openjdk.org/groups/serviceability/svcjdk.html#tsa)

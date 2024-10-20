@@ -1,6 +1,10 @@
 # MMap - OS Memory Area
 
+## 内存分区
+关于 JVM 内存分区，可见我之前写的文章：
 
+-  Linux 进程内存分区概念。如还未了解，可见：[进程的内存 - 《Mark’s DevOps 雜碎》](https://devops-insider.mygraphql.com/zh-cn/latest/kernel/mem/vma/pmap.html#id1)
+- Java 内存分区，以及它 Linux 进程内存分区的映射关系。如还未了解，可见：[把大象装入货柜里——Java容器内存拆解](https://blog.mygraphql.com/zh/notes/java/native-mem/java-native-mem-case/)
 
 ## Inspect
 
@@ -145,4 +149,5 @@ from               to                        vsize prot          rss      hugetl
 
 
 - 变更跟踪：[Provide a diagnostic PrintMemoryMapAtExit switch on Linux - Enhancement issue on bugs.openjdk.org](https://bugs.openjdk.org/browse/JDK-8334026?page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel)
+
 
