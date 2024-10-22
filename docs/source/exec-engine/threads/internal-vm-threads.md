@@ -10,15 +10,6 @@
 
 
 
-Thread C++ 对象：
-
-- 所有线程都是`Thread C++ class`的实例  ；
-- 所有执行 Java 代码的线程都是 `JavaThread C++ class（ Thread C++ class 的子类）` 实例。
-
-虚拟机会在一个称为 `Threads_list` 的链接列表中跟踪所有线程，该列表受 `Threads_lock` 保护，`Threads_lock` 是虚拟机中使用的重要 `同步锁` 之一。
-
-
-
 ## 参考
 - [OpenJDK Runtime Overiew - Thread Management - openjdk.org](https://openjdk.org/groups/hotspot/docs/RuntimeOverview.html#Thread%20Management|outline:~:text=objectmonitor%22%20structure.%5B8%5D-,Thread%20Management,-Thread%20management%20covers)
 

@@ -5,7 +5,7 @@
 :hidden:
 :includehidden:
 stack-mem-anatomy/stack-mem-anatomy.md
-threads/thread-management.md
+threads/threads.md
 safepoint/safepoint.md
 ```
 

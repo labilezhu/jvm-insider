@@ -59,7 +59,7 @@
 
 
 
-Kernel 和 JVM 在源码源文件的角度看，可以认为是充分模块化的。但 Runtime 的角度看，就更像个单体设计的软件。模块之间的依赖，有时候是很难厘清的。加上使用了 callback/virtual function 等等的抽象设计，要搞清楚设计和编译期的依赖还算容易，但要得知模块间 runtime 的实际协作关系，更多好的方法不是看源码，而是 debug 加 inspect 。
+Kernel 和 JVM 在源码源文件的角度看，可以认为是充分模块化的。但 Runtime 的角度看，就更像个单体设计的软件。模块之间的依赖，有时候是很难厘清的。加上使用了 callback/virtual function 等等的抽象设计，要搞清楚设计和编译期的依赖还算容易，但要得知模块间 runtime 的实际协作关系，更好的方法不是看源码，而是 debug 加 inspect 。
 
 
 

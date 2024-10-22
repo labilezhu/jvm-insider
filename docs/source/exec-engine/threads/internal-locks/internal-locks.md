@@ -150,7 +150,12 @@ class Mutex : public CHeapObj<mtSynchronizer> {
   #endif
   ...
 }
+```
 
+## JVM Monitor
+
+[src/hotspot/share/runtime/mutex.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/mutex.hpp#L51)
+```c++
 class Monitor : public Mutex {
  public:
   Monitor(Rank rank, const char *name, bool allow_vm_block)  :
@@ -169,3 +174,4 @@ class Monitor : public Mutex {
   void notify_all();
 };
 ```
+
