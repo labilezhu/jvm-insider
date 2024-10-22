@@ -2,7 +2,7 @@
 typora-root-url: ../../
 ---
 
-# Thread Management
+# Threads
 
 ```{toctree}
 :hidden:
