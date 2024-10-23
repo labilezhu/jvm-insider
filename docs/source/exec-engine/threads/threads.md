@@ -12,8 +12,8 @@ thread/thread.md
 java-thread/java-thread.md
 thread-management.md
 internal-locks/internal-locks.md
-vm-threads-cooperative/vm-operation.md
 internal-vm-threads.md
+vm-threads-cooperative/vm-operation.md
 ```
 
 

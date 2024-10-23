@@ -12,6 +12,8 @@ typora-root-url: ../../../
 
 VMThread 线程作为协调者(coordinator) ，循环监听 `safepoint request`  队列中的  `VM_Operation` 请求，并执行队列中的操作。
 
+VM_Operation 的类型 ：
+
 [src/hotspot/share/runtime/vmOperation.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/vmOperation.hpp#L124)
 
 ```c++

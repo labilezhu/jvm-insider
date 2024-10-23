@@ -8,6 +8,7 @@
 :hidden:
 :includehidden:
 
+threads-handshake.md
 javathread-polling-reach-sp.md
 ```
 
@@ -267,7 +268,7 @@ bash -c 'echo $$ > /tmp/jvm-insider.pid && exec setarch $(uname -m) --addr-no-ra
 
 ### 应用线程 Polling Safepoint
 
-详见本书的 [JavaThread Polling 与 Reach Safepoint - Polling](/exec-engine/safepoint/javathread-polling-reach-sp.md#polling) 一节。
+见 [Threads Handshake - Polling](threads-handshake.md#polling) 一节。
 
 
 
@@ -468,7 +469,7 @@ Java 线程会高频检查 safepoint flag(safepoint check/polling) ，当发现�
 
 
 
-详见本书的 [JavaThread Polling 与 Reach Safepoint - Reach and handle](/exec-engine/safepoint/javathread-polling-reach-sp.md#reach) 一节。
+见 [Threads Handshake - Reach and handle](threads-handshake.md#reach) 一节。
 
 
 
