@@ -21,7 +21,7 @@ Threads Handshake 是一种无需执行 Global VM Safepoint 即可在指定线�
 
 
 ## 原理
- `handshake operation` 是针对每个 `JavaThread` 执行的 callback，该 callback 在该线程处于安全点安全状态时执行。 callback 由被 safepoint 挂起的 `目标线程` 本身或 `VM thread` 执行，同时保持 `目标线程` 处于 `blocked state`。
+ `handshake operation` 是针对每个 `JavaThread` 执行的 callback，该 callback 在该线程处于 safepoint 时执行。 callback 由被 safepoint 挂起的 `目标线程` 本身或 `VM thread` 执行，同时保持 `目标线程` 处于 `blocked state`。
  `safepointing` 和 `handshaking` 之间的最大区别在于，每个(可以多个) `目标线程` 的操作将尽快在 `目标线程` 上执行，并且它们将在自己的 callback 操作完成后立即恢复原程序的执行。如果已知 目标 JavaThread 正在运行，那么也可以与该目标 JavaThread 进行 `handshaking`。
 
 在初始实现中，同一时间点最多只能有一个 `handshake operation` 实例。但是，该 `handshake operation`  可以指定多个 `目标 JavaThread` 。`VM Thread` 将通过一个 `VM operation` 协调 `handshake operation` ，这将有效地防止在执行 `handshake operation` 期间触发 `global safepoint`。

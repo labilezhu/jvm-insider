@@ -12,12 +12,19 @@ typora-root-url: ../../../
 
 VMThread 线程作为协调者(coordinator) ，循环监听 `safepoint request`  队列中的  `VM_Operation` 请求，并执行队列中的操作。
 
-VM_Operation 的类型 ：
+以下是部分 VM_Operation 的类型 ：
 
 [src/hotspot/share/runtime/vmOperation.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/vmOperation.hpp#L124)
 
 ```c++
 // VM_Operation 的类型
+
+// The following classes are used for operations
+// initiated by a Java thread but that must
+// take place in the VMThread.
+
+#define VM_OP_ENUM(type)   VMOp_##type,
+
 // Note: When new VM_XXX comes up, add 'XXX' to the template table.
 #define VM_OPS_DO(template)                       \
   template(Halt)                                  \
@@ -106,7 +113,7 @@ VM_Operation 的类型 ：
 class VM_Operation : public StackObj {
  public:
   enum VMOp_Type {
-    VM_OPS_DO(VM_OP_ENUM)
+    VM_OPS_DO(VM_OP_ENUM) // 使用了上面的 #define VM_OPS_DO(template) 
     VMOp_Terminating
   };
 
@@ -138,9 +145,11 @@ class VM_Operation : public StackObj {
   virtual bool evaluate_at_safepoint() const { return true; }
 ```
 
-## VMThread
 
-### VMThread 全局变量
+
+## VM Thread
+
+### VM Thread 全局变量
 
 src/hotspot/share/runtime/vmThread.cpp
 
@@ -162,7 +171,7 @@ extern Monitor* VMOperation_lock;                // a lock on queue of vm_operat
 
 
 
-### VMThread 监听 Safepoint Request
+### VM Thread 监听 Safepoint Request
 
 [src/hotspot/share/runtime/vmThread.cpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/vmThread.cpp#L487)
 
