@@ -146,6 +146,128 @@ enum JavaThreadState {
 - [JIT 生成代码的寄存器分类](/exec-engine/calling-convention/calling-convention.md#jit-code-registers)
 
 
+
+## 实现
+
+### closure 对象包
+
+src/hotspot/share/memory/iterator.hpp
+```c++
+// Thread iterator
+class ThreadClosure {
+ public:
+  virtual void do_thread(Thread* thread) = 0;
+};
+```
+
+
+[src/hotspot/share/runtime/handshake.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/handshake.hpp#L48)
+```c++
+// A handshake closure is a callback that is executed for a JavaThread
+// while it is in a safepoint/handshake-safe state. Depending on the
+// nature of the closure, the callback may be executed by the initiating
+// thread, the target thread, or the VMThread. If the callback is not executed
+// by the target thread it will remain in a blocked state until the callback completes.
+class HandshakeClosure : public ThreadClosure, public CHeapObj<mtThread> {
+  const char* const _name;
+ public:
+  HandshakeClosure(const char* name) : _name(name) {}
+  virtual ~HandshakeClosure()                      {}
+  const char* name() const                         { return _name; }
+  virtual bool is_async()                          { return false; }
+  virtual bool is_suspend()                        { return false; }
+  virtual bool is_async_exception()                { return false; }
+  virtual void do_thread(Thread* thread) = 0;
+};
+```
+
+根据 closure 的属性，callback 可以在以下线程之一中执行 :
+- 发起 thread, 
+- 目标 thread, 
+- VM Thread
+
+### 发起 Handshake
+
+
+```c++
+class Handshake : public AllStatic {
+ public:
+  // Execution of handshake operation
+  static void execute(HandshakeClosure*       hs_cl);
+  // This version of execute() relies on a ThreadListHandle somewhere in
+  // the caller's context to protect target (and we sanity check for that).
+  static void execute(HandshakeClosure*       hs_cl, JavaThread* target);
+  // This version of execute() is used when you have a ThreadListHandle in
+  // hand and are using it to protect target. If tlh == nullptr, then we
+  // sanity check for a ThreadListHandle somewhere in the caller's context
+  // to verify that target is protected.
+  static void execute(HandshakeClosure*       hs_cl, ThreadsListHandle* tlh, JavaThread* target);
+  // This version of execute() relies on a ThreadListHandle somewhere in
+  // the caller's context to protect target (and we sanity check for that).
+  static void execute(AsyncHandshakeClosure*  hs_cl, JavaThread* target);
+};
+```
+
+### JavaThread
+
+src/hotspot/share/runtime/handshake.hpp
+```c++
+// The HandshakeState keeps track of an ongoing handshake for this JavaThread.
+// VMThread/Handshaker and JavaThread are serialized with _lock making sure the
+// operation is only done by either VMThread/Handshaker on behalf of the
+// JavaThread or by the target JavaThread itself.
+class HandshakeState {
+  // This a back reference to the JavaThread,
+  // the target for all operation in the queue.
+  JavaThread* _handshakee;
+  // The queue containing handshake operations to be performed on _handshakee.
+  FilterQueue<HandshakeOperation*> _queue;
+  // Provides mutual exclusion to this state and queue. Also used for
+  // JavaThread suspend/resume operations.
+  Monitor _lock;
+  // Set to the thread executing the handshake operation.
+  Thread* volatile _active_handshaker;
+
+  bool claim_handshake();
+  bool possibly_can_process_handshake();
+  bool can_process_handshake();
+
+  bool have_non_self_executable_operation();
+  HandshakeOperation* get_op_for_self(bool allow_suspend, bool check_async_exception);
+  HandshakeOperation* get_op();
+  void remove_op(HandshakeOperation* op);
+
+  void set_active_handshaker(Thread* thread) { Atomic::store(&_active_handshaker, thread); }
+...
+  };
+
+```
+
+
+src/hotspot/share/runtime/javaThread.hpp
+```c++
+class JavaThread: public Thread {
+...
+  // Support for thread handshake operations
+  HandshakeState _handshake;
+ public:
+  HandshakeState* handshake_state() { return &_handshake; }
+
+  // A JavaThread can always safely operate on it self and other threads
+  // can do it safely if they are the active handshaker.
+  bool is_handshake_safe_for(Thread* th) const {
+    return _handshake.active_handshaker() == th || this == th;
+  }
+
+  // Suspend/resume support for JavaThread
+  // higher-level suspension/resume logic called by the public APIs
+  bool java_suspend();
+  bool java_resume();
+  bool is_suspended()     { return _handshake.is_suspended(); }
+
+```
+
+
 (polling)=
 ## Polling
 
