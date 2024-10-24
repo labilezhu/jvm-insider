@@ -147,9 +147,12 @@ enum JavaThreadState {
 
 
 
-## 实现
+## 实现封装
 
-### closure 对象包
+### HandshakeOperation
+
+
+#### closure callback 对象包
 
 src/hotspot/share/memory/iterator.hpp
 ```c++
@@ -179,16 +182,44 @@ class HandshakeClosure : public ThreadClosure, public CHeapObj<mtThread> {
   virtual bool is_async_exception()                { return false; }
   virtual void do_thread(Thread* thread) = 0;
 };
+
+class AsyncHandshakeClosure : public HandshakeClosure {
+ public:
+   AsyncHandshakeClosure(const char* name) : HandshakeClosure(name) {}
+   virtual ~AsyncHandshakeClosure() {}
+   virtual bool is_async()          { return true; } //与 HandshakeClosure 的不同点
+};
 ```
 
 根据 closure 的属性，callback 可以在以下线程之一中执行 :
-- 发起 thread, 
-- 目标 thread, 
+- 发起 thread
+- 目标 thread 
 - VM Thread
+
+
+src/hotspot/share/runtime/handshake.cpp
+```c++
+class HandshakeOperation : public CHeapObj<mtThread> {
+ protected:
+  HandshakeClosure*   _handshake_cl;
+  // Keeps track of emitted and completed handshake operations.
+  // Once it reaches zero all handshake operations have been performed.
+  int32_t             _pending_threads;
+  JavaThread*         _target;
+  Thread*             _requester;
+  void prepare(JavaThread* current_target, Thread* executing_thread);
+  void do_handshake(JavaThread* thread);
+  bool is_completed() {
+    int32_t val = Atomic::load(&_pending_threads);
+    assert(val >= 0, "_pending_threads=%d cannot be negative", val);
+    return val == 0;
+  }
+
+```
 
 ### 发起 Handshake
 
-
+src/hotspot/share/runtime/handshake.hpp
 ```c++
 class Handshake : public AllStatic {
  public:
@@ -208,7 +239,128 @@ class Handshake : public AllStatic {
 };
 ```
 
+src/hotspot/share/runtime/handshake.cpp
+```c++
+void Handshake::execute(HandshakeClosure* hs_cl) {
+  HandshakeOperation cto(hs_cl, nullptr, Thread::current());
+  VM_HandshakeAllThreads handshake(&cto);
+  VMThread::execute(&handshake);
+}
+
+void Handshake::execute(HandshakeClosure* hs_cl, JavaThread* target) {
+  // tlh == nullptr means we rely on a ThreadsListHandle somewhere
+  // in the caller's context (and we sanity check for that).
+  Handshake::execute(hs_cl, nullptr, target);
+}
+
+void Handshake::execute(HandshakeClosure* hs_cl, ThreadsListHandle* tlh, JavaThread* target) {
+  JavaThread* self = JavaThread::current();
+  HandshakeOperation op(hs_cl, target, Thread::current());
+  ...
+  // Keeps count on how many of own emitted handshakes
+  // this thread execute.
+  int emitted_handshakes_executed = 0;
+  HandshakeSpinYield hsy(start_time_ns);
+  while (!op.is_completed()) {
+    HandshakeState::ProcessResult pr = target->handshake_state()->try_process(&op);
+    if (pr == HandshakeState::_succeeded) {
+      emitted_handshakes_executed++;
+    }
+    if (op.is_completed()) {
+      break;
+    }
+
+    // Check if handshake operation has timed out
+    check_handshake_timeout(start_time_ns, &op, target);
+
+    hsy.add_result(pr);
+    // Check for pending handshakes to avoid possible deadlocks where our
+    // target is trying to handshake us.
+    if (SafepointMechanism::should_process(self)) {
+      // Will not suspend here.
+      ThreadBlockInVM tbivm(self);
+    }
+    hsy.process();
+  }
+  ...
+}
+
+void Handshake::execute(AsyncHandshakeClosure* hs_cl, JavaThread* target) {
+  jlong start_time_ns = os::javaTimeNanos();
+  AsyncHandshakeOperation* op = new AsyncHandshakeOperation(hs_cl, target, start_time_ns);
+
+  guarantee(target != nullptr, "must be");
+
+  Thread* current = Thread::current();
+  if (current != target) {
+    // Another thread is handling the request and it must be protecting
+    // the target.
+    guarantee(Thread::is_JavaThread_protected_by_TLH(target),
+              "missing ThreadsListHandle in calling context.");
+  }
+  // Implied else:
+  // The target is handling the request itself so it can't be dead.
+
+  target->handshake_state()->add_operation(op);
+}
+```
+
+### VM_HandshakeAllThreads - VM_Operation
+
+VM_HandshakeAllThreads 是一个 VM_Operation ：
+
+src/hotspot/share/runtime/handshake.cpp
+```c++
+class VM_HandshakeAllThreads: public VM_Operation {
+  HandshakeOperation* const _op;
+ public:
+  VM_HandshakeAllThreads(HandshakeOperation* op) : _op(op) {}
+
+  const char* cause() const { return _op->name(); }
+
+  bool evaluate_at_safepoint() const { return false; } //注意，本 VM_Operation 本身 doit() 不需要 safepoint
+
+  void doit() {
+    ...
+    JavaThreadIteratorWithHandle jtiwh;
+    int number_of_threads_issued = 0;
+    for (JavaThread* thr = jtiwh.next(); thr != nullptr; thr = jtiwh.next()) {
+      thr->handshake_state()->add_operation(_op);
+      number_of_threads_issued++;
+    }    
+    ...
+    HandshakeSpinYield hsy(start_time_ns);
+    // Keeps count on how many of own emitted handshakes
+    // this thread execute.
+    int emitted_handshakes_executed = 0;
+    do {
+      // Check if handshake operation has timed out
+      check_handshake_timeout(start_time_ns, _op);
+
+      // Have VM thread perform the handshake operation for blocked threads.
+      // Observing a blocked state may of course be transient but the processing is guarded
+      // by mutexes and we optimistically begin by working on the blocked threads
+      jtiwh.rewind();
+      for (JavaThread* thr = jtiwh.next(); thr != nullptr; thr = jtiwh.next()) {
+        // A new thread on the ThreadsList will not have an operation,
+        // hence it is skipped in handshake_try_process.
+        HandshakeState::ProcessResult pr = thr->handshake_state()->try_process(_op);
+        hsy.add_result(pr);
+        if (pr == HandshakeState::_succeeded) {
+          emitted_handshakes_executed++;
+        }
+      }
+      hsy.process();
+    } while (!_op->is_completed());    
+  }
+
+
+```
+
+
 ### JavaThread
+
+每个 JavaThread 都有自己专用的 HandshakeState 来记录 handshakes 状态。
 
 src/hotspot/share/runtime/handshake.hpp
 ```c++
@@ -239,6 +391,20 @@ class HandshakeState {
 
   void set_active_handshaker(Thread* thread) { Atomic::store(&_active_handshaker, thread); }
 ...
+  void add_operation(HandshakeOperation* op);
+
+...
+  // Suspend/resume support
+ private:
+  // This flag is true when the thread owning this
+  // HandshakeState (the _handshakee) is suspended.
+  volatile bool _suspended;
+  // This flag is true while there is async handshake (trap)
+  // on queue. Since we do only need one, we can reuse it if
+  // thread gets suspended again (after a resume)
+  // and we have not yet processed it.
+  bool _async_suspend_handshake;
+
   };
 
 ```

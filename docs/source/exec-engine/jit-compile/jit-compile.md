@@ -1,5 +1,12 @@
 # JIT Compile
 
+```{toctree}
+:hidden:
+:includehidden:
+
+disassemble-jit-compile.md
+```
+
 
 ## 参考
 - [Debugging the Java HotSpot VM - Just-in-time compilers - Tobias Hartmann@Oracle - 2020](https://cr.openjdk.org/~thartmann/talks/2020-Debugging_HotSpot.pdf)
