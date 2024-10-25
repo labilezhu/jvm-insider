@@ -44,14 +44,6 @@ class JavaThread: public Thread {
 - _thread_in_vm：正在虚拟机内执行的线程
 - _thread_blocked：线程因某种原因被阻塞（获取锁、等待条件、休眠、执行阻塞 I/O 操作等）。
 
-
-
-![](/exec-engine/safepoint/safepoint.assets/java-thread-state-machine.png)
-
-*图: JavaThread 状态机。Source: [Java Thread state machine](https://youtu.be/JkbWPPNc4SI?si=c5YYAKHYBPROZAZ_&t=576)*
-
-
-
 为便于调试，还在 thread dumps、stack traces 等工具中维护了额外的状态信息。这些信息保存在 OSThread 中，其中一些已不再使用，但在 thread dumps 等报告的状态中还会出现：
 
 - MONITOR_WAIT：一个线程正在等待获取一个有竞争的 monitor lock
@@ -63,7 +55,7 @@ class JavaThread: public Thread {
 其他子系统和库会提供自己的状态信息，例如 JVMTI 系统和 java.lang.Thread 类本身暴露的 ThreadState。这些信息通常 虚拟机内部的线程管理 无法访问，也与其无关。
 
 
-## JavaThread 状态 - JavaThreadState
+### JavaThread 状态 - JavaThreadState
 
 
 
@@ -106,9 +98,17 @@ enum JavaThreadState {
 其中 `class JavaThread` 的 `JavaThreadState _thread_state` 字段记录了线程的状态。
 
 
-![](/exec-engine/safepoint/safepoint.assets/java-thread-state-machine.png)
+:::{figure-md} 图: JavaThread 状态机
 
-*图: JavaThread 状态机。Source: [Java Thread state machine](https://youtu.be/JkbWPPNc4SI?si=c5YYAKHYBPROZAZ_&t=576)*
+<img src="/exec-engine/threads/java-thread/javathread-state.drawio.svg" alt="图: JavaThread 状态机">
+
+*图: JavaThread 状态机*
+:::
+*[用 Draw.io 打开](https://app.diagrams.net/?ui=sketch#Uhttps%3A%2F%2Fjvm-insider.mygraphql.com%2Fzh-cn%2Flatest%2F_images%2Fjavathread-state.drawio.svg)*
+
+
+关于 `transition states` 的作用 ，见 [Threads Handshake - JavaThread - State](/exec-engine/safepoint/threads-handshake.md#javathread-state) 一节。
+
 
 ## JVM 内部 Thread Local
 

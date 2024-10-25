@@ -1,4 +1,4 @@
 {
-    "window.title": "JVI - source",
+    "window.title": "${activeEditorShort} - JVI",
     "cSpell.enabled": false
 }
