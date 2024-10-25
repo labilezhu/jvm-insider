@@ -96,10 +96,15 @@ enum JavaThreadState {
 其中 `class JavaThread` 的 `JavaThreadState _thread_state` 字段记录了线程的状态。
 
 
+:::{figure-md}
 
-![HotSpot JVM Deep Dive - Safepoint 9-43 screenshot](./jit-polling-reach-sp.assets/java-thread-state-machine.png)
+<img src="/exec-engine/threads/java-thread/javathread-state.drawio.svg" alt="图: JavaThread 状态机">
 
-*图: JavaThread 状态机。Source: [Java Thread state machine](https://youtu.be/JkbWPPNc4SI?si=c5YYAKHYBPROZAZ_&t=576)*
+*图: JavaThread 状态机*
+:::
+*[用 Draw.io 打开](https://app.diagrams.net/?ui=sketch#Uhttps%3A%2F%2Fjvm-insider.mygraphql.com%2Fzh-cn%2Flatest%2F_images%2Fjavathread-state.drawio.svg)*
+
+
 
 
 
@@ -816,9 +821,13 @@ $7 = 0x7ffff7fa1000
 
   
 
-![HotSpot JVM Deep Dive - Safepoint 19-43 screenshot](./jit-polling-reach-sp.assets/disable-to-mutable-thread-state-by-sp-check.png)
+:::{figure-md} 图: 当 JavaThread 被 arm polling page 后的状态机变化
 
-*图: 当 JavaThread  被`arm`  polling page 后的状态机变化 。Source: [HotSpot JVM Deep Dive - Safepoint](https://youtu.be/JkbWPPNc4SI?si=c5YYAKHYBPROZAZ_&t=576)*
+<img src="/exec-engine/safepoint/disable-to-mutable-thread-state-by-sp-check.drawio.svg" alt="图: 当 JavaThread 被 arm polling page 后的状态机变化">
+
+*图: 当 JavaThread 被 arm polling page 后的状态机变化*
+:::
+*[用 Draw.io 打开](https://app.diagrams.net/?ui=sketch#Uhttps%3A%2F%2Fjvm-insider.mygraphql.com%2Fzh-cn%2Flatest%2F_images%2Fdisable-to-mutable-thread-state-by-sp-check.drawio.svg)*
 
 
 
