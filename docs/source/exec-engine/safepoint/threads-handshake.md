@@ -450,35 +450,41 @@ class JavaThread: public Thread {
 bash -c 'echo $$ > /tmp/jvm-insider.pid && exec setarch $(uname -m) --addr-no-randomize /home/labile/opensource/jdk/build/linux-x86_64-server-slowdebug-hsdis/jdk/bin/java -XX:+AlwaysPreTouch  -Xms100m -Xmx100m -XX:MaxTenuringThreshold=5 -server -XX:+UseZGC  -XX:-UseCompressedOops -XX:+UnlockDiagnosticVMOptions "-Xlog:gc*=debug::tid" -Xlog:safepoint=debug::tid -cp /home/labile/pub-diy/jvm-insider-book/memory/java-obj-layout/out/production/java-obj-layout com.mygraphql.jvm.insider.safepoint.SafepointGDB'
 ```
 
-ZGC XMark :
+
+
+ZGC XMark submit VM_HandshakeAllThreads VM_Operation :
+
 ```
-libjvm.so!VM_HandshakeAllThreads::VM_HandshakeAllThreads(VM_HandshakeAllThreads * const this, HandshakeOperation * op) (/home/labile/opensource/jdk/src/hotspot/share/runtime/handshake.cpp:239)
-libjvm.so!Handshake::execute(HandshakeClosure * hs_cl) (/home/labile/opensource/jdk/src/hotspot/share/runtime/handshake.cpp:349)
-libjvm.so!XMark::flush(XMark * const this, bool at_safepoint) (/home/labile/opensource/jdk/src/hotspot/share/gc/x/xMark.cpp:472)
-libjvm.so!XMark::try_flush(XMark * const this, volatile size_t * nflush) (/home/labile/opensource/jdk/src/hotspot/share/gc/x/xMark.cpp:483)
-libjvm.so!XMark::try_proactive_flush(XMark * const this) (/home/labile/opensource/jdk/src/hotspot/share/gc/x/xMark.cpp:498)
-libjvm.so!XMark::work_without_timeout(XMark * const this, XMarkContext * context) (/home/labile/opensource/jdk/src/hotspot/share/gc/x/xMark.cpp:571)
-libjvm.so!XMark::work(XMark * const this, uint64_t timeout_in_micros) (/home/labile/opensource/jdk/src/hotspot/share/gc/x/xMark.cpp:647)
-libjvm.so!XMarkTask::work(XMarkTask * const this) (/home/labile/opensource/jdk/src/hotspot/share/gc/x/xMark.cpp:771)
-libjvm.so!XTask::Task::work(XTask::Task * const this, uint worker_id) (/home/labile/opensource/jdk/src/hotspot/share/gc/x/xTask.cpp:34)
-libjvm.so!WorkerTaskDispatcher::worker_run_task(WorkerTaskDispatcher * const this) (/home/labile/opensource/jdk/src/hotspot/share/gc/shared/workerThread.cpp:69)
-libjvm.so!WorkerThread::run(WorkerThread * const this) (/home/labile/opensource/jdk/src/hotspot/share/gc/shared/workerThread.cpp:196)
-libjvm.so!Thread::call_run(Thread * const this) (/home/labile/opensource/jdk/src/hotspot/share/runtime/thread.cpp:217)
-libjvm.so!thread_native_entry(Thread * thread) (/home/labile/opensource/jdk/src/hotspot/os/linux/os_linux.cpp:778)
+libjvm.so!VM_HandshakeAllThreads::VM_HandshakeAllThreads(VM_HandshakeAllThreads * const this, HandshakeOperation * op) (/src/hotspot/share/runtime/handshake.cpp:239)
+libjvm.so!Handshake::execute(HandshakeClosure * hs_cl) (/src/hotspot/share/runtime/handshake.cpp:349)
+libjvm.so!XMark::flush(XMark * const this, bool at_safepoint) (/src/hotspot/share/gc/x/xMark.cpp:472)
+libjvm.so!XMark::try_flush(XMark * const this, volatile size_t * nflush) (/src/hotspot/share/gc/x/xMark.cpp:483)
+libjvm.so!XMark::try_proactive_flush(XMark * const this) (/src/hotspot/share/gc/x/xMark.cpp:498)
+libjvm.so!XMark::work_without_timeout(XMark * const this, XMarkContext * context) (/src/hotspot/share/gc/x/xMark.cpp:571)
+libjvm.so!XMark::work(XMark * const this, uint64_t timeout_in_micros) (/src/hotspot/share/gc/x/xMark.cpp:647)
+libjvm.so!XMarkTask::work(XMarkTask * const this) (/src/hotspot/share/gc/x/xMark.cpp:771)
+libjvm.so!XTask::Task::work(XTask::Task * const this, uint worker_id) (/src/hotspot/share/gc/x/xTask.cpp:34)
+libjvm.so!WorkerTaskDispatcher::worker_run_task(WorkerTaskDispatcher * const this) (/src/hotspot/share/gc/shared/workerThread.cpp:69)
+libjvm.so!WorkerThread::run(WorkerThread * const this) (/src/hotspot/share/gc/shared/workerThread.cpp:196)
+libjvm.so!Thread::call_run(Thread * const this) (/src/hotspot/share/runtime/thread.cpp:217)
+libjvm.so!thread_native_entry(Thread * thread) (/src/hotspot/os/linux/os_linux.cpp:778)
 libc.so.6!start_thread(void * arg) (pthread_create.c:442)
 libc.so.6!clone3() (clone3.S:81)
 ```
 
+
+
 VM Thread Handle VM_Operation:
+
 ```
-libjvm.so!VM_HandshakeAllThreads::doit(VM_HandshakeAllThreads * const this) (/home/labile/opensource/jdk/src/hotspot/share/runtime/handshake.cpp:250)
-libjvm.so!VM_Operation::evaluate(VM_Operation * const this) (/home/labile/opensource/jdk/src/hotspot/share/runtime/vmOperations.cpp:71)
-libjvm.so!VMThread::evaluate_operation(VMThread * const this, VM_Operation * op) (/home/labile/opensource/jdk/src/hotspot/share/runtime/vmThread.cpp:281)
-libjvm.so!VMThread::inner_execute(VMThread * const this, VM_Operation * op) (/home/labile/opensource/jdk/src/hotspot/share/runtime/vmThread.cpp:435)
-libjvm.so!VMThread::loop(VMThread * const this) (/home/labile/opensource/jdk/src/hotspot/share/runtime/vmThread.cpp:502)
-libjvm.so!VMThread::run(VMThread * const this) (/home/labile/opensource/jdk/src/hotspot/share/runtime/vmThread.cpp:175)
-libjvm.so!Thread::call_run(Thread * const this) (/home/labile/opensource/jdk/src/hotspot/share/runtime/thread.cpp:217)
-libjvm.so!thread_native_entry(Thread * thread) (/home/labile/opensource/jdk/src/hotspot/os/linux/os_linux.cpp:778)
+libjvm.so!VM_HandshakeAllThreads::doit(VM_HandshakeAllThreads * const this) (/src/hotspot/share/runtime/handshake.cpp:250)
+libjvm.so!VM_Operation::evaluate(VM_Operation * const this) (/src/hotspot/share/runtime/vmOperations.cpp:71)
+libjvm.so!VMThread::evaluate_operation(VMThread * const this, VM_Operation * op) (/src/hotspot/share/runtime/vmThread.cpp:281)
+libjvm.so!VMThread::inner_execute(VMThread * const this, VM_Operation * op) (/src/hotspot/share/runtime/vmThread.cpp:435)
+libjvm.so!VMThread::loop(VMThread * const this) (/src/hotspot/share/runtime/vmThread.cpp:502)
+libjvm.so!VMThread::run(VMThread * const this) (/src/hotspot/share/runtime/vmThread.cpp:175)
+libjvm.so!Thread::call_run(Thread * const this) (/src/hotspot/share/runtime/thread.cpp:217)
+libjvm.so!thread_native_entry(Thread * thread) (/src/hotspot/os/linux/os_linux.cpp:778)
 libc.so.6!start_thread(void * arg) (pthread_create.c:442)
 libc.so.6!clone3() (clone3.S:81)
 ```
@@ -498,18 +504,20 @@ class VM_HandshakeAllThreads: public VM_Operation {
     }
 ```
 
+
+
 - `Common-Cleaner` 
 
 threads call `do_handshake()`  :
 ```
-libjvm.so!HandshakeOperation::do_handshake(HandshakeOperation * const this, JavaThread * thread) (/home/labile/opensource/jdk/src/hotspot/share/runtime/handshake.cpp:319)
-libjvm.so!HandshakeState::process_by_self(HandshakeState * const this, bool allow_suspend, bool check_async_exception) (/home/labile/opensource/jdk/src/hotspot/share/runtime/handshake.cpp:562)
-libjvm.so!SafepointMechanism::process(JavaThread * thread, bool allow_suspend, bool check_async_exception) (/home/labile/opensource/jdk/src/hotspot/share/runtime/safepointMechanism.cpp:159)
-libjvm.so!SafepointMechanism::process_if_requested(JavaThread * thread, bool allow_suspend, bool check_async_exception) (/home/labile/opensource/jdk/src/hotspot/share/runtime/safepointMechanism.inline.hpp:83)
-libjvm.so!ThreadBlockInVMPreprocess<void (JavaThread*)>::~ThreadBlockInVMPreprocess()(ThreadBlockInVMPreprocess<void(JavaThread*)> * const this) (/home/labile/opensource/jdk/src/hotspot/share/runtime/interfaceSupport.inline.hpp:218)
-libjvm.so!ThreadBlockInVM::~ThreadBlockInVM(ThreadBlockInVM * const this) (/home/labile/opensource/jdk/src/hotspot/share/runtime/interfaceSupport.inline.hpp:223)
-libjvm.so!Parker::park(Parker * const this, bool isAbsolute, jlong time) (/home/labile/opensource/jdk/src/hotspot/os/posix/os_posix.cpp:1741)
-libjvm.so!Unsafe_Park(JNIEnv * env, jobject unsafe, jboolean isAbsolute, jlong time) (/home/labile/opensource/jdk/src/hotspot/share/prims/unsafe.cpp:768)
+libjvm.so!HandshakeOperation::do_handshake(HandshakeOperation * const this, JavaThread * thread) (/src/hotspot/share/runtime/handshake.cpp:319)
+libjvm.so!HandshakeState::process_by_self(HandshakeState * const this, bool allow_suspend, bool check_async_exception) (/src/hotspot/share/runtime/handshake.cpp:562)
+libjvm.so!SafepointMechanism::process(JavaThread * thread, bool allow_suspend, bool check_async_exception) (/src/hotspot/share/runtime/safepointMechanism.cpp:159)
+libjvm.so!SafepointMechanism::process_if_requested(JavaThread * thread, bool allow_suspend, bool check_async_exception) (/src/hotspot/share/runtime/safepointMechanism.inline.hpp:83)
+libjvm.so!ThreadBlockInVMPreprocess<void (JavaThread*)>::~ThreadBlockInVMPreprocess()(ThreadBlockInVMPreprocess<void(JavaThread*)> * const this) (/src/hotspot/share/runtime/interfaceSupport.inline.hpp:218)
+libjvm.so!ThreadBlockInVM::~ThreadBlockInVM(ThreadBlockInVM * const this) (/src/hotspot/share/runtime/interfaceSupport.inline.hpp:223)
+libjvm.so!Parker::park(Parker * const this, bool isAbsolute, jlong time) (/src/hotspot/os/posix/os_posix.cpp:1741)
+libjvm.so!Unsafe_Park(JNIEnv * env, jobject unsafe, jboolean isAbsolute, jlong time) (/src/hotspot/share/prims/unsafe.cpp:768)
 [Unknown/Just-In-Time compiled code] (Unknown Source:0)
 ```
 
@@ -517,20 +525,20 @@ libjvm.so!Unsafe_Park(JNIEnv * env, jobject unsafe, jboolean isAbsolute, jlong t
 
 threads call `do_handshake()`  :
 ```
-libjvm.so!HandshakeOperation::do_handshake(HandshakeOperation * const this, JavaThread * thread) (/home/labile/opensource/jdk/src/hotspot/share/runtime/handshake.cpp:319)
-libjvm.so!HandshakeState::process_by_self(HandshakeState * const this, bool allow_suspend, bool check_async_exception) (/home/labile/opensource/jdk/src/hotspot/share/runtime/handshake.cpp:562)
-libjvm.so!SafepointMechanism::process(JavaThread * thread, bool allow_suspend, bool check_async_exception) (/home/labile/opensource/jdk/src/hotspot/share/runtime/safepointMechanism.cpp:159)
-libjvm.so!SafepointMechanism::process_if_requested(JavaThread * thread, bool allow_suspend, bool check_async_exception) (/home/labile/opensource/jdk/src/hotspot/share/runtime/safepointMechanism.inline.hpp:83)
-libjvm.so!ThreadBlockInVMPreprocess<InFlightMutexRelease>::~ThreadBlockInVMPreprocess(ThreadBlockInVMPreprocess<InFlightMutexRelease> * const this) (/home/labile/opensource/jdk/src/hotspot/share/runtime/interfaceSupport.inline.hpp:218)
-libjvm.so!Monitor::wait(Monitor * const this, uint64_t timeout) (/home/labile/opensource/jdk/src/hotspot/share/runtime/mutex.cpp:255)
-libjvm.so!MonitorLocker::wait(MonitorLocker * const this, int64_t timeout) (/home/labile/opensource/jdk/src/hotspot/share/runtime/mutexLocker.hpp:255)
-libjvm.so!CompileQueue::get(CompileQueue * const this, CompilerThread * thread) (/home/labile/opensource/jdk/src/hotspot/share/compiler/compileBroker.cpp:414)
-libjvm.so!CompileBroker::compiler_thread_loop() (/home/labile/opensource/jdk/src/hotspot/share/compiler/compileBroker.cpp:1907)
-libjvm.so!CompilerThread::thread_entry(JavaThread * thread, JavaThread * __the_thread__) (/home/labile/opensource/jdk/src/hotspot/share/compiler/compilerThread.cpp:58)
-libjvm.so!JavaThread::thread_main_inner(JavaThread * const this) (/home/labile/opensource/jdk/src/hotspot/share/runtime/javaThread.cpp:719)
-libjvm.so!JavaThread::run(JavaThread * const this) (/home/labile/opensource/jdk/src/hotspot/share/runtime/javaThread.cpp:704)
-libjvm.so!Thread::call_run(Thread * const this) (/home/labile/opensource/jdk/src/hotspot/share/runtime/thread.cpp:217)
-libjvm.so!thread_native_entry(Thread * thread) (/home/labile/opensource/jdk/src/hotspot/os/linux/os_linux.cpp:778)
+libjvm.so!HandshakeOperation::do_handshake(HandshakeOperation * const this, JavaThread * thread) (/src/hotspot/share/runtime/handshake.cpp:319)
+libjvm.so!HandshakeState::process_by_self(HandshakeState * const this, bool allow_suspend, bool check_async_exception) (/src/hotspot/share/runtime/handshake.cpp:562)
+libjvm.so!SafepointMechanism::process(JavaThread * thread, bool allow_suspend, bool check_async_exception) (/src/hotspot/share/runtime/safepointMechanism.cpp:159)
+libjvm.so!SafepointMechanism::process_if_requested(JavaThread * thread, bool allow_suspend, bool check_async_exception) (/src/hotspot/share/runtime/safepointMechanism.inline.hpp:83)
+libjvm.so!ThreadBlockInVMPreprocess<InFlightMutexRelease>::~ThreadBlockInVMPreprocess(ThreadBlockInVMPreprocess<InFlightMutexRelease> * const this) (/src/hotspot/share/runtime/interfaceSupport.inline.hpp:218)
+libjvm.so!Monitor::wait(Monitor * const this, uint64_t timeout) (/src/hotspot/share/runtime/mutex.cpp:255)
+libjvm.so!MonitorLocker::wait(MonitorLocker * const this, int64_t timeout) (/src/hotspot/share/runtime/mutexLocker.hpp:255)
+libjvm.so!CompileQueue::get(CompileQueue * const this, CompilerThread * thread) (/src/hotspot/share/compiler/compileBroker.cpp:414)
+libjvm.so!CompileBroker::compiler_thread_loop() (/src/hotspot/share/compiler/compileBroker.cpp:1907)
+libjvm.so!CompilerThread::thread_entry(JavaThread * thread, JavaThread * __the_thread__) (/src/hotspot/share/compiler/compilerThread.cpp:58)
+libjvm.so!JavaThread::thread_main_inner(JavaThread * const this) (/src/hotspot/share/runtime/javaThread.cpp:719)
+libjvm.so!JavaThread::run(JavaThread * const this) (/src/hotspot/share/runtime/javaThread.cpp:704)
+libjvm.so!Thread::call_run(Thread * const this) (/src/hotspot/share/runtime/thread.cpp:217)
+libjvm.so!thread_native_entry(Thread * thread) (/src/hotspot/os/linux/os_linux.cpp:778)
 libc.so.6!start_thread(void * arg) (pthread_create.c:442)
 libc.so.6!clone3() (clone3.S:81)
 ```
@@ -540,13 +548,13 @@ libc.so.6!clone3() (clone3.S:81)
 threads call `do_handshake()`  :
 
 ```
-libjvm.so!HandshakeOperation::do_handshake(HandshakeOperation * const this, JavaThread * thread) (/home/labile/opensource/jdk/src/hotspot/share/runtime/handshake.cpp:319)
-libjvm.so!HandshakeState::process_by_self(HandshakeState * const this, bool allow_suspend, bool check_async_exception) (/home/labile/opensource/jdk/src/hotspot/share/runtime/handshake.cpp:562)
-libjvm.so!SafepointMechanism::process(JavaThread * thread, bool allow_suspend, bool check_async_exception) (/home/labile/opensource/jdk/src/hotspot/share/runtime/safepointMechanism.cpp:159)
-libjvm.so!SafepointMechanism::process_if_requested(JavaThread * thread, bool allow_suspend, bool check_async_exception) (/home/labile/opensource/jdk/src/hotspot/share/runtime/safepointMechanism.inline.hpp:83)
-libjvm.so!SafepointMechanism::process_if_requested_with_exit_check(JavaThread * thread, bool check_async_exception) (/home/labile/opensource/jdk/src/hotspot/share/runtime/safepointMechanism.inline.hpp:88)
-libjvm.so!ThreadSafepointState::handle_polling_page_exception(ThreadSafepointState * const this) (/home/labile/opensource/jdk/src/hotspot/share/runtime/safepoint.cpp:985)
-libjvm.so!SafepointSynchronize::handle_polling_page_exception(JavaThread * thread) (/home/labile/opensource/jdk/src/hotspot/share/runtime/safepoint.cpp:778)
+libjvm.so!HandshakeOperation::do_handshake(HandshakeOperation * const this, JavaThread * thread) (/src/hotspot/share/runtime/handshake.cpp:319)
+libjvm.so!HandshakeState::process_by_self(HandshakeState * const this, bool allow_suspend, bool check_async_exception) (/src/hotspot/share/runtime/handshake.cpp:562)
+libjvm.so!SafepointMechanism::process(JavaThread * thread, bool allow_suspend, bool check_async_exception) (/src/hotspot/share/runtime/safepointMechanism.cpp:159)
+libjvm.so!SafepointMechanism::process_if_requested(JavaThread * thread, bool allow_suspend, bool check_async_exception) (/src/hotspot/share/runtime/safepointMechanism.inline.hpp:83)
+libjvm.so!SafepointMechanism::process_if_requested_with_exit_check(JavaThread * thread, bool check_async_exception) (/src/hotspot/share/runtime/safepointMechanism.inline.hpp:88)
+libjvm.so!ThreadSafepointState::handle_polling_page_exception(ThreadSafepointState * const this) (/src/hotspot/share/runtime/safepoint.cpp:985)
+libjvm.so!SafepointSynchronize::handle_polling_page_exception(JavaThread * thread) (/src/hotspot/share/runtime/safepoint.cpp:778)
 [Unknown/Just-In-Time compiled code] (Unknown Source:0)
 ```
 
@@ -554,9 +562,9 @@ libjvm.so!SafepointSynchronize::handle_polling_page_exception(JavaThread * threa
 ```
 libc.so.6!__GI___libc_read(size_t nbytes, void * buf, int fd) (read.c:26)
 libc.so.6!__GI___libc_read(int fd, void * buf, size_t nbytes) (read.c:24)
-libjava.so!handleRead(jint fd, void * buf, jint len) (/home/labile/opensource/jdk/src/java.base/unix/native/libjava/io_util_md.c:188)
-libjava.so!readBytes(JNIEnv * env, jobject this, jbyteArray bytes, jint off, jint len, jfieldID fid) (/home/labile/opensource/jdk/src/java.base/share/native/libjava/io_util.c:109)
-libjava.so!Java_java_io_FileInputStream_readBytes(JNIEnv * env, jobject this, jbyteArray bytes, jint off, jint len) (/home/labile/opensource/jdk/src/java.base/share/native/libjava/FileInputStream.c:72)
+libjava.so!handleRead(jint fd, void * buf, jint len) (/src/java.base/unix/native/libjava/io_util_md.c:188)
+libjava.so!readBytes(JNIEnv * env, jobject this, jbyteArray bytes, jint off, jint len, jfieldID fid) (/src/java.base/share/native/libjava/io_util.c:109)
+libjava.so!Java_java_io_FileInputStream_readBytes(JNIEnv * env, jobject this, jbyteArray bytes, jint off, jint len) (/src/java.base/share/native/libjava/FileInputStream.c:72)
 [Unknown/Just-In-Time compiled code] (Unknown Source:0)
 ```
 
@@ -566,7 +574,7 @@ libjava.so!Java_java_io_FileInputStream_readBytes(JNIEnv * env, jobject this, jb
 (polling)=
 ## Polling
 
-Java 线程会高频检查 safepoint flag(safepoint check/polling) ，当发现为 true（arm) 时，就到达（进入） safepoint 状态。
+Java 线程会高频检查 safepoint flag(safepoint check/polling) ，当发现为 true(arm) 时，就到达（进入） safepoint 状态。
 
 
 
