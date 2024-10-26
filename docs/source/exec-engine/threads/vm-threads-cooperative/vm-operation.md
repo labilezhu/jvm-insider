@@ -146,6 +146,15 @@ class VM_Operation : public StackObj {
 ```
 
 
+:::{figure-md} 图:VM Operations
+
+<img src="vm-operation.drawio.svg" alt="图:VM Operations">
+
+*图:VM Operations*
+:::
+*[用 Draw.io 打开](https://app.diagrams.net/?ui=sketch#Uhttps%3A%2F%2Fjvm-insider.mygraphql.com%2Fzh-cn%2Flatest%2F_images%2Fvm-operation.drawio.svg)*
+
+
 
 ## VM Thread
 
