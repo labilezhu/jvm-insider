@@ -175,3 +175,130 @@ class Monitor : public Mutex {
 };
 ```
 
+(monitor-wait)=
+### Monitor wait
+
+`Monitor` 的 wait ，分为带 safepoint check 的，和不带的：
+
+[src/hotspot/share/runtime/mutex.cpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/mutex.cpp#L213)
+```c++
+// timeout is in milliseconds - with zero meaning never timeout
+bool Monitor::wait_without_safepoint_check(uint64_t timeout) {
+  Thread* const self = Thread::current();
+
+  assert_owner(self);
+  check_rank(self);
+
+  // conceptually set the owner to null in anticipation of
+  // abdicating the lock in wait
+  set_owner(nullptr);
+
+  // Check safepoint state after resetting owner and possible NSV.
+  check_no_safepoint_state(self);
+
+  int wait_status = _lock.wait(timeout);
+  set_owner(self);
+  return wait_status != 0;          // return true IFF timeout
+}
+
+// timeout is in milliseconds - with zero meaning never timeout
+bool Monitor::wait(uint64_t timeout) {
+  JavaThread* const self = JavaThread::current();
+  // Safepoint checking logically implies an active JavaThread.
+  assert(self->is_active_Java_thread(), "invariant");
+
+  assert_owner(self);
+  check_rank(self);
+
+  // conceptually set the owner to null in anticipation of
+  // abdicating the lock in wait
+  set_owner(nullptr);
+
+  // Check safepoint state after resetting owner and possible NSV.
+  check_safepoint_state(self);
+
+  int wait_status;
+  InFlightMutexRelease ifmr(this);
+
+  {
+    ThreadBlockInVMPreprocess<InFlightMutexRelease> tbivmdc(self, ifmr);
+    OSThreadWaitState osts(self->osthread(), false /* not Object.wait() */);
+
+    wait_status = _lock.wait(timeout);
+  }
+
+  if (ifmr.not_released()) {
+    // Not unlocked by ~ThreadBlockInVMPreprocess
+    assert_owner(nullptr);
+    // Conceptually reestablish ownership of the lock.
+    set_owner(self);
+  } else {
+    lock(self);
+  }
+
+  return wait_status != 0;          // return true IFF timeout
+}
+
+
+// timeout is in milliseconds - with zero meaning never timeout
+bool Monitor::wait(uint64_t timeout) {
+  JavaThread* const self = JavaThread::current();
+  // Safepoint checking logically implies an active JavaThread.
+  assert(self->is_active_Java_thread(), "invariant");
+
+  assert_owner(self);
+  check_rank(self);
+
+  // conceptually set the owner to null in anticipation of
+  // abdicating the lock in wait
+  set_owner(nullptr);
+
+  // Check safepoint state after resetting owner and possible NSV.
+  check_safepoint_state(self);
+
+  int wait_status;
+  InFlightMutexRelease ifmr(this);
+
+  {
+    ThreadBlockInVMPreprocess<InFlightMutexRelease> tbivmdc(self, ifmr);
+    OSThreadWaitState osts(self->osthread(), false /* not Object.wait() */);
+
+    wait_status = _lock.wait(timeout);
+  }
+
+  if (ifmr.not_released()) {
+    // Not unlocked by ~ThreadBlockInVMPreprocess
+    assert_owner(nullptr);
+    // Conceptually reestablish ownership of the lock.
+    set_owner(self);
+  } else {
+    lock(self);
+  }
+
+  return wait_status != 0;          // return true IFF timeout
+}
+
+
+```
+
+带 safepoint check 的 Monitor 在发生 safepoint 时，可以执行 safepoint 任务。 stack 例子见：
+```
+libjvm.so!HandshakeOperation::do_handshake(HandshakeOperation * const this, JavaThread * thread) (/src/hotspot/share/runtime/handshake.cpp:319)
+libjvm.so!HandshakeState::process_by_self(HandshakeState * const this, bool allow_suspend, bool check_async_exception) (/src/hotspot/share/runtime/handshake.cpp:562)
+libjvm.so!SafepointMechanism::process(JavaThread * thread, bool allow_suspend, bool check_async_exception) (/src/hotspot/share/runtime/safepointMechanism.cpp:159)
+libjvm.so!SafepointMechanism::process_if_requested(JavaThread * thread, bool allow_suspend, bool check_async_exception) (/src/hotspot/share/runtime/safepointMechanism.inline.hpp:83)
+libjvm.so!ThreadBlockInVMPreprocess<InFlightMutexRelease>::~ThreadBlockInVMPreprocess(ThreadBlockInVMPreprocess<InFlightMutexRelease> * const this) (/src/hotspot/share/runtime/interfaceSupport.inline.hpp:218)
+libjvm.so!Monitor::wait(Monitor * const this, uint64_t timeout) (/src/hotspot/share/runtime/mutex.cpp:255)
+libjvm.so!MonitorLocker::wait(MonitorLocker * const this, int64_t timeout) (/src/hotspot/share/runtime/mutexLocker.hpp:255)
+libjvm.so!CompileQueue::get(CompileQueue * const this, CompilerThread * thread) (/src/hotspot/share/compiler/compileBroker.cpp:414)
+libjvm.so!CompileBroker::compiler_thread_loop() (/src/hotspot/share/compiler/compileBroker.cpp:1907)
+libjvm.so!CompilerThread::thread_entry(JavaThread * thread, JavaThread * __the_thread__) (/src/hotspot/share/compiler/compilerThread.cpp:58)
+libjvm.so!JavaThread::thread_main_inner(JavaThread * const this) (/src/hotspot/share/runtime/javaThread.cpp:719)
+libjvm.so!JavaThread::run(JavaThread * const this) (/src/hotspot/share/runtime/javaThread.cpp:704)
+libjvm.so!Thread::call_run(Thread * const this) (/src/hotspot/share/runtime/thread.cpp:217)
+libjvm.so!thread_native_entry(Thread * thread) (/src/hotspot/os/linux/os_linux.cpp:778)
+libc.so.6!start_thread(void * arg) (pthread_create.c:442)
+libc.so.6!clone3() (clone3.S:81)
+```
+
+为什么要带 safepoint check ？ 因为像上面例子中  `C2 CompilerThre` 这种 NonJava 的 thread 。也需要在非忙时执行 global safepoint 任务。
