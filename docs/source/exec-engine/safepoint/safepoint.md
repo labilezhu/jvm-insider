@@ -256,6 +256,14 @@ Safepoint 协作流程可以划分为以下几步：
 11. 发起 Request Safepoint 的应用线程恢复运行
 
 
+:::{figure-md}
+
+<img src="/exec-engine/threads/vm-threads-cooperative/vm-operation.drawio.svg" alt="图:VM Operations">
+
+*图:VM Operations*
+:::
+*[用 Draw.io 打开](https://app.diagrams.net/?ui=sketch#Uhttps%3A%2F%2Fjvm-insider.mygraphql.com%2Fzh-cn%2Flatest%2F_images%2Fvm-operation.drawio.svg)*
+
 
 
 ### 实验环境

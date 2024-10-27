@@ -148,7 +148,7 @@ class VM_Operation : public StackObj {
 
 :::{figure-md} 图:VM Operations
 
-<img src="vm-operation.drawio.svg" alt="图:VM Operations">
+<img src="/exec-engine/threads/vm-threads-cooperative/vm-operation.drawio.svg" alt="图:VM Operations">
 
 *图:VM Operations*
 :::
