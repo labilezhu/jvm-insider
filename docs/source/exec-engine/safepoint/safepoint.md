@@ -9,7 +9,6 @@
 :includehidden:
 
 threads-handshake.md
-javathread-polling-reach-sp.md
 ```
 
 
@@ -138,7 +137,7 @@ Safepoint 作为 Java 最让 end-user 讨厌，但又最让 JVM 实现者爱恨�
 
 ##  JavaThread - State
 
-详见本书的 [JavaThread Polling 与 Reach Safepoint - JavaThread - State](/exec-engine/safepoint/javathread-polling-reach-sp.md#javathread-state) 一节。
+详见本书的 [JavaThread Polling 与 Reach Safepoint - JavaThread - State](/exec-engine/safepoint/threads-handshake.md#javathread-state) 一节。
 
 
 
@@ -652,9 +651,8 @@ void SafepointMechanism::disarm_local_poll(JavaThread* thread) {
 }
 ```
 
-
-
-
+### 应用线程离开 Safepoint
+见 [Threads Handshake - 应用线程离开 Safepoint](/exec-engine/safepoint/threads-handshake.md#exit-safepoint) 一节
 
 
 ## Safepoint 问题排查
