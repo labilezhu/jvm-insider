@@ -243,16 +243,18 @@ class JavaFrameAnchor {
 
 Safepoint 协作流程可以划分为以下几步：
 
-1.  应用线程 Polling Safepoint
-2.  一个应用线程 Request Safepoint
-3.  监听 Safepoint Request
+1. VM Thread 监听 Safepoint Request
+2.  应用线程 Polling Safepoint
+3.  一个应用线程 Request Safepoint
 4.  接收 Safepoint Request
 5.  Arm Safepoint - 标记所有线程
-6.  等待应用线程到达 Safepoint
-7.  应用线程陷入 Safepoint
-8.  Global safepoint - The World Stopped
-9.  Safepoint operation 结束
-10.  Disarming Safepoint
+6.  应用线程陷入 Safepoint
+7.  等待所有应用线程到达 Safepoint
+8.  执行 Stop The World 操作
+9.  Disarming Safepoint
+10. 应用线程离开 Safepoint
+11. 发起 Request Safepoint 的应用线程恢复运行
+
 
 
 
@@ -278,7 +280,7 @@ bash -c 'echo $$ > /tmp/jvm-insider.pid && exec setarch $(uname -m) --addr-no-ra
 
 
 
-### 监听 Safepoint Request
+### VM Thread 监听 Safepoint Request
 
 见本书的 [VM Operations](/exec-engine/threads/vm-threads-cooperative/vm-operation.md) 一节。
 
@@ -418,7 +420,7 @@ inline void SafepointMechanism::ThreadData::set_polling_page(uintptr_t poll_valu
 
 
 
-### 等待应用线程到达 Safepoint
+### 等待所有应用线程到达 Safepoint
 
 然后这个  `VM Thread`   就开始等待其它应用线程（App thread） 到达（进入） safepoint 。
 
@@ -475,7 +477,7 @@ Java 线程会高频检查 safepoint flag(safepoint check/polling) ，当发现�
 
 
 
-### Global safepoint - The World Stopped
+### 执行 Stop The World 操作
 
 当 `VM Thread`   发现所有 App thread 都到达 safepoint （真实的 STW 的开始） 。就开始执行 `safepoint operation` 。`GC 操作` 是 `safepoint operation` 其中一种可能类型。
 
