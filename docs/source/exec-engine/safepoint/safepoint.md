@@ -631,14 +631,6 @@ libc.so.6!clone3() (clone3.S:81)
 ```
 
 
-### Safepoint operation 结束
-
-`safepoint operation`  执行完毕， `VM Thread`  结束 STW 。
-
-[源码 SafepointSynchronize::end()](https://github.com/openjdk/jdk/blob/dfacda488bfbe2e11e8d607a6d08527710286982/src/hotspot/share/runtime/safepoint.cpp#L487-L488)
-
-
-
 ### Disarming Safepoint
 
 [src/hotspot/share/runtime/safepointMechanism.inline.hpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/safepointMechanism.inline.hpp#L101)
