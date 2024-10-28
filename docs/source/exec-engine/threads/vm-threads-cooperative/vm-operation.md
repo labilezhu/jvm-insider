@@ -179,7 +179,7 @@ extern Monitor* VMOperation_lock;                // a lock on queue of vm_operat
 ```
 
 
-
+(loop)=
 ### VM Thread 监听 Safepoint Request
 
 [src/hotspot/share/runtime/vmThread.cpp](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/runtime/vmThread.cpp#L487)

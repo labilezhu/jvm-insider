@@ -139,7 +139,7 @@ Safepoint 作为 Java 最让 end-user 讨厌，但又最让 JVM 实现者爱恨�
 
 Safepoint 协作流程可以划分为以下几步：
 
-1. VM Thread 监听 Safepoint Request - 见本书的 [VM Operations](/exec-engine/threads/vm-threads-cooperative/vm-operation.md) 一节。
+1. VM Thread 监听 Safepoint Request - 见本书的 [VMThread - VM Operations - VM Thread 监听 Safepoint Request](/exec-engine/threads/vm-threads-cooperative/vm-operation.md#loop) 一节。
 2.  应用线程 Polling Safepoint - 见 [Threads Handshake - Polling](threads-handshake.md#polling) 一节。
 3.  一个应用线程 Request Safepoint - 详见本书的 [VMThread - VM Operations - VM Operation Request](/exec-engine/threads/vm-threads-cooperative/vm-operation.md#vm-operation-request) 一节。
 4.  接收 Safepoint Request
