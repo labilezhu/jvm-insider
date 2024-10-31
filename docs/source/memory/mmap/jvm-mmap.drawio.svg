@@ -1,0 +1,1326 @@
+<svg host="65bd71144e" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="3293px" height="3158px" viewBox="-0.5 -0.5 3293 3158" content="&lt;mxfile scale=&quot;1&quot; border=&quot;20&quot;&gt;&lt;diagram id=&quot;7yql4V3B6K-3qlvXtLdL&quot; name=&quot;jvm-mmap.drawio.svg&quot;&gt;7V1bc6O4tv4t+8FV6amKizv4MXHimfTudHd1eubUPi8uDLJNh4sPYCfZv/5o6YIBCRvHOJcO01MOFlgsaX1aNy1JA30cPf6ZuqvlbeKjcKAp/uNAvxpomqraJv4DJU+0RB8ZCi1ZpIHPntoW3AX/RayQP7YOfJRVHsyTJMyDVbXQS+IYeXmlzE3T5KH62DwJq29duQv2RmVbcOe5IRIe+5/Az5e01DFLT/+FgsWSv1lV2J2Z690v0mQds/cNNH1C/qO3I5fXxZ7Plq6fPJSK9OuBPk6TJKdX0eMYhdC5vNvo7yYNdwu6UxTnkh8ks1/QXZoSujPMM0aiFeJnL+dJDHey/In1gvV/64TfOM8Ijy7wA5qxwoy+3N7HVwv4+/mfW3z7FkVJ+gQXLmaWpiQx/vgSxOtH/qJZyn8hKzEJbzSzfO8Iong1uAtoA3kx6afQ9dASgwOlVcC49NuMfit61zEKFhVdvyVNy9Ej1L3MI+haFV9meZrco3ESJikuiZMYAelBGPIigo/xGONDv3TDYBHjMg/zDuGblxuU5gEG5QW7EQW+D++6fFgGObpbYeJx6QMeg7iMgA757MWL0M2gSQoQcY9yb8kp4oBTWCfeMfo1/p0ORs3Y9lIJTax/gDL0WCpiffInSiKUE/azu5puM6gzWWDwQfSwHVjGiJUty4OKjxGX8WZRVL4FNL5gnOBfGcTl40N3LNYAN1wzrn1BC4SHKx2OW2ZW+1PW4yU+Q8eVWKqQ/3C572bLoo6i6+ELGYDfkyzIg0TK9C+1B/Jk1QYjsyTPk6gb3qmWVeXduWbqIvdUQ5GwT3cOZ5+EX7bALz6is5UbS0WDRxkBYiFdzM4wGfg9Cv/zifSNQuTH3I2C8Ik++hcKNwi6snR/K19ULl/YDfpSuBMnaeSGpXsbNw1c/BczxM3XKaixnc95ICfljzyw/oSbBgEUiG6UY9af4+Z7QbwQf5mkq6Ubsyo1WgaS6Zxh54LUMc9LdwKM9Ji9R+ENJXfyFFc1x7Xz9xAJRvlPtGzpJQ9J6lfJKurCLZndB7g6qJMKxXOGoMpzW/V5XuOiZqqUgeWLTyVKfeQlqQuD5TxfBt59jDJGXhDjMcR7p/5siZM7nyuRU3luHiZuXu8cP8iwannij4cBvqEp/wqiVZLmbpw3aSo3gjEezzL4M5gog9FkMNIGF7jFCq0sStYZ1LVM8DAGMsEi2qo4OibKKk5UTy1EGdMBakc6QHVUsyZHDNMU5YhlimJEM7uQIk4vRXop8qGliDEY2YUUwVXdA3UJvCXxoByPJTwKknXqwUs87NK9S7EyEs0T7LadSqyMBLGSB4sFEcx/ubGPDb576M18mSIXW5jK2ZKXpp+EfsRG6AW4rvhbskJ4iF3iEt5lWt2YbHQyiPlpT4hHAZ0+YdLpqiyaytzghr+sgl/raMUdBDf1dvEN+dyl3s01Zagomi4R/oxzKQrxWNlUHXEZm9gbvicB8Vs5KGxNG9p1XOiaNTRGI910NMex7VqtFPasorJ3XasbV24PNaFuvWbo5m66QPmO6viDyXyeoVyAXNFn7VDIIV9CIXHEfzLUnQxmk4muizAb484MyBD4ih72Q62o5ARQOy9jjfNLPSX0TBEemt0R9AwR1lrdx3pp6HGZXbGrKvrns7txORKpwpkR+5ULQp8on3oYKACbbB1n7hydRevcnYXoU1mQZrmbI+kvtyIWdShij0W4rjcNIHLn+Ug/CYyVUR1ndRHXHrZOPYKg6UYrzD4Lj1pv5/d2/se086+1gTMZXCqFkf/gBvm7tOE1SYjxZKGBkd6LjF5kfEyRsQ0NGIXUiJM8mD+9R7mhS3z/ruTG3xlKv8nmTivRlbotOp3+eTOdTqPIXVnG2SYJwHT9A97s+ynFGAiAKakUm6OkhNpPqxSzrvR9HrqLrFLg02/YkLcMUgM16cFMPqNvHGIn6sKwP4mEhcHs1yYaZsm/XIwpQuCZt3RTRl6K/m+Nshz5Uwmhs6ccZeQtuI9++fcAEeyuaZNlkmcroHqSYEonIZ3yxV+m5HLorTAsLnRD03dSlJBBpV+s/CkWbSjdoGlEppTPqiRQsmZJAuIcPSLvGJpspRVNhxFE/RZafHt9O/ly8ecdZ+VuYrH/kuIfTtJ1nAcRIhQzWlXbtHbSyoQHkOZmmNx8ukqCLInP2r1ynQchrgCaM/HRbL1g77XV3WyjPh7rJw9f52i6ic7A/fvn9gbTdJECgCn800W1t6DQc+Of6dPFwg3iQzuHuoW8hwzH2Unp56830zEhkBI3DeIYpYxSIAao2USUQD5ooQx7jJtqKWtLO3pXaRBBr/6KA4470949OuukvgqRltXUn2EARN4UgPssULjiJOKWXANhdSJv4k3iEQU4Wcce/OUgCeZSHPzC9Q9nLkyCFUTH1N2F8Q1E8adA/Kmm0jRcKPVA7y3GXFk8T5v668CXG6q58910zMgoaEPAOg4eG98/jXxCgmXKJFuGfe58SodN7bXkrSt6a0rHMW2LoUkq8kJskuhUtNDr4R1+2FFZ7IVMNBBNucxzZoVO8P+LIF+uZ0MviUC2YTjQRtJP/P8sTGb4jzPCqnJmGariuzPDUizXmGMjZmRoLvIVbT7T5qZJcgQOlGea/sVWWbCAuwKGbpdMjsbsnn22TjW5Zz6fa54nC/741swyLepmgEH7hVjMV6rSkYGk2k4t8KlZooFk65rEQNKsgy0k/LVkJMmdLUMX52EP5Nv+DDKwYwDLi6r6e67pWmUnUn0T2TJ2jixbd0/HTs0ya4E0VZUkUmmyRCqrg0QcQxfnugbmpfJoY4TP8YcLCU+ioKFWv/KoknyoK+MevBcxMNuOGUKnO9oMq6d98VkP38TyFdKlaDUVDmmKyGbMZMc3qKcfYu85mBFCu+KlUkuJOx+ZmsBKy5S4LqrdBS8NccboOyIe+Pcf335Ov377et3Eyou6Ewme479nAkMPyp6r8tVHc3ddZKQ2clVkxBaj7aWkoQ+NqiOp2kNTGzm2otJP2VSlUUzzlJljK0PbUYt/Wheckk6w7I5O7Qs8NYZq6vGCmvxsFxF4v4wfjYY6thaNEf9szXjTHKojw1FM+tkJ4w0J42tdXeT1glxawfwJSq83uFeygS7m+hZTW8ouHshTlA0dE2QSSKxouv08eITKDk9jLfJT64mrDfmtyTqH6Na4SPRXaMNW0AnR4wIWIAw3G39IffKu8KFXseE4Q12cODYlylYddcF98zBlK5ECsyT1UVqOKm7c9Oz8vFz+STrsqzq719ZFXLHQ1oYlQEHXJFiwjS6wIGas9ypAHOLFkDkgu73KVxWrb1uU+Zo1lFlixmjIM0uOY68swb0fb+Xx5tiidXzC8SbLFX4TCLcP7co3gvBmz9FTsHOqSD3Hc6mvX3E9aBWqbYA6/PBqSqs7lZphaUPRiJX6ldjCGXYwm16s7RI9y/ThXBK+aXAqdUOD2Njb8SyN386zNEXP8gn37IK8GXfj79Ptb8qv45W00y7KoV3N3bed6Yr15aejEUlCBHH5DaRYDr8y4d1J9WsnHOKijS8NN4YGRMTsEf2UDApVouo1ZehYeumf3QVzZLlAH5k52lA3LMfRVZV+8qjE63CnD4l0GBI5HBuvGxIxRSvyJ+4eTbm9BW2l/ECLoHmW5xDmsqKuVuMX6+zZuvruxqpes+5tmblX9H5FsXUxi2A2BKmOjU7UYxAyP0EIQTzLfTgFpaquejso/eheill37jGOLAlsT+ffm2I8DflIlByvYvCa7zSKZUqiWKeSBXtG2FuSBSw00cuClrIAt+RlZYEkH2WdboIN7oG3IQ/eaczPks1b1zq0tBiPmVxNq++g/LsLixJiUqIp2+V0fHuu+vZFO0HK1rlTWvnkIF2HxgtZnx2yAE9m+/KyY9fkWVp9Eqq+O1LbJXmqJWSf1JNKuluRZ1gt4h0lIHiwbVXgDZqWDxzCVkfG1tGbYqtm1JdHbrO6Dl5qaer1ujTlhIwVYyVNqXyQMx94JJMPe6Q/U9e7R2nbdL6vtz+n5CdEVW3IRoO3RS003XyaswemIX3iWWq1w1Q/QVxL4NrsZ6v1sa4W67xPkOrXuLSFscIPNkW0fj+D4ygfJ1GUxMPlLv5CUue2XsmrjvrphPyvfGWZ0UrEtyTkOIGWUqQcWOehJPxc0ve7MX1rMgcqSKEfzOeIYIItZ6fZ0ScmaGuoruP7OHmIS5YrsWpXKTqHJSRwuSSJ5srZDM0TYDSAOKMNwcNyQPLF1xFE1z69IOHJfF4jurasjTy8r8id58T0KpbLkEUIuOC8aB02mOdBGpEtCvBLh4e38Rl0dVkETYmTfElZFmR8BECL3mVTYCy5YUh2LFoil2zbCSgEbK6z5zTr2SjM1lHkglCpDp9GWD0EWHBzmUT3SOVqDcvborYS/MgeGNsbUXVLpvfDNg/LtgWVv7Q1JKlfWdH969xFwcH3jM3yziTeffZbtKnjofaWWuS5dHVPQHaRYes0qYQkj2DIAjNd2Bf2pSWLj3I3CPepuGcKGl55Xc4U5b2YecuNLABM+bVtYBXQ77+hmyDN1y4BJDfeI3e1YpZMPE9+B4OmVxrvqkWdKQ3w0LeBlFZ7yr/cqtPjYhdCTF+1ebravlWnz9kwfNBm1aklmag+fTBaGmjcH7bkcbVK2LKCkZePUjrC2lOzzqvWUcqRUq/Larl/5v4oZQehLK5tJmxEB68cyfrjkPdURBesgS7O4sifVig7pqr2Fi2K1xEIS3IARWXjE+ohrzFbHdg1RRS+9kG9Wv85ftO3H/+Z/vzP9+u76dW3s9L36dX1+MvFj+vp9de/bw+JVQkvifIpbt8MpdNkPuW9ul+xMCOf/nTA4oBRjTvKWZRfJXFOzPVjiPzdiljvEU0bw3DFFqAXrn2qbjMq2gOfbgkKnXkAi+2rFxvMkiLdR3O6d1cdvfNPb6Hn+6L3V2SOj5MdE0FzDGCHKzBU1jP4fMpyFGVDfHlD9h3zvPWKOtth8kDEG+yHBff/eBNG/OsUHceGOdYFsDHQX2QtxrhDynhYCWofQBYTvIAXthM6BCHs93SxyFvo8Pdb9AcLAR4PmTG1urrES0MRAwx74WH4aan1Sygj1mRLW+ujFnWHIr5f+4lhxEHDX9cFiAhoirgaPQuuh83JMHKXE1elPVBqLFdYBaeQH33R+zZ/xmQm6gVUWYNYou8/ETKJnFqgGKUsasxOXHoDnHsLRd3JqT/Hr4GhHbACgnpx1xcdVNTFOBi7qX+H8iOHQ4Hiorpn+I5/wrSJhyvAf8gxREqKIgSxUVQUvYVuP6VgGifRKgghXHIK735bey9rPmZRB/Gnf27HNy8ZTGAv7BHbFzUUHQ/qG1jNH0Nm0SnE7rb2g0FMFGMxJUjTR2jYHbbTJ4clrEFT+gnazoPNUJiQlChysl43yqkvOkER4a4bAzvJ3K87S8jSFJa1GPDjQ2jyEGVuCQMnskP6olOxmqTWvj4tH7KoOxv9W77s2kDfbQGxF55sOqXQL4KEIVrmtTn3NlFw9xTNko4Nhh02BH9dbwb3RazoeAwTffQ6cVAG42I1bpFaUixL2QP1Zsv4VbRsx7P1d5B5etBkK5cT7IdFqmVG0sO7m0bl9fpuDnPwkCJLufV+O3y5jg+arjwW9BcpiqHv2ItLrCk6md5R8qULGnmZhD70OWzWQ9eGU3cB6ul0HrvDmWCUHRtUPkpf0vefcp6OvoGnws1hcyBYJhHMn0qL4d+CnjiZCQSimrS1azZzHvL6e6OnL4Ki4yH7JVksTgnZov4esn1RN5C9y7GNnOWBd0wKZ2EelirrIfoBio7H3wXfzqebHIFSdT0AP2DR8YC8Tfx1ePokQI5O/roerX3RoCuheufO0YquZe5CqJaq62H6AYu6mM6IvWWaxMF/289tbecm+G/ZdkM9Bt9vUQdQoht/ujM4q/2JZjCUwFK722PlXRd1YM6h3GWTFF2owlJ1PbQ+YFEXAReY0bpC/nr1nAm4nM6HKaSCMPB6nfiGijrI/iGrR2+xtZMnzZYSz9zh+w6x5/ugx7su6iDjArYRe8Vp0b/r+3v3MPzYRfsgvXuXQus32qVQVYSzklVeUtpSz+A7F1ZOWHjG2XntdikUzyL6h26CyhOmmrae2n1k1QMjHvZei5M0csOKmOCVbcrv4md0lHa+G9RP2aptoJg9BFHoFgec3rE7wPa9JynScy69ZRD6X9ynZA1dTbZE5d8ul0ka/BfOr9oesOSm/FAYcvzp9gm6pQA9pipFcML0d44MtVZ06z5WHvziZjkrqB55BT+M3HQRxJfssM76maFdwFI4mUc1+UaZ5bOb+FOVMzbVw2EpwaB4yCZ0yzQfjLXBhQJSpXoxxf2GvXxIQ5OfuXLoaZshGekNCKlKA2Nb8oN1BBQl+LfzkOzkuQx8ONkPTuPMXbpfa+lkWNJR5iWcU4f1tDI0B+YVKGzzUt1+N6/I42k+TmLcFjcgrEQYJw+QFNSS72xwi5x/qm7UuY/LmtUBk3nFu7ZDhfNlB/VdTesivB3rimNSGa/g1Fb96lw8gU4X+alLeFc/Xjelz9Z4uo9tVVwG8RKlQWfstK127HS64KZ40tqeIeslURTkeT9mj2OyIzkL+3RjVjxGrWIc3BWnkfQ2wu9tI4xUwUYwRO1RnA1dOTKzEySK575NGS6mLEffvJTskmte9eJmp7ihQ/wQE0HK5G7EjbXfRCjtmO4HbpTE/s9lAD2Jb0yCkGMef+NnNxqy0XD4Bumycx0pKndukF4cjHrsUZy2VR+Bev3YvdZncRaneDbX1eGZjbZo3v8jEellLSLRGLMk9VF67tHReUHqS8/Oz8vln6T6Y68yal+1crTe8nq91VZvHX4yZheazhLORrVHohC0NZk33IlpzcM/ZdMakmrhLJA7LO+R/yWI7+GTLEAhUPrB/GGKtR9oQWaEYF4cm93Q+MJjxhdwczojhyxS5MFiE+mIpMec1n6atdOopdOnP55SHR2qVKV46kKpmoqoVF3frzP1DJfhIlgDBsiYwlcKIObW0QsoEhw8D/pqwM/+GrthyLfXpJHgATtpiNZXOplhHrqLxtPoezS1RJPE7e8KTU0nm2QoFwQK2NslFG0BJDCc4maiDEaTwQhfszbnSRLmwWrAIkGzX5tomCX/ahZMx1GhKWfkKJYIzl8JIVsILpIVipndp01++fego/cfP9yo6fULQ1NgBgxrKTKNsG1X/TTpFHnY3Kg5NbQ9mySABbd/vFyDSgdmL0kzsMkob0ZxECCWGRmuIZ/i8ZFhgdIBQescUrjIJjUTH83WC9antmrKiaH7+2a0Qz18naPpJjqD3bz/ub3BlF6ki4z3JLkkGxwlsO8BKfTc+Gf6dLHAQ7UD+tN1nAfk13Rr6IxjwnHk9H/+ejMdE7IpydMgjlHK6AcSgcZNRMnmqIAyTNOmWspa2EErVmkQAQd+xQGjXzdtu10D3h7pliX0fRgA6TcFkD8LdK844bh910BunfSbeMOObZqsYy+nVhJpSTA/HEm/8MuH1EArmhKzfQwmlGL+lAdjE+t4eZugFbcYy2UJMn1W3x5IkiGOUEoRHaEyuo4max0Hj41UTSOfEGaZFXFMfJ4pHZ01YggtK3prSmUJbZpRkYReiG0QnUo7ej28w085KjNsCjtMLfsdjVPZvdXT0upRFXGKsiuzp9XEuSNGJCumCnfC+tD4Gw4xdBAw0Ey9HjAowmv7oqYFiI8LGBgyD49YwA2TcaAGCjePWMp9jHyHKHIawryvESN3RHd+98RrcTElDrxECPSq5zB+SxzuE/LbFvgtD/b1euY31zOGcByuZYmSx7BkesboRM+IqYKFiGkKTI951kdzZLpIDGExnBKAuZEtUV/1X2WtJdvHVWP2oWpMCiY+738clsQ5wXr4uGA1Cx73Wuso9komsaTs7URrjcQ5rCJeuc9O2RosENfs+X4k31VVNFdOyHgxL/D6MUexL/oYpUyOWZiAUi5lbajWoJzSIVWnB+dwcFuqksPRZOydIIdD4iraz83h0KzR3rq6zOEQdT87PryZqxC1qzIVd8yl72ZL5DNGPounFfZVVoicOAVnZKhDxxk5umIqjmEbZp0BddXYmpm6kJBjKsZQc0wbm27082SsHYnhg5BYcM2cbcq8UgYnyLySj1rt5UataptDw1FHmm2rmO96nVP1NRCtua7oo6GqW6ZhqRhOOnftt3hSjNNx3RS43mCr947l7+1YYhdLcCxly9JkNsOoC19gJIa0uvAFPqyfR4f2m/DzTA6tN2kPchn4avag5ShDS6ubEcJaz/Y2oYUNFLten6OczC40FdHef67xcJK0bTmLG5bYnILF4sKJZ6dt68L64VOmbZt8buoNLv7pk6jfdhK1pghJ1Lok/mRJk6i7mBM1FXF2vkiiLjJapXCmOc9ZjDt5iZFoXo4vvoyn3y4/T+9u/vd6evN1+vM/36/Pqr/lT5cyZj9Rdd7OVvnA8SsmZw4xV6S46SZZWpxto7Bh2ZlFuilNzzwTkqP7/ObOASCZbj0ZAIyRKDdQvI5wSeSunmPVnCQkwtfllq0aJvJeJhLmGHX5bjrPjoJoylBzdMfQ7FGxBHAbA1FPFgMxFTGo+TekEr58SLPM3WLFRpW7DVH+U9isimCzWvpzuasKNqtQ17M52rQ8oZ0BStNhwPxUjdUjYZcCsvmciVu4wyTuAFbFePeLNFnHfnmdYLqYnWmmSiV/+aJhJWJl0cMOA7ZhLUSS8bUCRA0JWmj2lKNqUjt6RN6aSneZdioybtsmsic8hx1mG97SigD95VYE9En/p0/67/P6j8rr71P3u0zdV8qp6GLq/gvbB4YumRBjRkOjR36OTXZrVDOudMGw7s5AFOYURs+OauqOI4mS6i0nx7b18QeT+TxDB5oabZYEmKoYMQMH6tGea57hmCNPgV6ph8uoHXLl3IOZ0egu7tnjUAjnONoMy0Rm60zcKAih58a4zwPYakH5ih5INCnO8WCG6NeVuDWWpogBJN9Ejm8IgaiOtkjUhBCnLclxtExTdP8KQ7OD9a3fURqBmTWwxw9NDAPzD/sPyr9nkgho28Wt3KD7EsTrR2akkFlYvv4ziFbhmYel9qC+/lMSeijZfLv1aJIRIQvvhC9Tcsk0qWYbDasrObErf1olMkmn6DHIn0MnTwWlK8hLFUQoWxzTCFvd3YjntGC/ef2shuyysh2loR3FgSy3CL8sDrKItosFkqZbK/zs0LdnQtWMGqthDXATLRgo3ZJB1yKbglW0m4xTdIXahK835HA0Ldk+ncPR+xRd+RQfzW14p56BWo65ip4BiRcVlv9BJlxpQmCXAdfK5mKGaaPVpRr6sJbMqNpDUxs5tqLST5mrYAw1iR1mK0PbUYt/h0/mtTO1xaTFdlG/OetJMN/+QuEGwVTKnuBfPYxXCWu1nYh+v1gYjYY6linGiH+2xoJpDtWR4Sgm/exiYlcV8xaFrs7uUe4ty9NZKL3eIDqrRbp36frEX1fK3rmyiweSbDIsLQzdMHBvASRWBK1X8+ARKhP2CxaSDL7UHpixCfyG6T0hWSFZ57Bd8jjBytvj2QG4YSvohOhxgTG1HG42/pBtj9kRPvQqNrBrrqsCHkzZvP6oC+5LdoikHjb+D3+4NQ+7030EmaOuPKrkLR/eV9frKxBsU9ycWJdN1dpGF1gQ5+p7FdBuiO+OFaq1nUZVrNFtUeZr1lAWhzFGQ03vgr2S1ab9eKuMt2KrypcZb+KSzbeL8IYMz1dEOHjqSZKXA86gom8TH6KO1/8P&lt;/diagram&gt;&lt;/mxfile&gt;" style="background-color: rgb(255, 255, 255);">
+    <defs>
+        <clipPath id="mx-clip-624-1090-162-26-0">
+            <rect x="624" y="1090" width="162" height="26"/>
+        </clipPath>
+        <clipPath id="mx-clip-624-1124-162-26-0">
+            <rect x="624" y="1124" width="162" height="26"/>
+        </clipPath>
+        <clipPath id="mx-clip-864-1082-222-26-0">
+            <rect x="864" y="1082" width="222" height="26"/>
+        </clipPath>
+        <clipPath id="mx-clip-634-832-712-26-0">
+            <rect x="634" y="832" width="712" height="26"/>
+        </clipPath>
+        <clipPath id="mx-clip-634-858-712-26-0">
+            <rect x="634" y="858" width="712" height="26"/>
+        </clipPath>
+        <clipPath id="mx-clip-634-884-712-26-0">
+            <rect x="634" y="884" width="712" height="26"/>
+        </clipPath>
+        <clipPath id="mx-clip-1484-702-222-26-0">
+            <rect x="1484" y="702" width="222" height="26"/>
+        </clipPath>
+        <clipPath id="mx-clip-1484-728-222-26-0">
+            <rect x="1484" y="728" width="222" height="26"/>
+        </clipPath>
+        <clipPath id="mx-clip-1404-962-452-40-0">
+            <rect x="1404" y="962" width="452" height="40"/>
+        </clipPath>
+        <clipPath id="mx-clip-1404-1002-452-26-0">
+            <rect x="1404" y="1002" width="452" height="26"/>
+        </clipPath>
+        <clipPath id="mx-clip-1404-1028-452-26-0">
+            <rect x="1404" y="1028" width="452" height="26"/>
+        </clipPath>
+        <clipPath id="mx-clip-2054-952-452-40-0">
+            <rect x="2054" y="952" width="452" height="40"/>
+        </clipPath>
+        <clipPath id="mx-clip-1034-1232-612-26-0">
+            <rect x="1034" y="1232" width="612" height="26"/>
+        </clipPath>
+        <clipPath id="mx-clip-1034-1258-612-26-0">
+            <rect x="1034" y="1258" width="612" height="26"/>
+        </clipPath>
+    </defs>
+    <g>
+        <rect x="1320" y="3017" width="490" height="120" rx="18" ry="18" fill="none" stroke="none" pointer-events="all"/>
+        <path d="M 1324.43 3021.58 C 1324.43 3021.58 1324.43 3021.58 1324.43 3021.58 M 1324.43 3021.58 C 1324.43 3021.58 1324.43 3021.58 1324.43 3021.58 M 1323.51 3028.74 C 1324.59 3025.41 1327.97 3023.86 1331.38 3019.68 M 1323.51 3028.74 C 1325.17 3026.27 1327.97 3023.74 1331.38 3019.68 M 1321.94 3036.64 C 1328.39 3030.6 1332.8 3023.79 1338.34 3017.78 M 1321.94 3036.64 C 1325.06 3031.29 1330.3 3026.97 1338.34 3017.78 M 1321.68 3043.04 C 1325.83 3037.45 1331.41 3030.85 1343.98 3017.38 M 1321.68 3043.04 C 1327.38 3035.74 1335.17 3028.11 1343.98 3017.38 M 1322.07 3048.68 C 1332.09 3037.65 1340.51 3027.1 1348.97 3017.74 M 1322.07 3048.68 C 1328.95 3039.71 1335.03 3033.53 1348.97 3017.74 M 1321.81 3055.08 C 1331.73 3046.79 1341.53 3032.55 1354.61 3017.35 M 1321.81 3055.08 C 1333.31 3040.68 1345.65 3028.67 1354.61 3017.35 M 1322.2 3060.72 C 1332.06 3049.37 1342.23 3037.56 1359.6 3017.71 M 1322.2 3060.72 C 1334.56 3047.18 1344.77 3035.15 1359.6 3017.71 M 1321.94 3067.12 C 1333.66 3053.01 1347.1 3037.85 1365.24 3017.31 M 1321.94 3067.12 C 1338.35 3047.73 1355.26 3029.83 1365.24 3017.31 M 1322.34 3072.77 C 1338.66 3051.86 1353.7 3035.54 1370.23 3017.67 M 1322.34 3072.77 C 1332.26 3061.87 1343.14 3049.45 1370.23 3017.67 M 1322.07 3079.16 C 1337.8 3060.29 1357.33 3040.76 1375.87 3017.28 M 1322.07 3079.16 C 1338.63 3058.31 1356.85 3038.06 1375.87 3017.28 M 1321.81 3085.56 C 1333.05 3072.79 1345.73 3058.26 1380.86 3017.64 M 1321.81 3085.56 C 1337.61 3066.1 1355.03 3046.84 1380.86 3017.64 M 1322.21 3091.2 C 1345.17 3065.41 1368.48 3039.7 1386.5 3017.24 M 1322.21 3091.2 C 1343.85 3065.41 1366.84 3040.16 1386.5 3017.24 M 1321.95 3097.6 C 1346.61 3070.01 1367.18 3043.3 1391.49 3017.6 M 1321.95 3097.6 C 1347.36 3069.21 1370.19 3042.1 1391.49 3017.6 M 1322.34 3103.24 C 1353.47 3068.88 1380.69 3033.73 1397.13 3017.21 M 1322.34 3103.24 C 1344.54 3077.63 1364.81 3054.57 1397.13 3017.21 M 1322.08 3109.64 C 1351.08 3075.61 1377.57 3043.07 1402.12 3017.57 M 1322.08 3109.64 C 1352.76 3074.25 1381.93 3040.23 1402.12 3017.57 M 1322.47 3115.29 C 1340.25 3092.07 1359.11 3072.4 1407.76 3017.17 M 1322.47 3115.29 C 1349.25 3084.05 1375.1 3054.39 1407.76 3017.17 M 1320.9 3123.19 C 1348.66 3091.57 1378.25 3061.56 1412.75 3017.53 M 1320.9 3123.19 C 1341.81 3097.22 1363.22 3071.61 1412.75 3017.53 M 1322.61 3127.33 C 1342.62 3103.58 1362.64 3083.4 1417.74 3017.89 M 1322.61 3127.33 C 1350.61 3096.47 1377.91 3064.64 1417.74 3017.89 M 1324.31 3131.46 C 1358.64 3089.9 1396.47 3049.48 1423.38 3017.5 M 1324.31 3131.46 C 1355.94 3095.05 1387.74 3057.45 1423.38 3017.5 M 1326.68 3134.84 C 1352.78 3101.04 1383.13 3070.13 1428.37 3017.86 M 1326.68 3134.84 C 1350.56 3106.73 1376.16 3077.89 1428.37 3017.86 M 1331.01 3135.95 C 1362.69 3096.32 1397.94 3060.54 1434.01 3017.46 M 1331.01 3135.95 C 1367.01 3093.31 1403.57 3052.43 1434.01 3017.46 M 1334.68 3137.82 C 1367.2 3096.39 1403.88 3055.81 1439 3017.82 M 1334.68 3137.82 C 1364.87 3104.41 1394.33 3068.65 1439 3017.82 M 1340.33 3137.43 C 1376.22 3097.67 1410.56 3055.68 1444.64 3017.43 M 1340.33 3137.43 C 1377.31 3095 1412.74 3052.9 1444.64 3017.43 M 1345.31 3137.79 C 1377.6 3098.14 1408.49 3063.65 1449.63 3017.79 M 1345.31 3137.79 C 1371.53 3105.56 1396.87 3076.41 1449.63 3017.79 M 1350.96 3137.39 C 1387.7 3094.02 1425.72 3049.83 1455.27 3017.4 M 1350.96 3137.39 C 1378.75 3104.61 1407.58 3073.2 1455.27 3017.4 M 1355.94 3137.75 C 1383.15 3105.44 1411.85 3072.66 1460.26 3017.76 M 1355.94 3137.75 C 1388.85 3099.59 1421.63 3061.94 1460.26 3017.76 M 1361.59 3137.36 C 1395.57 3099.89 1426.71 3062.83 1465.9 3017.36 M 1361.59 3137.36 C 1400.67 3091.98 1439.21 3048.58 1465.9 3017.36 M 1366.57 3137.72 C 1395.96 3103.2 1427.08 3066.72 1470.89 3017.72 M 1366.57 3137.72 C 1402.98 3097.28 1438.35 3055.85 1470.89 3017.72 M 1372.22 3137.33 C 1403.85 3102.7 1432.81 3070.16 1476.53 3017.33 M 1372.22 3137.33 C 1398.26 3107.88 1423.08 3077.57 1476.53 3017.33 M 1377.2 3137.69 C 1399.05 3112.35 1423.45 3083.94 1481.52 3017.69 M 1377.2 3137.69 C 1410.93 3099.25 1446.01 3060.36 1481.52 3017.69 M 1382.19 3138.05 C 1419.92 3092.38 1460.97 3047.78 1487.16 3017.29 M 1382.19 3138.05 C 1403.57 3113.35 1424.63 3088.47 1487.16 3017.29 M 1387.83 3137.65 C 1416.15 3105.96 1446.69 3072.83 1492.15 3017.65 M 1387.83 3137.65 C 1428.13 3091.82 1470.38 3045.13 1492.15 3017.65 M 1392.82 3138.01 C 1420.8 3105.71 1449.3 3073.71 1497.79 3017.26 M 1392.82 3138.01 C 1420.59 3107.42 1447.52 3075.82 1497.79 3017.26 M 1398.46 3137.62 C 1425.89 3109.26 1449.72 3076.31 1502.78 3017.62 M 1398.46 3137.62 C 1436.7 3095.11 1474.61 3051.36 1502.78 3017.62 M 1403.45 3137.98 C 1443.16 3094.89 1481.84 3046.68 1507.76 3017.98 M 1403.45 3137.98 C 1440.6 3094.77 1480.32 3049.39 1507.76 3017.98 M 1409.09 3137.58 C 1449.18 3095.28 1487.58 3047.37 1513.41 3017.58 M 1409.09 3137.58 C 1430.78 3112.84 1452.24 3087.62 1513.41 3017.58 M 1414.08 3137.94 C 1451.94 3095.28 1485.51 3054.82 1518.39 3017.94 M 1414.08 3137.94 C 1454.38 3090.83 1495.17 3044.89 1518.39 3017.94 M 1419.72 3137.55 C 1461.04 3091.32 1501.65 3043.47 1524.04 3017.55 M 1419.72 3137.55 C 1459.09 3092.77 1497.49 3046.26 1524.04 3017.55 M 1424.71 3137.91 C 1447.53 3114.76 1466.06 3089.53 1529.02 3017.91 M 1424.71 3137.91 C 1455.82 3101.18 1485.09 3066.55 1529.02 3017.91 M 1430.35 3137.51 C 1455.51 3106.73 1483.31 3078.42 1534.67 3017.51 M 1430.35 3137.51 C 1459.56 3104.21 1487.04 3072.92 1534.67 3017.51 M 1435.34 3137.87 C 1469.63 3097.32 1504.45 3060.36 1539.65 3017.87 M 1435.34 3137.87 C 1476.63 3091.15 1516.41 3043.93 1539.65 3017.87 M 1440.98 3137.48 C 1468.98 3102.84 1498.01 3068.24 1545.3 3017.48 M 1440.98 3137.48 C 1461.22 3112.15 1484.48 3086.69 1545.3 3017.48 M 1445.97 3137.84 C 1473.49 3102.77 1503.79 3066.95 1550.28 3017.84 M 1445.97 3137.84 C 1477.12 3101.61 1506.94 3065.84 1550.28 3017.84 M 1451.61 3137.44 C 1473.43 3111.07 1498.28 3081.29 1555.93 3017.45 M 1451.61 3137.44 C 1472.99 3113.53 1493.94 3090.34 1555.93 3017.45 M 1456.6 3137.8 C 1481.51 3109.16 1507 3081.4 1560.91 3017.81 M 1456.6 3137.8 C 1493.4 3097.3 1531.3 3054.76 1560.91 3017.81 M 1462.24 3137.41 C 1501.61 3094.99 1538.04 3052.33 1566.56 3017.41 M 1462.24 3137.41 C 1483.75 3112.84 1505.08 3087.96 1566.56 3017.41 M 1467.23 3137.77 C 1501.51 3098.37 1536.43 3057.9 1571.54 3017.77 M 1467.23 3137.77 C 1488.95 3114.64 1508.41 3090.57 1571.54 3017.77 M 1472.87 3137.38 C 1509.11 3096.05 1545.49 3052.25 1577.19 3017.38 M 1472.87 3137.38 C 1502.42 3104.59 1531.93 3071.39 1577.19 3017.38 M 1477.86 3137.74 C 1509.79 3104.58 1539.24 3069.21 1582.17 3017.74 M 1477.86 3137.74 C 1501.89 3111.94 1526.78 3084.79 1582.17 3017.74 M 1482.85 3138.1 C 1512.54 3104.42 1541.84 3066.7 1587.82 3017.34 M 1482.85 3138.1 C 1504.89 3113.25 1526.32 3088.04 1587.82 3017.34 M 1488.49 3137.7 C 1528.19 3093.97 1564.77 3050.33 1592.8 3017.7 M 1488.49 3137.7 C 1520.93 3099.03 1555.36 3060.22 1592.8 3017.7 M 1493.48 3138.06 C 1533.86 3090.63 1576.02 3044.51 1598.45 3017.31 M 1493.48 3138.06 C 1525.2 3099.48 1556.02 3063.65 1598.45 3017.31 M 1499.12 3137.67 C 1531.8 3102.61 1563.06 3064.39 1603.43 3017.67 M 1499.12 3137.67 C 1531.59 3101.71 1561.37 3065.36 1603.43 3017.67 M 1504.11 3138.03 C 1533.56 3103.52 1563.1 3070.93 1608.42 3018.03 M 1504.11 3138.03 C 1543.33 3091.96 1582.5 3047.71 1608.42 3018.03 M 1509.75 3137.63 C 1544.47 3098.92 1577.55 3061.12 1614.06 3017.63 M 1509.75 3137.63 C 1541.04 3103.55 1570.99 3070.26 1614.06 3017.63 M 1514.74 3137.99 C 1550.42 3094.09 1586.66 3054.75 1619.05 3017.99 M 1514.74 3137.99 C 1552.94 3091.29 1591.99 3046.62 1619.05 3017.99 M 1520.38 3137.6 C 1546.52 3105.2 1576.44 3074.4 1624.69 3017.6 M 1520.38 3137.6 C 1557.24 3097.55 1590.68 3056.13 1624.69 3017.6 M 1525.37 3137.96 C 1566.78 3090.62 1608.53 3041.23 1629.68 3017.96 M 1525.37 3137.96 C 1561.08 3094.98 1597.85 3054.2 1629.68 3017.96 M 1531.01 3137.56 C 1568.59 3091.9 1610.07 3048.49 1635.32 3017.56 M 1531.01 3137.56 C 1554.04 3110.79 1575.46 3086.02 1635.32 3017.56 M 1536 3137.92 C 1577.9 3088.91 1618.56 3045.11 1640.31 3017.92 M 1536 3137.92 C 1566.96 3103.82 1595.28 3071.11 1640.31 3017.92 M 1541.64 3137.53 C 1566.54 3109.31 1593.39 3077.73 1645.95 3017.53 M 1541.64 3137.53 C 1561.82 3112.01 1585 3088.38 1645.95 3017.53 M 1546.63 3137.89 C 1575.64 3105.1 1601.27 3075.71 1650.94 3017.89 M 1546.63 3137.89 C 1575.82 3104.23 1603.9 3071.35 1650.94 3017.89 M 1552.27 3137.49 C 1580.24 3106.1 1610.94 3073.14 1656.58 3017.5 M 1552.27 3137.49 C 1586.1 3097.59 1620.74 3059.05 1656.58 3017.5 M 1557.26 3137.85 C 1593.38 3095.11 1630.47 3056.43 1661.57 3017.86 M 1557.26 3137.85 C 1592.44 3098.84 1626.45 3058.87 1661.57 3017.86 M 1562.9 3137.46 C 1584.42 3112.87 1605.48 3085.85 1667.21 3017.46 M 1562.9 3137.46 C 1591.46 3103.85 1621.89 3067.57 1667.21 3017.46 M 1567.89 3137.82 C 1604.89 3097.15 1639.82 3055.13 1672.2 3017.82 M 1567.89 3137.82 C 1609.58 3091.45 1649.12 3044.58 1672.2 3017.82 M 1573.53 3137.42 C 1595.27 3112.17 1617.08 3085.27 1677.84 3017.43 M 1573.53 3137.42 C 1608.65 3096.65 1645.92 3054.76 1677.84 3017.43 M 1578.52 3137.78 C 1616.68 3093.39 1655.48 3053.93 1682.83 3017.79 M 1578.52 3137.78 C 1611.15 3100.1 1642.8 3063.35 1682.83 3017.79 M 1583.51 3138.15 C 1606.65 3111.34 1632.76 3083.6 1688.47 3017.39 M 1583.51 3138.15 C 1607.75 3108.36 1633.58 3079.54 1688.47 3017.39 M 1589.15 3137.75 C 1615.77 3105.97 1641.3 3077.18 1693.46 3017.75 M 1589.15 3137.75 C 1613.97 3108.33 1640.52 3077.32 1693.46 3017.75 M 1594.14 3138.11 C 1629.03 3097.9 1662.71 3055.94 1699.11 3017.36 M 1594.14 3138.11 C 1624.13 3105.25 1652.57 3070.96 1699.11 3017.36 M 1599.78 3137.72 C 1628.32 3105.37 1656.06 3071.79 1704.09 3017.72 M 1599.78 3137.72 C 1633.61 3101.48 1665.58 3064.16 1704.09 3017.72 M 1604.77 3138.08 C 1628.26 3107.75 1656.81 3080 1709.08 3018.08 M 1604.77 3138.08 C 1632.41 3107.26 1657.89 3077.27 1709.08 3018.08 M 1610.41 3137.68 C 1640.15 3107.82 1666.48 3076.68 1714.72 3017.68 M 1610.41 3137.68 C 1642.71 3102.6 1673.08 3067.01 1714.72 3017.68 M 1615.4 3138.04 C 1640.27 3111.12 1664.4 3081.27 1719.71 3018.04 M 1615.4 3138.04 C 1645.25 3105.12 1672.25 3072.72 1719.71 3018.04 M 1621.04 3137.65 C 1646.53 3111.77 1671.68 3083.23 1725.35 3017.65 M 1621.04 3137.65 C 1656.05 3096.49 1691.41 3054.51 1725.35 3017.65 M 1626.03 3138.01 C 1660.04 3095.3 1698.31 3053.32 1730.34 3018.01 M 1626.03 3138.01 C 1664.69 3091.56 1704.7 3045.95 1730.34 3018.01 M 1631.67 3137.61 C 1669 3093.73 1707.93 3047.16 1735.98 3017.61 M 1631.67 3137.61 C 1661.47 3103.94 1690.75 3071.05 1735.98 3017.61 M 1636.66 3137.97 C 1660.03 3109.18 1685.37 3081.38 1740.97 3017.97 M 1636.66 3137.97 C 1670.04 3099.23 1704.45 3061.08 1740.97 3017.97 M 1642.3 3137.58 C 1672.69 3104.29 1698.56 3072.51 1746.61 3017.58 M 1642.3 3137.58 C 1673.32 3103.08 1703.01 3070.09 1746.61 3017.58 M 1647.29 3137.94 C 1679.94 3102.01 1709.18 3065.26 1751.6 3017.94 M 1647.29 3137.94 C 1687.96 3090.12 1730.13 3043.33 1751.6 3017.94 M 1652.93 3137.54 C 1681.99 3102.05 1711.64 3069.54 1757.24 3017.54 M 1652.93 3137.54 C 1678.23 3110.09 1703.06 3078.9 1757.24 3017.54 M 1657.92 3137.9 C 1696.68 3094.83 1733.97 3054.82 1762.23 3017.9 M 1657.92 3137.9 C 1697.38 3092.39 1736.42 3047.8 1762.23 3017.9 M 1663.56 3137.51 C 1697.75 3097.73 1736.03 3058.93 1767.87 3017.51 M 1663.56 3137.51 C 1699.33 3094.75 1737.52 3052.11 1767.87 3017.51 M 1668.55 3137.87 C 1707.02 3092.85 1746.77 3050.33 1772.86 3017.87 M 1668.55 3137.87 C 1706.07 3091.67 1746.15 3048.86 1772.86 3017.87 M 1674.19 3137.47 C 1709.42 3091.97 1751.23 3049.51 1778.5 3017.48 M 1674.19 3137.47 C 1708.79 3096.73 1743.82 3057.96 1778.5 3017.48 M 1679.18 3137.83 C 1713.11 3101.43 1742.01 3062.46 1783.49 3017.84 M 1679.18 3137.83 C 1703.33 3109.42 1728.31 3082.43 1783.49 3017.84 M 1684.16 3138.19 C 1712.17 3104.19 1740.68 3074.94 1789.13 3017.44 M 1684.16 3138.19 C 1709.55 3109.88 1733.59 3082.48 1789.13 3017.44 M 1689.81 3137.8 C 1720.98 3101.92 1752.91 3064.14 1794.12 3017.8 M 1689.81 3137.8 C 1719.01 3104.96 1748.52 3070.02 1794.12 3017.8 M 1694.79 3138.16 C 1730.12 3100.6 1763.62 3058.98 1798.45 3018.92 M 1694.79 3138.16 C 1736.94 3088.67 1777.24 3043.06 1798.45 3018.92 M 1700.44 3137.77 C 1733.13 3102.48 1765.56 3066.28 1802.13 3020.79 M 1700.44 3137.77 C 1720.98 3111.7 1742.87 3087.67 1802.13 3020.79 M 1705.42 3138.13 C 1727.86 3114.32 1748.46 3089.11 1806.46 3021.9 M 1705.42 3138.13 C 1737.38 3100.46 1769.22 3062.65 1806.46 3021.9 M 1711.07 3137.73 C 1731.42 3113.59 1749.2 3094.29 1808.16 3026.03 M 1711.07 3137.73 C 1750.92 3091.92 1789.52 3046.77 1808.16 3026.03 M 1716.05 3138.09 C 1750.1 3099.19 1782.24 3063.24 1809.87 3030.17 M 1716.05 3138.09 C 1751.81 3097.85 1786.36 3055.56 1809.87 3030.17 M 1721.7 3137.7 C 1745.52 3108.84 1773.8 3082.26 1812.23 3033.55 M 1721.7 3137.7 C 1753.11 3101.41 1786.68 3066.1 1812.23 3033.55 M 1726.68 3138.06 C 1760.04 3100.03 1793.61 3059.26 1812.63 3039.19 M 1726.68 3138.06 C 1751.42 3107.4 1777.96 3075.64 1812.63 3039.19 M 1732.33 3137.66 C 1749.36 3118.66 1765.91 3101.76 1812.37 3045.59 M 1732.33 3137.66 C 1754.99 3111.47 1779.92 3084.94 1812.37 3045.59 M 1737.31 3138.02 C 1761.35 3107.97 1786.97 3080.2 1812.76 3051.23 M 1737.31 3138.02 C 1762.31 3108.97 1787.37 3079.88 1812.76 3051.23 M 1742.96 3137.63 C 1759.24 3119.92 1772.94 3100.13 1812.5 3057.63 M 1742.96 3137.63 C 1768.82 3107.61 1792.7 3079.25 1812.5 3057.63 M 1747.94 3137.99 C 1772.25 3110.49 1794.93 3081.77 1812.24 3064.03 M 1747.94 3137.99 C 1772.5 3108.63 1799.58 3079.68 1812.24 3064.03 M 1753.59 3137.59 C 1776.38 3112.19 1799.09 3083.16 1812.63 3069.67 M 1753.59 3137.59 C 1766.67 3122.26 1780.36 3105.37 1812.63 3069.67 M 1758.57 3137.95 C 1775.54 3118.86 1787.77 3102.95 1812.37 3076.07 M 1758.57 3137.95 C 1779.17 3114.29 1800.15 3089.28 1812.37 3076.07 M 1764.22 3137.56 C 1776.43 3123.59 1793.37 3106.05 1812.77 3081.71 M 1764.22 3137.56 C 1776.36 3123.48 1791.02 3106.8 1812.77 3081.71 M 1769.2 3137.92 C 1787.56 3118.93 1803.52 3098.03 1812.5 3088.11 M 1769.2 3137.92 C 1781.85 3123.73 1794.84 3109.44 1812.5 3088.11 M 1774.19 3138.28 C 1786.36 3125.2 1798.16 3110.02 1812.24 3094.51 M 1774.19 3138.28 C 1789.12 3121.51 1803.92 3104.64 1812.24 3094.51 M 1779.83 3137.88 C 1786.14 3128.61 1796.22 3120.99 1812.64 3100.15 M 1779.83 3137.88 C 1786.92 3129.88 1792.79 3122.87 1812.64 3100.15 M 1784.82 3138.24 C 1792.31 3131.54 1797.48 3122.26 1812.38 3106.55 M 1784.82 3138.24 C 1794.77 3126.43 1806.9 3113.58 1812.38 3106.55 M 1790.46 3137.85 C 1800.45 3127.29 1804.79 3119.57 1812.77 3112.19 M 1790.46 3137.85 C 1798.05 3127.4 1806.5 3118.21 1812.77 3112.19 M 1794.8 3138.96 C 1798.97 3132.42 1802.05 3130.7 1812.51 3118.59 M 1794.8 3138.96 C 1798.48 3134.48 1802.92 3129.2 1812.51 3118.59" fill="none" stroke="#ffccff" stroke-width="0.5" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="10" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 488px; height: 1px; padding-top: 3077px; margin-left: 1321px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 24px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; font-style: italic; white-space: normal; overflow-wrap: normal;">
+                                <font style="font-size: 24px;">
+                                    JVM Memory Maps on Linux
+                                    <br/>
+                                    <br/>
+                                    jvm-mmap.drawio.svg
+                                    <br style="font-size: 24px;"/>
+                                </font>
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="1565" y="3084" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="24px" text-anchor="middle" font-style="italic">
+                    JVM Memory Maps on Linux...
+                </text>
+            </switch>
+        </g>
+        <rect x="610" y="37" width="1400" height="380" rx="57" ry="57" fill="#000000" stroke="#000000" stroke-dasharray="3 3" pointer-events="all" transform="translate(2,3)" opacity="0.25"/>
+        <rect x="610" y="37" width="1400" height="380" rx="57" ry="57" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" stroke-dasharray="3 3" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-end; justify-content: unsafe center; width: 1398px; height: 1px; padding-top: 34px; margin-left: 611px;">
+                        <div data-drawio-colors="color: #000000; " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                Legend
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="1310" y="34" fill="#000000" font-family="Helvetica" font-size="12px" text-anchor="middle">
+                    Legend
+                </text>
+            </switch>
+        </g>
+        <rect x="765" y="112" width="165" height="25" fill="none" stroke="none" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe flex-start; width: 163px; height: 1px; padding-top: 119px; margin-left: 767px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: left;">
+                            <div style="display: inline-block; font-size: 14px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                <span style="color: rgb(0, 0, 0); font-family: Helvetica; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;">
+                                    💡 : mouse hover tips
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="767" y="133" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="14px">
+                    💡 : mouse hover tips
+                </text>
+            </switch>
+        </g>
+        <rect x="765" y="77" width="285" height="25" fill="none" stroke="none" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe flex-start; width: 283px; height: 1px; padding-top: 84px; margin-left: 767px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: left;">
+                            <div style="display: inline-block; font-size: 14px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                <span style="color: rgb(0, 0, 0); font-family: Helvetica; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;">
+                                    🔗 : link to doc / source code
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="767" y="98" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="14px">
+                    🔗 : link to doc / source code
+                </text>
+            </switch>
+        </g>
+        <path d="M 672.75 240.5 L 1125.01 237.02" fill="none" stroke="#007fff" stroke-miterlimit="10" stroke-dasharray="3 3" pointer-events="stroke"/>
+        <path d="M 1113.18 243.61 L 1126.13 237.01 L 1113.08 230.61" fill="none" stroke="#007fff" stroke-miterlimit="10" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 239px; margin-left: 900px;">
+                        <div data-drawio-colors="color: #007FFF; background-color: rgb(255, 255, 255); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 127, 255); line-height: 1.2; pointer-events: all; background-color: rgb(255, 255, 255); white-space: nowrap;">
+                                tigger Handshake thread (handshaker)
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="900" y="242" fill="#007FFF" font-family="Helvetica" font-size="12px" text-anchor="middle">
+                    tigger Handshake thread (ha...
+                </text>
+            </switch>
+        </g>
+        <path d="M 675.25 290.5 L 1122.51 287.02" fill="none" stroke="#ff33ff" stroke-miterlimit="10" stroke-dasharray="3 3" pointer-events="stroke"/>
+        <path d="M 1110.68 293.61 L 1123.63 287.01 L 1110.58 280.61" fill="none" stroke="#ff33ff" stroke-miterlimit="10" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 290px; margin-left: 899px;">
+                        <div data-drawio-colors="color: #FF33FF; background-color: rgb(255, 255, 255); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 12px; font-family: &quot;Courier New&quot;; color: rgb(255, 51, 255); line-height: 1.2; pointer-events: all; background-color: rgb(255, 255, 255); white-space: nowrap;">
+                                VM Thread
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="899" y="293" fill="#FF33FF" font-family="Courier New" font-size="12px" text-anchor="middle">
+                    VM Thread
+                </text>
+            </switch>
+        </g>
+        <path d="M 659 337 L 1127.76 333.02" fill="none" stroke="#ff3333" stroke-miterlimit="10" stroke-dasharray="3 3" pointer-events="stroke"/>
+        <path d="M 1115.94 339.62 L 1128.88 333.01 L 1115.83 326.62" fill="none" stroke="#ff3333" stroke-miterlimit="10" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 335px; margin-left: 894px;">
+                        <div data-drawio-colors="color: #FF3333; background-color: rgb(255, 255, 255); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 12px; font-family: &quot;Courier New&quot;; color: rgb(255, 51, 51); line-height: 1.2; pointer-events: all; background-color: rgb(255, 255, 255); white-space: nowrap;">
+                                JavaThread to be handshaked
+                                <br/>
+                                in unsafe(mutable) thread state
+                                <br/>
+                                (handshakee)
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="894" y="339" fill="#FF3333" font-family="Courier New" font-size="12px" text-anchor="middle">
+                    JavaThread to be handshake...
+                </text>
+            </switch>
+        </g>
+        <rect x="765" y="147" width="165" height="25" fill="none" stroke="none" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe flex-start; width: 163px; height: 1px; padding-top: 154px; margin-left: 767px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: left;">
+                            <div style="display: inline-block; font-size: 14px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                <span style="color: rgb(0, 0, 0); font-family: Helvetica; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;">
+                                    ⏰ : wait
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="767" y="168" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="14px">
+                    ⏰ : wait
+                </text>
+            </switch>
+        </g>
+        <rect x="765" y="177" width="165" height="25" fill="none" stroke="none" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe flex-start; width: 163px; height: 1px; padding-top: 184px; margin-left: 767px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: left;">
+                            <div style="display: inline-block; font-size: 14px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                <span style="color: rgb(0, 0, 0); font-family: Helvetica; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;">
+                                    🔔 : notify
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="767" y="198" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="14px">
+                    🔔 : notify
+                </text>
+            </switch>
+        </g>
+        <a xlink:href="https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/share/utilities/debug.cpp#L712">
+            <rect x="128" y="1307" width="732" height="226" fill="#fff2cc" stroke="#d6b656" pointer-events="all"/>
+            <g transform="translate(-0.5 -0.5)">
+                <switch>
+                    <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe flex-start; width: 720px; height: 1px; padding-top: 1314px; margin-left: 140px;">
+                            <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: left;">
+                                <div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                    🔗
+                                    <br/>
+                                    __GI___mmap64(void * addr, size_t len, int prot, int flags, int fd, off64_t offset) (mmap64.c:47)
+                                    <br/>
+                                    libjvm.so!anon_mmap(char * requested_addr, size_t bytes) (/jdk/src/hotspot/os/linux/os_linux.cpp:3423)
+                                    <br/>
+                                    libjvm.so!os::pd_reserve_memory(size_t bytes, bool exec) (/jdk/src/hotspot/os/linux/os_linux.cpp:3470)
+                                    <br/>
+                                    libjvm.so!os::reserve_memory(size_t bytes, bool executable, MEMFLAGS flags) (/jdk/src/hotspot/share/runtime/os.cpp:1756)
+                                    <br/>
+                                    libjvm.so!initialize_assert_poison() (/jdk/src/hotspot/share/utilities/debug.cpp:713)
+                                    <br/>
+                                    libjvm.so!Threads::create_vm(JavaVMInitArgs * args, bool * canTryAgain) (/jdk/src/hotspot/share/runtime/threads.cpp:488)
+                                    <br/>
+                                    libjvm.so!JNI_CreateJavaVM_inner(JavaVM ** vm, void ** penv, void * args) (/jdk/src/hotspot/share/prims/jni.cpp:3577)
+                                    <br/>
+                                    libjvm.so!JNI_CreateJavaVM(JavaVM ** vm, void ** penv, void * args) (/jdk/src/hotspot/share/prims/jni.cpp:3668)
+                                    <br/>
+                                    libjli.so!InitializeJVM(JavaVM ** pvm, JNIEnv ** penv, InvocationFunctions * ifn) (/jdk/src/java.base/share/native/libjli/java.c:1506)
+                                    <br/>
+                                    libjli.so!JavaMain(void * _args) (/jdk/src/java.base/share/native/libjli/java.c:415)
+                                    <br/>
+                                    libjli.so!ThreadJavaMain(void * args) (/jdk/src/java.base/unix/native/libjli/java_md.c:650)
+                                    <br/>
+                                    start_thread(void * arg) (pthread_create.c:442)
+                                    <br/>
+                                    clone3() (clone3.S:81)
+                                </div>
+                            </div>
+                        </div>
+                    </foreignObject>
+                    <text x="140" y="1326" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="12px">
+                        🔗__GI___mmap64(void * addr, size_t len, int prot, int flags, int fd, off64_t offset) (mmap64.c:47)...
+                    </text>
+                </switch>
+            </g>
+        </a>
+        <rect x="1600" y="1417" width="290" height="60" fill="#e1d5e7" stroke="#9673a6" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe flex-start; width: 278px; height: 1px; padding-top: 1424px; margin-left: 1612px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: left;">
+                            <div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                src/hotspot/share/utilities/debug.cpp
+                                <br/>
+                                <br/>
+                                char* g_assert_poison
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="1612" y="1436" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="12px">
+                    src/hotspot/share/utilities/debug.cpp...
+                </text>
+            </switch>
+        </g>
+        <rect x="1020" y="1615" width="655" height="170" fill="#d5e8d4" stroke="#82b366" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe flex-start; width: 633px; height: 1px; padding-top: 1622px; margin-left: 1042px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: left;">
+                            <div style="display: inline-block; font-size: 12px; font-family: &quot;Courier New&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                [0x7ffff7ffa000
+                                <br/>
+                                size=0x1000=4kB )
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="1042" y="1634" fill="rgb(0, 0, 0)" font-family="Courier New" font-size="12px">
+                    [0x7ffff7ffa000...
+                </text>
+            </switch>
+        </g>
+        <rect x="1163.45" y="1632.53" width="164.25" height="70.78" rx="10.62" ry="10.62" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 162px; height: 1px; padding-top: 1668px; margin-left: 1164px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 12px; font-family: &quot;Courier New&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                Perm:PROT_NONE
+                                <br/>
+                                size: 4 Kb
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="1246" y="1672" fill="rgb(0, 0, 0)" font-family="Courier New" font-size="12px" text-anchor="middle">
+                    Perm:PROT_NONE...
+                </text>
+            </switch>
+        </g>
+        <rect x="1163.45" y="1714.35" width="164.25" height="55.19" rx="8.28" ry="8.28" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 162px; height: 1px; padding-top: 1742px; margin-left: 1164px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 12px; font-family: &quot;Courier New&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                <span style="font-family: Helvetica; text-align: left;">
+                                    assert_poison
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="1246" y="1746" fill="rgb(0, 0, 0)" font-family="Courier New" font-size="12px" text-anchor="middle">
+                    assert_poison
+                </text>
+            </switch>
+        </g>
+        <rect x="1055" y="1703.31" width="50" height="19" fill="none" stroke="none" pointer-events="all"/>
+        <path d="M 1102.55 1717.54 C 1102.27 1717.54 1102.05 1717.77 1102.05 1718.05 L 1102.05 1720.31 C 1102.05 1720.58 1102.28 1720.81 1102.56 1720.81 C 1102.84 1720.81 1103.07 1720.58 1103.07 1720.31 L 1103.07 1718.05 C 1103.07 1717.91 1103.01 1717.78 1102.92 1717.69 C 1102.82 1717.59 1102.69 1717.54 1102.55 1717.54 Z M 1100.33 1717.54 C 1100.05 1717.54 1099.82 1717.77 1099.83 1718.05 L 1099.83 1720.31 C 1099.83 1720.58 1100.05 1720.81 1100.33 1720.81 C 1100.61 1720.81 1100.84 1720.58 1100.84 1720.31 L 1100.84 1718.05 C 1100.84 1717.91 1100.79 1717.78 1100.69 1717.69 C 1100.59 1717.59 1100.46 1717.54 1100.33 1717.54 Z M 1098.1 1717.54 C 1097.82 1717.54 1097.6 1717.77 1097.6 1718.05 L 1097.6 1720.31 C 1097.6 1720.48 1097.7 1720.65 1097.86 1720.74 C 1098.01 1720.83 1098.21 1720.83 1098.36 1720.74 C 1098.52 1720.65 1098.61 1720.48 1098.61 1720.31 L 1098.61 1718.05 C 1098.62 1717.91 1098.56 1717.78 1098.47 1717.69 C 1098.37 1717.59 1098.24 1717.54 1098.1 1717.54 Z M 1095.88 1717.54 C 1095.74 1717.54 1095.61 1717.6 1095.52 1717.69 C 1095.43 1717.79 1095.37 1717.91 1095.38 1718.05 L 1095.38 1720.31 C 1095.38 1720.48 1095.47 1720.65 1095.63 1720.74 C 1095.79 1720.83 1095.98 1720.83 1096.14 1720.74 C 1096.29 1720.65 1096.39 1720.48 1096.39 1720.31 L 1096.39 1718.05 C 1096.39 1717.91 1096.34 1717.78 1096.24 1717.69 C 1096.14 1717.59 1096.01 1717.54 1095.88 1717.54 Z M 1087.13 1717.54 C 1087 1717.54 1086.87 1717.6 1086.78 1717.69 C 1086.68 1717.79 1086.63 1717.91 1086.63 1718.05 L 1086.63 1720.31 C 1086.63 1720.48 1086.73 1720.65 1086.89 1720.74 C 1087.04 1720.83 1087.24 1720.83 1087.39 1720.74 C 1087.55 1720.65 1087.65 1720.48 1087.65 1720.31 L 1087.65 1718.05 C 1087.65 1717.91 1087.6 1717.78 1087.5 1717.69 C 1087.4 1717.59 1087.27 1717.54 1087.13 1717.54 Z M 1084.78 1717.54 C 1084.65 1717.54 1084.52 1717.6 1084.43 1717.69 C 1084.33 1717.79 1084.28 1717.91 1084.28 1718.05 L 1084.28 1720.31 C 1084.28 1720.48 1084.38 1720.65 1084.54 1720.74 C 1084.69 1720.83 1084.89 1720.83 1085.04 1720.74 C 1085.2 1720.65 1085.3 1720.48 1085.3 1720.31 L 1085.3 1718.05 C 1085.3 1717.91 1085.24 1717.78 1085.15 1717.69 C 1085.05 1717.59 1084.92 1717.54 1084.78 1717.54 Z M 1082.43 1717.54 C 1082.3 1717.54 1082.17 1717.6 1082.07 1717.69 C 1081.98 1717.79 1081.93 1717.91 1081.93 1718.05 L 1081.93 1720.31 C 1081.93 1720.48 1082.03 1720.65 1082.18 1720.74 C 1082.34 1720.83 1082.53 1720.83 1082.69 1720.74 C 1082.85 1720.65 1082.94 1720.48 1082.94 1720.31 L 1082.94 1718.05 C 1082.95 1717.91 1082.89 1717.78 1082.8 1717.69 C 1082.7 1717.59 1082.57 1717.54 1082.43 1717.54 Z M 1080.08 1717.54 C 1079.94 1717.54 1079.82 1717.6 1079.72 1717.69 C 1079.63 1717.79 1079.58 1717.91 1079.58 1718.05 L 1079.58 1720.31 C 1079.58 1720.48 1079.68 1720.65 1079.83 1720.74 C 1079.99 1720.83 1080.18 1720.83 1080.34 1720.74 C 1080.5 1720.65 1080.59 1720.48 1080.59 1720.31 L 1080.59 1718.05 C 1080.59 1717.91 1080.54 1717.78 1080.44 1717.69 C 1080.35 1717.59 1080.22 1717.54 1080.08 1717.54 Z M 1077.73 1717.54 C 1077.59 1717.54 1077.46 1717.6 1077.37 1717.69 C 1077.28 1717.79 1077.23 1717.91 1077.23 1718.05 L 1077.23 1720.31 C 1077.23 1720.48 1077.32 1720.65 1077.48 1720.74 C 1077.64 1720.83 1077.83 1720.83 1077.99 1720.74 C 1078.14 1720.65 1078.24 1720.48 1078.24 1720.31 L 1078.24 1718.05 C 1078.24 1717.91 1078.19 1717.78 1078.09 1717.69 C 1078 1717.59 1077.86 1717.54 1077.73 1717.54 Z M 1075.37 1717.54 C 1075.24 1717.54 1075.11 1717.6 1075.02 1717.69 C 1074.93 1717.79 1074.87 1717.91 1074.88 1718.05 L 1074.88 1720.31 C 1074.88 1720.48 1074.97 1720.65 1075.13 1720.74 C 1075.29 1720.83 1075.48 1720.83 1075.63 1720.74 C 1075.79 1720.65 1075.89 1720.48 1075.89 1720.31 L 1075.89 1718.05 C 1075.89 1717.91 1075.84 1717.78 1075.74 1717.69 C 1075.64 1717.59 1075.51 1717.54 1075.37 1717.54 Z M 1073.02 1717.54 C 1072.89 1717.54 1072.76 1717.6 1072.67 1717.69 C 1072.57 1717.79 1072.52 1717.91 1072.52 1718.05 L 1072.52 1720.31 C 1072.52 1720.48 1072.62 1720.65 1072.78 1720.74 C 1072.93 1720.83 1073.13 1720.83 1073.28 1720.74 C 1073.44 1720.65 1073.54 1720.48 1073.54 1720.31 L 1073.54 1718.05 C 1073.54 1717.91 1073.48 1717.78 1073.39 1717.69 C 1073.29 1717.59 1073.16 1717.54 1073.02 1717.54 Z M 1070.67 1717.54 C 1070.54 1717.54 1070.41 1717.6 1070.32 1717.69 C 1070.22 1717.79 1070.17 1717.91 1070.17 1718.05 L 1070.17 1720.31 C 1070.17 1720.48 1070.27 1720.65 1070.42 1720.74 C 1070.58 1720.83 1070.77 1720.83 1070.93 1720.74 C 1071.09 1720.65 1071.18 1720.48 1071.18 1720.31 L 1071.18 1718.05 C 1071.19 1717.91 1071.13 1717.78 1071.04 1717.69 C 1070.94 1717.59 1070.81 1717.54 1070.67 1717.54 Z M 1068.32 1717.54 C 1068.18 1717.54 1068.06 1717.6 1067.96 1717.69 C 1067.87 1717.79 1067.82 1717.91 1067.82 1718.05 L 1067.82 1720.31 C 1067.82 1720.48 1067.92 1720.65 1068.07 1720.74 C 1068.23 1720.83 1068.42 1720.83 1068.58 1720.74 C 1068.74 1720.65 1068.83 1720.48 1068.83 1720.31 L 1068.83 1718.05 C 1068.83 1717.91 1068.78 1717.78 1068.68 1717.69 C 1068.59 1717.59 1068.46 1717.54 1068.32 1717.54 Z M 1065.97 1717.54 C 1065.69 1717.54 1065.46 1717.77 1065.47 1718.05 L 1065.47 1720.31 C 1065.47 1720.48 1065.56 1720.65 1065.72 1720.74 C 1065.88 1720.83 1066.07 1720.83 1066.23 1720.74 C 1066.38 1720.65 1066.48 1720.48 1066.48 1720.31 L 1066.48 1718.05 C 1066.48 1717.91 1066.43 1717.78 1066.33 1717.69 C 1066.23 1717.59 1066.1 1717.54 1065.97 1717.54 Z M 1063.62 1717.54 C 1063.48 1717.54 1063.35 1717.6 1063.26 1717.69 C 1063.17 1717.79 1063.11 1717.91 1063.12 1718.05 L 1063.12 1720.31 C 1063.12 1720.48 1063.21 1720.65 1063.37 1720.74 C 1063.53 1720.83 1063.72 1720.83 1063.88 1720.74 C 1064.03 1720.65 1064.13 1720.48 1064.13 1720.31 L 1064.13 1718.05 C 1064.13 1717.91 1064.08 1717.78 1063.98 1717.69 C 1063.88 1717.59 1063.75 1717.54 1063.62 1717.54 Z M 1061.26 1717.54 C 1060.98 1717.54 1060.76 1717.77 1060.76 1718.05 L 1060.76 1720.31 C 1060.76 1720.48 1060.86 1720.65 1061.02 1720.74 C 1061.17 1720.83 1061.37 1720.83 1061.52 1720.74 C 1061.68 1720.65 1061.78 1720.48 1061.78 1720.31 L 1061.78 1718.05 C 1061.78 1717.91 1061.72 1717.78 1061.63 1717.69 C 1061.53 1717.59 1061.4 1717.54 1061.26 1717.54 Z M 1101.9 1705.99 C 1101.62 1705.99 1101.4 1706.22 1101.4 1706.49 C 1101.4 1706.77 1101.62 1707 1101.9 1707 L 1102.49 1707 C 1102.77 1707 1102.99 1706.77 1102.99 1706.49 C 1102.99 1706.22 1102.77 1705.99 1102.49 1705.99 Z M 1101.9 1707.79 C 1101.72 1707.79 1101.56 1707.89 1101.46 1708.04 C 1101.37 1708.2 1101.37 1708.39 1101.46 1708.54 C 1101.56 1708.7 1101.72 1708.8 1101.9 1708.8 L 1102.49 1708.8 C 1102.67 1708.8 1102.84 1708.7 1102.93 1708.54 C 1103.02 1708.39 1103.02 1708.2 1102.93 1708.04 C 1102.84 1707.89 1102.67 1707.79 1102.49 1707.79 Z M 1101.9 1709.59 C 1101.62 1709.59 1101.4 1709.82 1101.4 1710.09 C 1101.4 1710.37 1101.62 1710.6 1101.9 1710.6 L 1102.49 1710.6 C 1102.77 1710.6 1102.99 1710.37 1102.99 1710.09 C 1102.99 1709.82 1102.77 1709.59 1102.49 1709.59 Z M 1101.9 1711.39 C 1101.62 1711.39 1101.4 1711.61 1101.4 1711.89 C 1101.4 1712.17 1101.62 1712.39 1101.9 1712.39 L 1102.49 1712.39 C 1102.77 1712.39 1102.99 1712.17 1102.99 1711.89 C 1102.99 1711.61 1102.77 1711.39 1102.49 1711.39 Z M 1101.9 1713.19 C 1101.62 1713.19 1101.4 1713.41 1101.4 1713.69 C 1101.4 1713.97 1101.62 1714.19 1101.9 1714.19 L 1102.49 1714.19 C 1102.77 1714.19 1102.99 1713.97 1102.99 1713.69 C 1102.99 1713.41 1102.77 1713.19 1102.49 1713.19 Z M 1101.9 1714.99 C 1101.62 1714.99 1101.4 1715.21 1101.4 1715.49 C 1101.4 1715.77 1101.62 1715.99 1101.9 1715.99 L 1102.49 1715.99 C 1102.77 1715.99 1102.99 1715.77 1102.99 1715.49 C 1102.99 1715.21 1102.77 1714.99 1102.49 1714.99 Z M 1093.63 1705.99 C 1093.35 1705.99 1093.12 1706.22 1093.12 1706.49 C 1093.12 1706.77 1093.35 1707 1093.63 1707 L 1094.21 1707 C 1094.49 1707 1094.72 1706.77 1094.72 1706.49 C 1094.72 1706.22 1094.49 1705.99 1094.21 1705.99 Z M 1093.63 1707.79 C 1093.44 1707.79 1093.28 1707.89 1093.19 1708.04 C 1093.1 1708.2 1093.1 1708.39 1093.19 1708.54 C 1093.28 1708.7 1093.44 1708.8 1093.63 1708.8 L 1094.21 1708.8 C 1094.39 1708.8 1094.56 1708.7 1094.65 1708.54 C 1094.74 1708.39 1094.74 1708.2 1094.65 1708.04 C 1094.56 1707.89 1094.39 1707.79 1094.21 1707.79 Z M 1093.63 1709.59 C 1093.35 1709.59 1093.12 1709.82 1093.12 1710.09 C 1093.12 1710.37 1093.35 1710.6 1093.63 1710.6 L 1094.21 1710.6 C 1094.49 1710.6 1094.72 1710.37 1094.72 1710.09 C 1094.72 1709.82 1094.49 1709.59 1094.21 1709.59 Z M 1093.63 1711.39 C 1093.35 1711.39 1093.12 1711.61 1093.12 1711.89 C 1093.12 1712.17 1093.35 1712.39 1093.63 1712.39 L 1094.21 1712.39 C 1094.49 1712.39 1094.72 1712.17 1094.72 1711.89 C 1094.72 1711.61 1094.49 1711.39 1094.21 1711.39 Z M 1093.63 1713.19 C 1093.35 1713.19 1093.12 1713.41 1093.12 1713.69 C 1093.12 1713.97 1093.35 1714.19 1093.63 1714.19 L 1094.21 1714.19 C 1094.49 1714.19 1094.72 1713.97 1094.72 1713.69 C 1094.72 1713.41 1094.49 1713.19 1094.21 1713.19 Z M 1093.63 1714.99 C 1093.35 1714.99 1093.12 1715.21 1093.12 1715.49 C 1093.12 1715.77 1093.35 1715.99 1093.63 1715.99 L 1094.21 1715.99 C 1094.49 1715.99 1094.72 1715.77 1094.72 1715.49 C 1094.72 1715.21 1094.49 1714.99 1094.21 1714.99 Z M 1095.15 1705.54 L 1100.96 1705.54 L 1100.96 1716.44 L 1095.15 1716.44 Z M 1089.82 1705.99 C 1089.54 1705.99 1089.32 1706.22 1089.32 1706.49 C 1089.32 1706.77 1089.54 1707 1089.82 1707 L 1090.41 1707 C 1090.69 1707 1090.92 1706.77 1090.92 1706.49 C 1090.92 1706.22 1090.69 1705.99 1090.41 1705.99 Z M 1089.82 1707.79 C 1089.64 1707.79 1089.48 1707.89 1089.39 1708.04 C 1089.29 1708.2 1089.29 1708.39 1089.39 1708.54 C 1089.48 1708.7 1089.64 1708.8 1089.82 1708.8 L 1090.41 1708.8 C 1090.59 1708.8 1090.76 1708.7 1090.85 1708.54 C 1090.94 1708.39 1090.94 1708.2 1090.85 1708.04 C 1090.76 1707.89 1090.59 1707.79 1090.41 1707.79 Z M 1089.82 1709.59 C 1089.54 1709.59 1089.32 1709.82 1089.32 1710.09 C 1089.32 1710.37 1089.54 1710.6 1089.82 1710.6 L 1090.41 1710.6 C 1090.69 1710.6 1090.92 1710.37 1090.92 1710.09 C 1090.92 1709.82 1090.69 1709.59 1090.41 1709.59 Z M 1089.82 1711.39 C 1089.54 1711.39 1089.32 1711.61 1089.32 1711.89 C 1089.32 1712.17 1089.54 1712.39 1089.82 1712.39 L 1090.41 1712.39 C 1090.69 1712.39 1090.92 1712.17 1090.92 1711.89 C 1090.92 1711.61 1090.69 1711.39 1090.41 1711.39 Z M 1089.82 1713.19 C 1089.54 1713.19 1089.32 1713.41 1089.32 1713.69 C 1089.32 1713.97 1089.54 1714.19 1089.82 1714.19 L 1090.41 1714.19 C 1090.69 1714.19 1090.92 1713.97 1090.92 1713.69 C 1090.92 1713.41 1090.69 1713.19 1090.41 1713.19 Z M 1089.82 1714.99 C 1089.54 1714.99 1089.32 1715.21 1089.32 1715.49 C 1089.32 1715.77 1089.54 1715.99 1089.82 1715.99 L 1090.41 1715.99 C 1090.69 1715.99 1090.92 1715.77 1090.92 1715.49 C 1090.92 1715.21 1090.69 1714.99 1090.41 1714.99 Z M 1081.55 1705.99 C 1081.27 1705.99 1081.04 1706.22 1081.04 1706.49 C 1081.04 1706.77 1081.27 1707 1081.55 1707 L 1082.13 1707 C 1082.41 1707 1082.64 1706.77 1082.64 1706.49 C 1082.64 1706.22 1082.41 1705.99 1082.13 1705.99 Z M 1081.55 1707.79 C 1081.37 1707.79 1081.2 1707.89 1081.11 1708.04 C 1081.02 1708.2 1081.02 1708.39 1081.11 1708.54 C 1081.2 1708.7 1081.37 1708.8 1081.55 1708.8 L 1082.13 1708.8 C 1082.31 1708.8 1082.48 1708.7 1082.57 1708.54 C 1082.66 1708.39 1082.66 1708.2 1082.57 1708.04 C 1082.48 1707.89 1082.31 1707.79 1082.13 1707.79 Z M 1081.55 1709.59 C 1081.27 1709.59 1081.04 1709.82 1081.04 1710.09 C 1081.04 1710.37 1081.27 1710.6 1081.55 1710.6 L 1082.13 1710.6 C 1082.41 1710.6 1082.64 1710.37 1082.64 1710.09 C 1082.64 1709.82 1082.41 1709.59 1082.13 1709.59 Z M 1081.55 1711.39 C 1081.27 1711.39 1081.04 1711.61 1081.04 1711.89 C 1081.04 1712.17 1081.27 1712.39 1081.55 1712.39 L 1082.13 1712.39 C 1082.41 1712.39 1082.64 1712.17 1082.64 1711.89 C 1082.64 1711.61 1082.41 1711.39 1082.13 1711.39 Z M 1081.55 1713.19 C 1081.27 1713.19 1081.04 1713.41 1081.04 1713.69 C 1081.04 1713.97 1081.27 1714.19 1081.55 1714.19 L 1082.13 1714.19 C 1082.41 1714.19 1082.64 1713.97 1082.64 1713.69 C 1082.64 1713.41 1082.41 1713.19 1082.13 1713.19 Z M 1081.55 1714.99 C 1081.27 1714.99 1081.04 1715.21 1081.04 1715.49 C 1081.04 1715.77 1081.27 1715.99 1081.55 1715.99 L 1082.13 1715.99 C 1082.41 1715.99 1082.64 1715.77 1082.64 1715.49 C 1082.64 1715.21 1082.41 1714.99 1082.13 1714.99 Z M 1083.07 1705.54 L 1088.88 1705.54 L 1088.88 1716.44 L 1083.07 1716.44 Z M 1077.66 1705.99 C 1077.38 1705.99 1077.15 1706.22 1077.15 1706.49 C 1077.15 1706.77 1077.38 1707 1077.66 1707 L 1078.24 1707 C 1078.52 1707 1078.75 1706.77 1078.75 1706.49 C 1078.75 1706.22 1078.52 1705.99 1078.24 1705.99 Z M 1077.66 1707.79 C 1077.48 1707.79 1077.31 1707.89 1077.22 1708.04 C 1077.13 1708.2 1077.13 1708.39 1077.22 1708.54 C 1077.31 1708.7 1077.48 1708.8 1077.66 1708.8 L 1078.24 1708.8 C 1078.43 1708.8 1078.59 1708.7 1078.68 1708.54 C 1078.77 1708.39 1078.77 1708.2 1078.68 1708.04 C 1078.59 1707.89 1078.43 1707.79 1078.24 1707.79 Z M 1077.66 1709.59 C 1077.38 1709.59 1077.15 1709.82 1077.15 1710.09 C 1077.15 1710.37 1077.38 1710.6 1077.66 1710.6 L 1078.24 1710.6 C 1078.52 1710.6 1078.75 1710.37 1078.75 1710.09 C 1078.75 1709.82 1078.52 1709.59 1078.24 1709.59 Z M 1077.66 1711.39 C 1077.38 1711.39 1077.15 1711.61 1077.15 1711.89 C 1077.15 1712.17 1077.38 1712.39 1077.66 1712.39 L 1078.24 1712.39 C 1078.52 1712.39 1078.75 1712.17 1078.75 1711.89 C 1078.75 1711.61 1078.52 1711.39 1078.24 1711.39 Z M 1077.66 1713.19 C 1077.38 1713.19 1077.15 1713.41 1077.15 1713.69 C 1077.15 1713.97 1077.38 1714.19 1077.66 1714.19 L 1078.24 1714.19 C 1078.52 1714.19 1078.75 1713.97 1078.75 1713.69 C 1078.75 1713.41 1078.52 1713.19 1078.24 1713.19 Z M 1077.66 1714.99 C 1077.38 1714.99 1077.15 1715.21 1077.15 1715.49 C 1077.15 1715.77 1077.38 1715.99 1077.66 1715.99 L 1078.24 1715.99 C 1078.52 1715.99 1078.75 1715.77 1078.75 1715.49 C 1078.75 1715.21 1078.52 1714.99 1078.24 1714.99 Z M 1069.38 1705.99 C 1069.1 1705.99 1068.88 1706.22 1068.88 1706.49 C 1068.88 1706.77 1069.1 1707 1069.38 1707 L 1069.96 1707 C 1070.24 1707 1070.47 1706.77 1070.47 1706.49 C 1070.47 1706.22 1070.24 1705.99 1069.96 1705.99 Z M 1069.38 1707.79 C 1069.2 1707.79 1069.03 1707.89 1068.94 1708.04 C 1068.85 1708.2 1068.85 1708.39 1068.94 1708.54 C 1069.03 1708.7 1069.2 1708.8 1069.38 1708.8 L 1069.96 1708.8 C 1070.15 1708.8 1070.31 1708.7 1070.4 1708.54 C 1070.49 1708.39 1070.49 1708.2 1070.4 1708.04 C 1070.31 1707.89 1070.15 1707.79 1069.96 1707.79 Z M 1069.38 1709.59 C 1069.1 1709.59 1068.88 1709.82 1068.88 1710.09 C 1068.88 1710.37 1069.1 1710.6 1069.38 1710.6 L 1069.96 1710.6 C 1070.24 1710.6 1070.47 1710.37 1070.47 1710.09 C 1070.47 1709.82 1070.24 1709.59 1069.96 1709.59 Z M 1069.38 1711.39 C 1069.1 1711.39 1068.88 1711.61 1068.88 1711.89 C 1068.88 1712.17 1069.1 1712.39 1069.38 1712.39 L 1069.96 1712.39 C 1070.24 1712.39 1070.47 1712.17 1070.47 1711.89 C 1070.47 1711.61 1070.24 1711.39 1069.96 1711.39 Z M 1069.38 1713.19 C 1069.1 1713.19 1068.88 1713.41 1068.88 1713.69 C 1068.88 1713.97 1069.1 1714.19 1069.38 1714.19 L 1069.96 1714.19 C 1070.24 1714.19 1070.47 1713.97 1070.47 1713.69 C 1070.47 1713.41 1070.24 1713.19 1069.96 1713.19 Z M 1069.38 1714.99 C 1069.1 1714.99 1068.88 1715.21 1068.88 1715.49 C 1068.88 1715.77 1069.1 1715.99 1069.38 1715.99 L 1069.96 1715.99 C 1070.24 1715.99 1070.47 1715.77 1070.47 1715.49 C 1070.47 1715.21 1070.24 1714.99 1069.96 1714.99 Z M 1070.91 1705.54 L 1076.72 1705.54 L 1076.72 1716.44 L 1070.91 1716.44 Z M 1065.56 1705.99 C 1065.28 1705.99 1065.05 1706.22 1065.05 1706.49 C 1065.05 1706.77 1065.28 1707 1065.56 1707 L 1066.14 1707 C 1066.42 1707 1066.65 1706.77 1066.65 1706.49 C 1066.65 1706.22 1066.42 1705.99 1066.14 1705.99 Z M 1065.56 1707.79 C 1065.37 1707.79 1065.21 1707.89 1065.12 1708.04 C 1065.03 1708.2 1065.03 1708.39 1065.12 1708.54 C 1065.21 1708.7 1065.37 1708.8 1065.56 1708.8 L 1066.14 1708.8 C 1066.32 1708.8 1066.49 1708.7 1066.58 1708.54 C 1066.67 1708.39 1066.67 1708.2 1066.58 1708.04 C 1066.49 1707.89 1066.32 1707.79 1066.14 1707.79 Z M 1065.56 1709.59 C 1065.28 1709.59 1065.05 1709.82 1065.05 1710.09 C 1065.05 1710.37 1065.28 1710.6 1065.56 1710.6 L 1066.14 1710.6 C 1066.42 1710.6 1066.65 1710.37 1066.65 1710.09 C 1066.65 1709.82 1066.42 1709.59 1066.14 1709.59 Z M 1065.56 1711.39 C 1065.28 1711.39 1065.05 1711.61 1065.05 1711.89 C 1065.05 1712.17 1065.28 1712.39 1065.56 1712.39 L 1066.14 1712.39 C 1066.42 1712.39 1066.65 1712.17 1066.65 1711.89 C 1066.65 1711.61 1066.42 1711.39 1066.14 1711.39 Z M 1065.56 1713.19 C 1065.28 1713.19 1065.05 1713.41 1065.05 1713.69 C 1065.05 1713.97 1065.28 1714.19 1065.56 1714.19 L 1066.14 1714.19 C 1066.42 1714.19 1066.65 1713.97 1066.65 1713.69 C 1066.65 1713.41 1066.42 1713.19 1066.14 1713.19 Z M 1065.56 1714.99 C 1065.28 1714.99 1065.05 1715.21 1065.05 1715.49 C 1065.05 1715.77 1065.28 1715.99 1065.56 1715.99 L 1066.14 1715.99 C 1066.42 1715.99 1066.65 1715.77 1066.65 1715.49 C 1066.65 1715.21 1066.42 1714.99 1066.14 1714.99 Z M 1057.28 1705.99 C 1057 1705.99 1056.77 1706.22 1056.77 1706.49 C 1056.77 1706.77 1057 1707 1057.28 1707 L 1057.86 1707 C 1058.14 1707 1058.37 1706.77 1058.37 1706.49 C 1058.37 1706.22 1058.14 1705.99 1057.86 1705.99 Z M 1057.28 1707.79 C 1057.09 1707.79 1056.93 1707.89 1056.84 1708.04 C 1056.75 1708.2 1056.75 1708.39 1056.84 1708.54 C 1056.93 1708.7 1057.09 1708.8 1057.28 1708.8 L 1057.86 1708.8 C 1058.04 1708.8 1058.21 1708.7 1058.3 1708.54 C 1058.39 1708.39 1058.39 1708.2 1058.3 1708.04 C 1058.21 1707.89 1058.04 1707.79 1057.86 1707.79 Z M 1057.28 1709.59 C 1057 1709.59 1056.77 1709.82 1056.77 1710.09 C 1056.77 1710.37 1057 1710.6 1057.28 1710.6 L 1057.86 1710.6 C 1058.14 1710.6 1058.37 1710.37 1058.37 1710.09 C 1058.37 1709.82 1058.14 1709.59 1057.86 1709.59 Z M 1057.28 1711.39 C 1057 1711.39 1056.77 1711.61 1056.77 1711.89 C 1056.77 1712.17 1057 1712.39 1057.28 1712.39 L 1057.86 1712.39 C 1058.14 1712.39 1058.37 1712.17 1058.37 1711.89 C 1058.37 1711.61 1058.14 1711.39 1057.86 1711.39 Z M 1057.28 1713.19 C 1057 1713.19 1056.77 1713.41 1056.77 1713.69 C 1056.77 1713.97 1057 1714.19 1057.28 1714.19 L 1057.86 1714.19 C 1058.14 1714.19 1058.37 1713.97 1058.37 1713.69 C 1058.37 1713.41 1058.14 1713.19 1057.86 1713.19 Z M 1057.28 1714.99 C 1057 1714.99 1056.77 1715.21 1056.77 1715.49 C 1056.77 1715.77 1057 1715.99 1057.28 1715.99 L 1057.86 1715.99 C 1058.14 1715.99 1058.37 1715.77 1058.37 1715.49 C 1058.37 1715.21 1058.14 1714.99 1057.86 1714.99 Z M 1058.8 1705.54 L 1064.61 1705.54 L 1064.61 1716.44 L 1058.8 1716.44 Z M 1055 1703.31 L 1055 1703.81 L 1055 1719.64 L 1058.6 1719.64 L 1058.6 1722.31 L 1089.83 1722.31 L 1089.83 1719.64 L 1093.22 1719.64 L 1093.22 1722.31 L 1105 1722.31 L 1105 1703.31 Z M 1056.01 1704.31 L 1103.99 1704.31 L 1103.99 1721.31 L 1094.24 1721.31 L 1094.24 1718.64 L 1088.82 1718.64 L 1088.82 1721.31 L 1059.62 1721.31 L 1059.62 1718.64 L 1056.01 1718.64 Z" fill="#434445" stroke="none" pointer-events="all"/>
+        <rect x="1340" y="1621" width="320" height="74" fill="#d5e8d4" stroke="#82b366" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe flex-start; width: 298px; height: 1px; padding-top: 1628px; margin-left: 1362px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: left;">
+                            <div style="display: inline-block; font-size: 12px; font-family: &quot;Courier New&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                [0x7ffff7ffa000
+                                <br style="border-color: var(--border-color);"/>
+                                size=0x1000 )
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="1362" y="1640" fill="rgb(0, 0, 0)" font-family="Courier New" font-size="12px">
+                    [0x7ffff7ffa000...
+                </text>
+            </switch>
+        </g>
+        <rect x="1500" y="1631.77" width="126.55" height="49.23" rx="7.38" ry="7.38" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 125px; height: 1px; padding-top: 1656px; margin-left: 1501px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 12px; font-family: &quot;Courier New&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                <span style="font-family: Helvetica; text-align: left;">
+                                    assert_poison
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="1563" y="1660" fill="rgb(0, 0, 0)" font-family="Courier New" font-size="12px" text-anchor="middle">
+                    assert_poison
+                </text>
+            </switch>
+        </g>
+        <rect x="1340" y="1695" width="320" height="74" fill="#d5e8d4" stroke="#82b366" pointer-events="all"/>
+        <rect x="1500" y="1705.77" width="126.55" height="49.23" rx="7.38" ry="7.38" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
+        <rect x="1220" y="104.5" width="655" height="228.5" fill="#d5e8d4" stroke="#82b366" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe flex-start; width: 633px; height: 1px; padding-top: 111px; margin-left: 1242px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: left;">
+                            <div style="display: inline-block; font-size: 12px; font-family: &quot;Courier New&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                [0x7ffc02600000
+                                <br/>
+                                -
+                                <br/>
+                                0x7ffc174a0000)
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="1242" y="123" fill="rgb(0, 0, 0)" font-family="Courier New" font-size="12px">
+                    [0x7ffc02600000...
+                </text>
+            </switch>
+        </g>
+        <rect x="1363.45" y="122.03" width="164.25" height="70.78" rx="10.62" ry="10.62" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 162px; height: 1px; padding-top: 157px; margin-left: 1364px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 12px; font-family: &quot;Courier New&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                Perm:rw-p
+                                <br/>
+                                size: 342656 Kb
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="1446" y="161" fill="rgb(0, 0, 0)" font-family="Courier New" font-size="12px" text-anchor="middle">
+                    Perm:rw-p...
+                </text>
+            </switch>
+        </g>
+        <rect x="1363.45" y="203.85" width="164.25" height="55.19" rx="8.28" ry="8.28" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 162px; height: 1px; padding-top: 231px; margin-left: 1364px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 12px; font-family: &quot;Courier New&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                young heap
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="1446" y="235" fill="rgb(0, 0, 0)" font-family="Courier New" font-size="12px" text-anchor="middle">
+                    young heap
+                </text>
+            </switch>
+        </g>
+        <rect x="1241" y="138.92" width="110" height="20.86" fill-opacity="0.5" fill="#ff9933" stroke="none" pointer-events="all"/>
+        <rect x="1241" y="106.85" width="110" height="20.86" fill-opacity="0.5" fill="#ff9933" stroke="none" pointer-events="all"/>
+        <rect x="1255" y="192.81" width="50" height="19" fill="none" stroke="none" pointer-events="all"/>
+        <path d="M 1302.55 207.04 C 1302.27 207.04 1302.05 207.27 1302.05 207.55 L 1302.05 209.81 C 1302.05 210.08 1302.28 210.31 1302.56 210.31 C 1302.84 210.31 1303.07 210.08 1303.07 209.81 L 1303.07 207.55 C 1303.07 207.41 1303.01 207.28 1302.92 207.19 C 1302.82 207.09 1302.69 207.04 1302.55 207.04 Z M 1300.33 207.04 C 1300.05 207.04 1299.82 207.27 1299.83 207.55 L 1299.83 209.81 C 1299.83 210.08 1300.05 210.31 1300.33 210.31 C 1300.61 210.31 1300.84 210.08 1300.84 209.81 L 1300.84 207.55 C 1300.84 207.41 1300.79 207.28 1300.69 207.19 C 1300.59 207.09 1300.46 207.04 1300.33 207.04 Z M 1298.1 207.04 C 1297.82 207.04 1297.6 207.27 1297.6 207.55 L 1297.6 209.81 C 1297.6 209.98 1297.7 210.15 1297.86 210.24 C 1298.01 210.33 1298.21 210.33 1298.36 210.24 C 1298.52 210.15 1298.61 209.98 1298.61 209.81 L 1298.61 207.55 C 1298.62 207.41 1298.56 207.28 1298.47 207.19 C 1298.37 207.09 1298.24 207.04 1298.1 207.04 Z M 1295.88 207.04 C 1295.74 207.04 1295.61 207.1 1295.52 207.19 C 1295.43 207.29 1295.37 207.41 1295.38 207.55 L 1295.38 209.81 C 1295.38 209.98 1295.47 210.15 1295.63 210.24 C 1295.79 210.33 1295.98 210.33 1296.14 210.24 C 1296.29 210.15 1296.39 209.98 1296.39 209.81 L 1296.39 207.55 C 1296.39 207.41 1296.34 207.28 1296.24 207.19 C 1296.14 207.09 1296.01 207.04 1295.88 207.04 Z M 1287.13 207.04 C 1287 207.04 1286.87 207.1 1286.78 207.19 C 1286.68 207.29 1286.63 207.41 1286.63 207.55 L 1286.63 209.81 C 1286.63 209.98 1286.73 210.15 1286.89 210.24 C 1287.04 210.33 1287.24 210.33 1287.39 210.24 C 1287.55 210.15 1287.65 209.98 1287.65 209.81 L 1287.65 207.55 C 1287.65 207.41 1287.6 207.28 1287.5 207.19 C 1287.4 207.09 1287.27 207.04 1287.13 207.04 Z M 1284.78 207.04 C 1284.65 207.04 1284.52 207.1 1284.43 207.19 C 1284.33 207.29 1284.28 207.41 1284.28 207.55 L 1284.28 209.81 C 1284.28 209.98 1284.38 210.15 1284.54 210.24 C 1284.69 210.33 1284.89 210.33 1285.04 210.24 C 1285.2 210.15 1285.3 209.98 1285.3 209.81 L 1285.3 207.55 C 1285.3 207.41 1285.24 207.28 1285.15 207.19 C 1285.05 207.09 1284.92 207.04 1284.78 207.04 Z M 1282.43 207.04 C 1282.3 207.04 1282.17 207.1 1282.07 207.19 C 1281.98 207.29 1281.93 207.41 1281.93 207.55 L 1281.93 209.81 C 1281.93 209.98 1282.03 210.15 1282.18 210.24 C 1282.34 210.33 1282.53 210.33 1282.69 210.24 C 1282.85 210.15 1282.94 209.98 1282.94 209.81 L 1282.94 207.55 C 1282.95 207.41 1282.89 207.28 1282.8 207.19 C 1282.7 207.09 1282.57 207.04 1282.43 207.04 Z M 1280.08 207.04 C 1279.94 207.04 1279.82 207.1 1279.72 207.19 C 1279.63 207.29 1279.58 207.41 1279.58 207.55 L 1279.58 209.81 C 1279.58 209.98 1279.68 210.15 1279.83 210.24 C 1279.99 210.33 1280.18 210.33 1280.34 210.24 C 1280.5 210.15 1280.59 209.98 1280.59 209.81 L 1280.59 207.55 C 1280.59 207.41 1280.54 207.28 1280.44 207.19 C 1280.35 207.09 1280.22 207.04 1280.08 207.04 Z M 1277.73 207.04 C 1277.59 207.04 1277.46 207.1 1277.37 207.19 C 1277.28 207.29 1277.23 207.41 1277.23 207.55 L 1277.23 209.81 C 1277.23 209.98 1277.32 210.15 1277.48 210.24 C 1277.64 210.33 1277.83 210.33 1277.99 210.24 C 1278.14 210.15 1278.24 209.98 1278.24 209.81 L 1278.24 207.55 C 1278.24 207.41 1278.19 207.28 1278.09 207.19 C 1278 207.09 1277.86 207.04 1277.73 207.04 Z M 1275.37 207.04 C 1275.24 207.04 1275.11 207.1 1275.02 207.19 C 1274.93 207.29 1274.87 207.41 1274.88 207.55 L 1274.88 209.81 C 1274.88 209.98 1274.97 210.15 1275.13 210.24 C 1275.29 210.33 1275.48 210.33 1275.63 210.24 C 1275.79 210.15 1275.89 209.98 1275.89 209.81 L 1275.89 207.55 C 1275.89 207.41 1275.84 207.28 1275.74 207.19 C 1275.64 207.09 1275.51 207.04 1275.37 207.04 Z M 1273.02 207.04 C 1272.89 207.04 1272.76 207.1 1272.67 207.19 C 1272.57 207.29 1272.52 207.41 1272.52 207.55 L 1272.52 209.81 C 1272.52 209.98 1272.62 210.15 1272.78 210.24 C 1272.93 210.33 1273.13 210.33 1273.28 210.24 C 1273.44 210.15 1273.54 209.98 1273.54 209.81 L 1273.54 207.55 C 1273.54 207.41 1273.48 207.28 1273.39 207.19 C 1273.29 207.09 1273.16 207.04 1273.02 207.04 Z M 1270.67 207.04 C 1270.54 207.04 1270.41 207.1 1270.32 207.19 C 1270.22 207.29 1270.17 207.41 1270.17 207.55 L 1270.17 209.81 C 1270.17 209.98 1270.27 210.15 1270.42 210.24 C 1270.58 210.33 1270.77 210.33 1270.93 210.24 C 1271.09 210.15 1271.18 209.98 1271.18 209.81 L 1271.18 207.55 C 1271.19 207.41 1271.13 207.28 1271.04 207.19 C 1270.94 207.09 1270.81 207.04 1270.67 207.04 Z M 1268.32 207.04 C 1268.18 207.04 1268.06 207.1 1267.96 207.19 C 1267.87 207.29 1267.82 207.41 1267.82 207.55 L 1267.82 209.81 C 1267.82 209.98 1267.92 210.15 1268.07 210.24 C 1268.23 210.33 1268.42 210.33 1268.58 210.24 C 1268.74 210.15 1268.83 209.98 1268.83 209.81 L 1268.83 207.55 C 1268.83 207.41 1268.78 207.28 1268.68 207.19 C 1268.59 207.09 1268.46 207.04 1268.32 207.04 Z M 1265.97 207.04 C 1265.69 207.04 1265.46 207.27 1265.47 207.55 L 1265.47 209.81 C 1265.47 209.98 1265.56 210.15 1265.72 210.24 C 1265.88 210.33 1266.07 210.33 1266.23 210.24 C 1266.38 210.15 1266.48 209.98 1266.48 209.81 L 1266.48 207.55 C 1266.48 207.41 1266.43 207.28 1266.33 207.19 C 1266.23 207.09 1266.1 207.04 1265.97 207.04 Z M 1263.62 207.04 C 1263.48 207.04 1263.35 207.1 1263.26 207.19 C 1263.17 207.29 1263.11 207.41 1263.12 207.55 L 1263.12 209.81 C 1263.12 209.98 1263.21 210.15 1263.37 210.24 C 1263.53 210.33 1263.72 210.33 1263.88 210.24 C 1264.03 210.15 1264.13 209.98 1264.13 209.81 L 1264.13 207.55 C 1264.13 207.41 1264.08 207.28 1263.98 207.19 C 1263.88 207.09 1263.75 207.04 1263.62 207.04 Z M 1261.26 207.04 C 1260.98 207.04 1260.76 207.27 1260.76 207.55 L 1260.76 209.81 C 1260.76 209.98 1260.86 210.15 1261.02 210.24 C 1261.17 210.33 1261.37 210.33 1261.52 210.24 C 1261.68 210.15 1261.78 209.98 1261.78 209.81 L 1261.78 207.55 C 1261.78 207.41 1261.72 207.28 1261.63 207.19 C 1261.53 207.09 1261.4 207.04 1261.26 207.04 Z M 1301.9 195.49 C 1301.62 195.49 1301.4 195.72 1301.4 195.99 C 1301.4 196.27 1301.62 196.5 1301.9 196.5 L 1302.49 196.5 C 1302.77 196.5 1302.99 196.27 1302.99 195.99 C 1302.99 195.72 1302.77 195.49 1302.49 195.49 Z M 1301.9 197.29 C 1301.62 197.29 1301.4 197.52 1301.4 197.79 C 1301.4 198.07 1301.62 198.3 1301.9 198.3 L 1302.49 198.3 C 1302.77 198.3 1302.99 198.07 1302.99 197.79 C 1302.99 197.52 1302.77 197.29 1302.49 197.29 Z M 1301.9 199.09 C 1301.62 199.09 1301.4 199.32 1301.4 199.59 C 1301.4 199.87 1301.62 200.1 1301.9 200.1 L 1302.49 200.1 C 1302.77 200.1 1302.99 199.87 1302.99 199.59 C 1302.99 199.32 1302.77 199.09 1302.49 199.09 Z M 1301.9 200.89 C 1301.62 200.89 1301.4 201.11 1301.4 201.39 C 1301.4 201.67 1301.62 201.89 1301.9 201.89 L 1302.49 201.89 C 1302.77 201.89 1302.99 201.67 1302.99 201.39 C 1302.99 201.11 1302.77 200.89 1302.49 200.89 Z M 1301.9 202.69 C 1301.62 202.69 1301.4 202.91 1301.4 203.19 C 1301.4 203.47 1301.62 203.69 1301.9 203.69 L 1302.49 203.69 C 1302.77 203.69 1302.99 203.47 1302.99 203.19 C 1302.99 202.91 1302.77 202.69 1302.49 202.69 Z M 1301.9 204.49 C 1301.62 204.49 1301.4 204.71 1301.4 204.99 C 1301.4 205.27 1301.62 205.49 1301.9 205.49 L 1302.49 205.49 C 1302.77 205.49 1302.99 205.27 1302.99 204.99 C 1302.99 204.71 1302.77 204.49 1302.49 204.49 Z M 1293.63 195.49 C 1293.35 195.49 1293.12 195.72 1293.12 195.99 C 1293.12 196.27 1293.35 196.5 1293.63 196.5 L 1294.21 196.5 C 1294.49 196.5 1294.72 196.27 1294.72 195.99 C 1294.72 195.72 1294.49 195.49 1294.21 195.49 Z M 1293.63 197.29 C 1293.35 197.29 1293.12 197.52 1293.12 197.79 C 1293.12 198.07 1293.35 198.3 1293.63 198.3 L 1294.21 198.3 C 1294.49 198.3 1294.72 198.07 1294.72 197.79 C 1294.72 197.52 1294.49 197.29 1294.21 197.29 Z M 1293.63 199.09 C 1293.35 199.09 1293.12 199.32 1293.12 199.59 C 1293.12 199.87 1293.35 200.1 1293.63 200.1 L 1294.21 200.1 C 1294.49 200.1 1294.72 199.87 1294.72 199.59 C 1294.72 199.32 1294.49 199.09 1294.21 199.09 Z M 1293.63 200.89 C 1293.35 200.89 1293.12 201.11 1293.12 201.39 C 1293.12 201.67 1293.35 201.89 1293.63 201.89 L 1294.21 201.89 C 1294.49 201.89 1294.72 201.67 1294.72 201.39 C 1294.72 201.11 1294.49 200.89 1294.21 200.89 Z M 1293.63 202.69 C 1293.35 202.69 1293.12 202.91 1293.12 203.19 C 1293.12 203.47 1293.35 203.69 1293.63 203.69 L 1294.21 203.69 C 1294.49 203.69 1294.72 203.47 1294.72 203.19 C 1294.72 202.91 1294.49 202.69 1294.21 202.69 Z M 1293.63 204.49 C 1293.35 204.49 1293.12 204.71 1293.12 204.99 C 1293.12 205.27 1293.35 205.49 1293.63 205.49 L 1294.21 205.49 C 1294.49 205.49 1294.72 205.27 1294.72 204.99 C 1294.72 204.71 1294.49 204.49 1294.21 204.49 Z M 1295.15 195.04 L 1300.96 195.04 L 1300.96 205.94 L 1295.15 205.94 Z M 1289.82 195.49 C 1289.54 195.49 1289.32 195.72 1289.32 195.99 C 1289.32 196.27 1289.54 196.5 1289.82 196.5 L 1290.41 196.5 C 1290.69 196.5 1290.92 196.27 1290.92 195.99 C 1290.92 195.72 1290.69 195.49 1290.41 195.49 Z M 1289.82 197.29 C 1289.54 197.29 1289.32 197.52 1289.32 197.79 C 1289.32 198.07 1289.54 198.3 1289.82 198.3 L 1290.41 198.3 C 1290.69 198.3 1290.92 198.07 1290.92 197.79 C 1290.92 197.52 1290.69 197.29 1290.41 197.29 Z M 1289.82 199.09 C 1289.54 199.09 1289.32 199.32 1289.32 199.59 C 1289.32 199.87 1289.54 200.1 1289.82 200.1 L 1290.41 200.1 C 1290.69 200.1 1290.92 199.87 1290.92 199.59 C 1290.92 199.32 1290.69 199.09 1290.41 199.09 Z M 1289.82 200.89 C 1289.54 200.89 1289.32 201.11 1289.32 201.39 C 1289.32 201.67 1289.54 201.89 1289.82 201.89 L 1290.41 201.89 C 1290.69 201.89 1290.92 201.67 1290.92 201.39 C 1290.92 201.11 1290.69 200.89 1290.41 200.89 Z M 1289.82 202.69 C 1289.54 202.69 1289.32 202.91 1289.32 203.19 C 1289.32 203.47 1289.54 203.69 1289.82 203.69 L 1290.41 203.69 C 1290.69 203.69 1290.92 203.47 1290.92 203.19 C 1290.92 202.91 1290.69 202.69 1290.41 202.69 Z M 1289.82 204.49 C 1289.54 204.49 1289.32 204.71 1289.32 204.99 C 1289.32 205.27 1289.54 205.49 1289.82 205.49 L 1290.41 205.49 C 1290.69 205.49 1290.92 205.27 1290.92 204.99 C 1290.92 204.71 1290.69 204.49 1290.41 204.49 Z M 1281.55 195.49 C 1281.27 195.49 1281.04 195.72 1281.04 195.99 C 1281.04 196.27 1281.27 196.5 1281.55 196.5 L 1282.13 196.5 C 1282.41 196.5 1282.64 196.27 1282.64 195.99 C 1282.64 195.72 1282.41 195.49 1282.13 195.49 Z M 1281.55 197.29 C 1281.27 197.29 1281.04 197.52 1281.04 197.79 C 1281.04 198.07 1281.27 198.3 1281.55 198.3 L 1282.13 198.3 C 1282.41 198.3 1282.64 198.07 1282.64 197.79 C 1282.64 197.52 1282.41 197.29 1282.13 197.29 Z M 1281.55 199.09 C 1281.27 199.09 1281.04 199.32 1281.04 199.59 C 1281.04 199.87 1281.27 200.1 1281.55 200.1 L 1282.13 200.1 C 1282.41 200.1 1282.64 199.87 1282.64 199.59 C 1282.64 199.32 1282.41 199.09 1282.13 199.09 Z M 1281.55 200.89 C 1281.27 200.89 1281.04 201.11 1281.04 201.39 C 1281.04 201.67 1281.27 201.89 1281.55 201.89 L 1282.13 201.89 C 1282.41 201.89 1282.64 201.67 1282.64 201.39 C 1282.64 201.11 1282.41 200.89 1282.13 200.89 Z M 1281.55 202.69 C 1281.27 202.69 1281.04 202.91 1281.04 203.19 C 1281.04 203.47 1281.27 203.69 1281.55 203.69 L 1282.13 203.69 C 1282.41 203.69 1282.64 203.47 1282.64 203.19 C 1282.64 202.91 1282.41 202.69 1282.13 202.69 Z M 1281.55 204.49 C 1281.27 204.49 1281.04 204.71 1281.04 204.99 C 1281.04 205.27 1281.27 205.49 1281.55 205.49 L 1282.13 205.49 C 1282.41 205.49 1282.64 205.27 1282.64 204.99 C 1282.64 204.71 1282.41 204.49 1282.13 204.49 Z M 1283.07 195.04 L 1288.88 195.04 L 1288.88 205.94 L 1283.07 205.94 Z M 1277.66 195.49 C 1277.38 195.49 1277.15 195.72 1277.15 195.99 C 1277.15 196.27 1277.38 196.5 1277.66 196.5 L 1278.24 196.5 C 1278.52 196.5 1278.75 196.27 1278.75 195.99 C 1278.75 195.72 1278.52 195.49 1278.24 195.49 Z M 1277.66 197.29 C 1277.38 197.29 1277.15 197.52 1277.15 197.79 C 1277.15 198.07 1277.38 198.3 1277.66 198.3 L 1278.24 198.3 C 1278.52 198.3 1278.75 198.07 1278.75 197.79 C 1278.75 197.52 1278.52 197.29 1278.24 197.29 Z M 1277.66 199.09 C 1277.38 199.09 1277.15 199.32 1277.15 199.59 C 1277.15 199.87 1277.38 200.1 1277.66 200.1 L 1278.24 200.1 C 1278.52 200.1 1278.75 199.87 1278.75 199.59 C 1278.75 199.32 1278.52 199.09 1278.24 199.09 Z M 1277.66 200.89 C 1277.38 200.89 1277.15 201.11 1277.15 201.39 C 1277.15 201.67 1277.38 201.89 1277.66 201.89 L 1278.24 201.89 C 1278.52 201.89 1278.75 201.67 1278.75 201.39 C 1278.75 201.11 1278.52 200.89 1278.24 200.89 Z M 1277.66 202.69 C 1277.38 202.69 1277.15 202.91 1277.15 203.19 C 1277.15 203.47 1277.38 203.69 1277.66 203.69 L 1278.24 203.69 C 1278.52 203.69 1278.75 203.47 1278.75 203.19 C 1278.75 202.91 1278.52 202.69 1278.24 202.69 Z M 1277.66 204.49 C 1277.38 204.49 1277.15 204.71 1277.15 204.99 C 1277.15 205.27 1277.38 205.49 1277.66 205.49 L 1278.24 205.49 C 1278.52 205.49 1278.75 205.27 1278.75 204.99 C 1278.75 204.71 1278.52 204.49 1278.24 204.49 Z M 1269.38 195.49 C 1269.1 195.49 1268.88 195.72 1268.88 195.99 C 1268.88 196.27 1269.1 196.5 1269.38 196.5 L 1269.96 196.5 C 1270.24 196.5 1270.47 196.27 1270.47 195.99 C 1270.47 195.72 1270.24 195.49 1269.96 195.49 Z M 1269.38 197.29 C 1269.1 197.29 1268.88 197.52 1268.88 197.79 C 1268.88 198.07 1269.1 198.3 1269.38 198.3 L 1269.96 198.3 C 1270.24 198.3 1270.47 198.07 1270.47 197.79 C 1270.47 197.52 1270.24 197.29 1269.96 197.29 Z M 1269.38 199.09 C 1269.1 199.09 1268.88 199.32 1268.88 199.59 C 1268.88 199.87 1269.1 200.1 1269.38 200.1 L 1269.96 200.1 C 1270.24 200.1 1270.47 199.87 1270.47 199.59 C 1270.47 199.32 1270.24 199.09 1269.96 199.09 Z M 1269.38 200.89 C 1269.1 200.89 1268.88 201.11 1268.88 201.39 C 1268.88 201.67 1269.1 201.89 1269.38 201.89 L 1269.96 201.89 C 1270.24 201.89 1270.47 201.67 1270.47 201.39 C 1270.47 201.11 1270.24 200.89 1269.96 200.89 Z M 1269.38 202.69 C 1269.1 202.69 1268.88 202.91 1268.88 203.19 C 1268.88 203.47 1269.1 203.69 1269.38 203.69 L 1269.96 203.69 C 1270.24 203.69 1270.47 203.47 1270.47 203.19 C 1270.47 202.91 1270.24 202.69 1269.96 202.69 Z M 1269.38 204.49 C 1269.1 204.49 1268.88 204.71 1268.88 204.99 C 1268.88 205.27 1269.1 205.49 1269.38 205.49 L 1269.96 205.49 C 1270.24 205.49 1270.47 205.27 1270.47 204.99 C 1270.47 204.71 1270.24 204.49 1269.96 204.49 Z M 1270.91 195.04 L 1276.72 195.04 L 1276.72 205.94 L 1270.91 205.94 Z M 1265.56 195.49 C 1265.28 195.49 1265.05 195.72 1265.05 195.99 C 1265.05 196.27 1265.28 196.5 1265.56 196.5 L 1266.14 196.5 C 1266.42 196.5 1266.65 196.27 1266.65 195.99 C 1266.65 195.72 1266.42 195.49 1266.14 195.49 Z M 1265.56 197.29 C 1265.28 197.29 1265.05 197.52 1265.05 197.79 C 1265.05 198.07 1265.28 198.3 1265.56 198.3 L 1266.14 198.3 C 1266.42 198.3 1266.65 198.07 1266.65 197.79 C 1266.65 197.52 1266.42 197.29 1266.14 197.29 Z M 1265.56 199.09 C 1265.28 199.09 1265.05 199.32 1265.05 199.59 C 1265.05 199.87 1265.28 200.1 1265.56 200.1 L 1266.14 200.1 C 1266.42 200.1 1266.65 199.87 1266.65 199.59 C 1266.65 199.32 1266.42 199.09 1266.14 199.09 Z M 1265.56 200.89 C 1265.28 200.89 1265.05 201.11 1265.05 201.39 C 1265.05 201.67 1265.28 201.89 1265.56 201.89 L 1266.14 201.89 C 1266.42 201.89 1266.65 201.67 1266.65 201.39 C 1266.65 201.11 1266.42 200.89 1266.14 200.89 Z M 1265.56 202.69 C 1265.28 202.69 1265.05 202.91 1265.05 203.19 C 1265.05 203.47 1265.28 203.69 1265.56 203.69 L 1266.14 203.69 C 1266.42 203.69 1266.65 203.47 1266.65 203.19 C 1266.65 202.91 1266.42 202.69 1266.14 202.69 Z M 1265.56 204.49 C 1265.28 204.49 1265.05 204.71 1265.05 204.99 C 1265.05 205.27 1265.28 205.49 1265.56 205.49 L 1266.14 205.49 C 1266.42 205.49 1266.65 205.27 1266.65 204.99 C 1266.65 204.71 1266.42 204.49 1266.14 204.49 Z M 1257.28 195.49 C 1257 195.49 1256.77 195.72 1256.77 195.99 C 1256.77 196.27 1257 196.5 1257.28 196.5 L 1257.86 196.5 C 1258.14 196.5 1258.37 196.27 1258.37 195.99 C 1258.37 195.72 1258.14 195.49 1257.86 195.49 Z M 1257.28 197.29 C 1257 197.29 1256.77 197.52 1256.77 197.79 C 1256.77 198.07 1257 198.3 1257.28 198.3 L 1257.86 198.3 C 1258.14 198.3 1258.37 198.07 1258.37 197.79 C 1258.37 197.52 1258.14 197.29 1257.86 197.29 Z M 1257.28 199.09 C 1257 199.09 1256.77 199.32 1256.77 199.59 C 1256.77 199.87 1257 200.1 1257.28 200.1 L 1257.86 200.1 C 1258.14 200.1 1258.37 199.87 1258.37 199.59 C 1258.37 199.32 1258.14 199.09 1257.86 199.09 Z M 1257.28 200.89 C 1257 200.89 1256.77 201.11 1256.77 201.39 C 1256.77 201.67 1257 201.89 1257.28 201.89 L 1257.86 201.89 C 1258.14 201.89 1258.37 201.67 1258.37 201.39 C 1258.37 201.11 1258.14 200.89 1257.86 200.89 Z M 1257.28 202.69 C 1257 202.69 1256.77 202.91 1256.77 203.19 C 1256.77 203.47 1257 203.69 1257.28 203.69 L 1257.86 203.69 C 1258.14 203.69 1258.37 203.47 1258.37 203.19 C 1258.37 202.91 1258.14 202.69 1257.86 202.69 Z M 1257.28 204.49 C 1257 204.49 1256.77 204.71 1256.77 204.99 C 1256.77 205.27 1257 205.49 1257.28 205.49 L 1257.86 205.49 C 1258.14 205.49 1258.37 205.27 1258.37 204.99 C 1258.37 204.71 1258.14 204.49 1257.86 204.49 Z M 1258.8 195.04 L 1264.61 195.04 L 1264.61 205.94 L 1258.8 205.94 Z M 1255 192.81 L 1255 193.31 L 1255 209.14 L 1258.6 209.14 L 1258.6 211.81 L 1289.83 211.81 L 1289.83 209.14 L 1293.22 209.14 L 1293.22 211.81 L 1305 211.81 L 1305 192.81 Z M 1256.01 193.81 L 1303.99 193.81 L 1303.99 210.81 L 1294.24 210.81 L 1294.24 208.14 L 1288.82 208.14 L 1288.82 210.81 L 1259.62 210.81 L 1259.62 208.14 L 1256.01 208.14 Z" fill="#434445" stroke="none" pointer-events="all"/>
+        <rect x="1450" y="277" width="219" height="50" fill="none" stroke="none" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 217px; height: 1px; padding-top: 302px; margin-left: 1451px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 20px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                Top MMap Region
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="1559" y="308" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="20px" text-anchor="middle">
+                    Top MMap Region
+                </text>
+            </switch>
+        </g>
+        <rect x="1540" y="110.5" width="320" height="74" fill="#d5e8d4" stroke="#82b366" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe flex-start; width: 298px; height: 1px; padding-top: 117px; margin-left: 1562px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: left;">
+                            <div style="display: inline-block; font-size: 12px; font-family: &quot;Courier New&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                [0x
+                                <span style="font-family: Helvetica;">
+                                    7ffc02600000
+                                </span>
+                                <br/>
+                                -
+                                <br/>
+                                0x
+                                <span style="font-family: Helvetica;">
+                                    7ffc131c0000
+                                </span>
+                                )
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="1562" y="129" fill="rgb(0, 0, 0)" font-family="Courier New" font-size="12px">
+                    [0x7ffc02600000...
+                </text>
+            </switch>
+        </g>
+        <rect x="1700" y="121.27" width="126.55" height="49.23" rx="7.38" ry="7.38" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 125px; height: 1px; padding-top: 146px; margin-left: 1701px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 12px; font-family: &quot;Courier New&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                eden
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="1763" y="149" fill="rgb(0, 0, 0)" font-family="Courier New" font-size="12px" text-anchor="middle">
+                    eden
+                </text>
+            </switch>
+        </g>
+        <rect x="1540" y="184.5" width="320" height="74" fill="#d5e8d4" stroke="#82b366" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe flex-start; width: 298px; height: 1px; padding-top: 191px; margin-left: 1562px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: left;">
+                            <div style="display: inline-block; font-size: 12px; font-family: &quot;Courier New&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                [0x
+                                <span style="font-family: Helvetica;">
+                                    7ffc131c0000
+                                </span>
+                                <br/>
+                                -
+                                <br/>
+                                0x
+                                <span style="font-family: Helvetica;">
+                                    7ffc174a0000
+                                </span>
+                                )
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="1562" y="203" fill="rgb(0, 0, 0)" font-family="Courier New" font-size="12px">
+                    [0x7ffc131c0000...
+                </text>
+            </switch>
+        </g>
+        <rect x="1700" y="195.27" width="126.55" height="49.23" rx="7.38" ry="7.38" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 125px; height: 1px; padding-top: 220px; margin-left: 1701px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 12px; font-family: &quot;Courier New&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                survivor
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="1763" y="223" fill="rgb(0, 0, 0)" font-family="Courier New" font-size="12px" text-anchor="middle">
+                    survivor
+                </text>
+            </switch>
+        </g>
+        <path d="M 1088.4 1615 L 838.45 1533" fill="none" stroke="rgb(0, 0, 0)" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 6" pointer-events="stroke"/>
+        <path d="M 1697.87 1477 L 1486.42 1611.58" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 1481.99 1614.4 L 1486.02 1607.69 L 1486.42 1611.58 L 1489.78 1613.59 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <rect x="2070" y="1287" width="290" height="60" fill="#e1d5e7" stroke="#9673a6" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe flex-start; width: 278px; height: 1px; padding-top: 1294px; margin-left: 2082px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: left;">
+                            <div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                src/hotspot/share/services/memTracker.cpp
+                                <br/>
+                                <br/>
+                                NMT_TrackingLevel MemTracker::_tracking_level
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="2082" y="1306" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="12px">
+                    src/hotspot/share/services/memTracker.cpp...
+                </text>
+            </switch>
+        </g>
+        <rect x="2540" y="785" width="732" height="380" fill="#fff2cc" stroke="#d6b656" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe flex-start; width: 720px; height: 1px; padding-top: 792px; margin-left: 2552px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: left;">
+                            <div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                <div>
+                                    src/hotspot/share/services/nmtCommon.hpp
+                                    <br/>
+                                </div>
+                                <div>
+                                    <br/>
+                                </div>
+                                <div>
+                                    // Native memory tracking level
+                                </div>
+                                <div>
+                                    //
+                                </div>
+                                <div>
+                                    // The meaning of the different states:
+                                </div>
+                                <div>
+                                    //
+                                </div>
+                                <div>
+                                    // "unknown": pre-init phase (before parsing NMT arguments)
+                                </div>
+                                <div>
+                                    //
+                                </div>
+                                <div>
+                                    // "off":     after initialization - NMT confirmed off.
+                                </div>
+                                <div>
+                                    //             - nothing is tracked
+                                </div>
+                                <div>
+                                    //             - no malloc headers are used
+                                </div>
+                                <div>
+                                    //
+                                </div>
+                                <div>
+                                    // "summary": after initialization with NativeMemoryTracking=summary - NMT in summary mode
+                                </div>
+                                <div>
+                                    //             - category summaries per tag are tracked
+                                </div>
+                                <div>
+                                    //             - thread stacks are tracked
+                                </div>
+                                <div>
+                                    //             - malloc headers are used
+                                </div>
+                                <div>
+                                    //             - malloc call site table is allocated and used
+                                </div>
+                                <div>
+                                    //
+                                </div>
+                                <div>
+                                    // "detail":  after initialization with NativeMemoryTracking=detail - NMT in detail mode
+                                </div>
+                                <div>
+                                    //             - category summaries per tag are tracked
+                                </div>
+                                <div>
+                                    //             - malloc details per call site are tracked
+                                </div>
+                                <div>
+                                    //             - virtual memory mapping info is tracked
+                                </div>
+                                <div>
+                                    //             - thread stacks are tracked
+                                </div>
+                                <div>
+                                    //             - malloc headers are used
+                                </div>
+                                <div>
+                                    //             - malloc call site table is allocated and used
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="2552" y="804" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="12px">
+                    src/hotspot/share/services/nmtCommon.hpp...
+                </text>
+            </switch>
+        </g>
+        <path d="M 2275.61 1287 L 2540 1156.15" fill="none" stroke="rgb(0, 0, 0)" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 6" pointer-events="stroke"/>
+        <rect x="20" y="397" width="482" height="650" fill="#fff2cc" stroke="#d6b656" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe flex-start; width: 470px; height: 1px; padding-top: 404px; margin-left: 32px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: left;">
+                            <div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                                <div>
+                                    src/hotspot/share/memory/allocation.hpp
+                                    <br/>
+                                </div>
+                                <div>
+                                    <br/>
+                                </div>
+                                <div>
+                                    /*
+                                </div>
+                                <div>
+                                    * Memory types
+                                </div>
+                                <div>
+                                    */
+                                </div>
+                                <div>
+                                    enum class MEMFLAGS : uint8_t  {
+                                </div>
+                                <div>
+                                    MEMORY_TYPES_DO(MEMORY_TYPE_DECLARE_ENUM)
+                                </div>
+                                <div>
+                                    mt_number_of_types   // number of memory types (mtDontTrack
+                                </div>
+                                <div>
+                                    // is not included as validate type)
+                                </div>
+                                <div>
+                                    };
+                                </div>
+                                <div>
+                                    <br/>
+                                </div>
+                                <div>
+                                    <div>
+                                        #define MEMORY_TYPES_DO(f)                                                           \
+                                    </div>
+                                    <div>
+                                        /* Memory type by sub systems. It occupies lower byte. */                          \
+                                    </div>
+                                    <div>
+                                        f(mtJavaHeap,       "Java Heap")   /* Java heap                                 */ \
+                                    </div>
+                                    <div>
+                                        f(mtClass,          "Class")       /* Java classes                              */ \
+                                    </div>
+                                    <div>
+                                        f(mtThread,         "Thread")      /* thread objects                            */ \
+                                    </div>
+                                    <div>
+                                        f(mtThreadStack,    "Thread Stack")                                                \
+                                    </div>
+                                    <div>
+                                        f(mtCode,           "Code")        /* generated code                            */ \
+                                    </div>
+                                    <div>
+                                        f(mtGC,             "GC")                                                          \
+                                    </div>
+                                    <div>
+                                        f(mtGCCardSet,      "GCCardSet")   /* G1 card set remembered set                */ \
+                                    </div>
+                                    <div>
+                                        f(mtCompiler,       "Compiler")                                                    \
+                                    </div>
+                                    <div>
+                                        f(mtJVMCI,          "JVMCI")                                                       \
+                                    </div>
+                                    <div>
+                                        f(mtInternal,       "Internal")    /* memory used by VM, but does not belong to */ \
+                                    </div>
+                                    <div>
+                                        /* any of above categories, and not used by  */ \
+                                    </div>
+                                    <div>
+                                        /* NMT                                       */ \
+                                    </div>
+                                    <div>
+                                        f(mtOther,          "Other")       /* memory not used by VM                     */ \
+                                    </div>
+                                    <div>
+                                        f(mtSymbol,         "Symbol")                                                      \
+                                    </div>
+                                    <div>
+                                        f(mtNMT,            "Native Memory Tracking")  /* memory used by NMT            */ \
+                                    </div>
+                                    <div>
+                                        f(mtClassShared,    "Shared class space")      /* class data sharing            */ \
+                                    </div>
+                                    <div>
+                                        f(mtChunk,          "Arena Chunk") /* chunk that holds content of arenas        */ \
+                                    </div>
+                                    <div>
+                                        f(mtTest,           "Test")        /* Test type for verifying NMT               */ \
+                                    </div>
+                                    <div>
+                                        f(mtTracing,        "Tracing")                                                     \
+                                    </div>
+                                    <div>
+                                        f(mtLogging,        "Logging")                                                     \
+                                    </div>
+                                    <div>
+                                        f(mtStatistics,     "Statistics")                                                  \
+                                    </div>
+                                    <div>
+                                        f(mtArguments,      "Arguments")                                                   \
+                                    </div>
+                                    <div>
+                                        f(mtModule,         "Module")                                                      \
+                                    </div>
+                                    <div>
+                                        f(mtSafepoint,      "Safepoint")                                                   \
+                                    </div>
+                                    <div>
+                                        f(mtSynchronizer,   "Synchronization")                                             \
+                                    </div>
+                                    <div>
+                                        f(mtServiceability, "Serviceability")                                              \
+                                    </div>
+                                    <div>
+                                        f(mtMetaspace,      "Metaspace")                                                   \
+                                    </div>
+                                    <div>
+                                        f(mtStringDedup,    "String Deduplication")                                        \
+                                    </div>
+                                    <div>
+                                        f(mtObjectMonitor,  "Object Monitors")                                             \
+                                    </div>
+                                    <div>
+                                        f(mtNone,           "Unknown")                                                     \
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="32" y="416" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="12px">
+                    src/hotspot/share/memory/allocation.hpp...
+                </text>
+            </switch>
+        </g>
+        <path d="M 620 1085 L 620 1035 L 790 1035 L 790 1085" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 620 1085 L 620 1145 L 790 1145 L 790 1085" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10"/>
+        <path d="M 620 1085 L 790 1085" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 1042px; margin-left: 705px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: none; font-weight: bold; white-space: nowrap;">
+                                VirtualMemory
+                                <br/>
+                                <span style="font-weight: normal;">
+                                    virtualMemoryTracker.hpp
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="705" y="1054" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="12px" text-anchor="middle" font-weight="bold">
+                    VirtualMemory...
+                </text>
+            </switch>
+        </g>
+        <rect x="620" y="1085" width="170" height="26" fill="none" stroke="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" clip-path="url(#mx-clip-624-1090-162-26-0)" font-size="12px">
+            <text x="625.5" y="1102.5">
+                size_t     _reserved
+            </text>
+        </g>
+        <path d="M 620 1115 L 790 1115" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10"/>
+        <rect x="620" y="1119" width="170" height="26" fill="none" stroke="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" clip-path="url(#mx-clip-624-1124-162-26-0)" font-size="12px">
+            <text x="625.5" y="1136.5">
+                size_t     _committed
+            </text>
+        </g>
+        <path d="M 860 1077 L 860 1027 L 1090 1027 L 1090 1077" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10"/>
+        <path d="M 860 1077 L 860 1103 L 1090 1103 L 1090 1077" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10"/>
+        <path d="M 860 1077 L 1090 1077" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 1034px; margin-left: 975px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: none; font-weight: bold; white-space: nowrap;">
+                                VirtualMemorySummary
+                                <br/>
+                                <span style="font-weight: normal;">
+                                    virtualMemoryTracker.hpp
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="975" y="1046" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="12px" text-anchor="middle" font-weight="bold">
+                    VirtualMemorySummary...
+                </text>
+            </switch>
+        </g>
+        <rect x="860" y="1077" width="230" height="26" fill="none" stroke="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" clip-path="url(#mx-clip-864-1082-222-26-0)" font-size="12px">
+            <text x="865.5" y="1094.5">
+                _virtual_memory[mt_number_of_types]
+            </text>
+        </g>
+        <path d="M 790 1090 L 834.01 1090" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10"/>
+        <path d="M 859.01 1090 L 846.51 1097.35 L 834.01 1090 L 846.51 1082.65 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10"/>
+        <path d="M 630 827 L 630 777 L 1350 777 L 1350 827" fill="#e1d5e7" stroke="#9673a6" stroke-miterlimit="10"/>
+        <path d="M 630 827 L 630 905 L 1350 905 L 1350 827" fill="none" stroke="#9673a6" stroke-miterlimit="10"/>
+        <path d="M 630 827 L 1350 827" fill="none" stroke="#9673a6" stroke-miterlimit="10"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 784px; margin-left: 990px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: none; font-weight: bold; white-space: nowrap;">
+                                VirtualMemoryTracker
+                                <br style="border-color: var(--border-color);"/>
+                                <span style="border-color: var(--border-color); font-weight: normal;">
+                                    virtualMemoryTracker.cpp
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="990" y="796" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="12px" text-anchor="middle" font-weight="bold">
+                    VirtualMemoryTracker...
+                </text>
+            </switch>
+        </g>
+        <rect x="630" y="827" width="720" height="26" fill="none" stroke="rgb(0, 0, 0)"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" clip-path="url(#mx-clip-634-832-712-26-0)" font-size="12px">
+            <text x="635.5" y="844.5">
+                static SortedLinkedList&lt;ReservedMemoryRegion, compare_reserved_region_base&gt;* VirtualMemoryTracker::_reserved_regions
+            </text>
+        </g>
+        <rect x="630" y="853" width="720" height="26" fill="none" stroke="rgb(0, 0, 0)"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" clip-path="url(#mx-clip-634-858-712-26-0)" font-size="12px">
+            <text x="635.5" y="870.5">
+                add_reserved_region(address base_addr, size_t size,    const NativeCallStack&amp; stack, MEMFLAGS flag)
+            </text>
+        </g>
+        <rect x="630" y="879" width="720" height="26" fill="none" stroke="rgb(0, 0, 0)"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" clip-path="url(#mx-clip-634-884-712-26-0)" font-size="12px">
+            <text x="635.5" y="896.5">
+                set_reserved_region_type(address addr, MEMFLAGS flag) 💡
+            </text>
+        </g>
+        <path d="M 1480 697 L 1480 647 L 1710 647 L 1710 697" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10"/>
+        <path d="M 1480 697 L 1480 749 L 1710 749 L 1710 697" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10"/>
+        <path d="M 1480 697 L 1710 697" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 654px; margin-left: 1595px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: none; font-weight: bold; white-space: nowrap;">
+                                VirtualMemoryRegion
+                                <br/>
+                                <span style="font-weight: normal;">
+                                    virtualMemoryTracker.hpp
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="1595" y="666" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="12px" text-anchor="middle" font-weight="bold">
+                    VirtualMemoryRegion...
+                </text>
+            </switch>
+        </g>
+        <rect x="1480" y="697" width="230" height="26" fill="none" stroke="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" clip-path="url(#mx-clip-1484-702-222-26-0)" font-size="12px">
+            <text x="1485.5" y="714.5">
+                address      _base_address
+            </text>
+        </g>
+        <rect x="1480" y="723" width="230" height="26" fill="none" stroke="rgb(0, 0, 0)"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" clip-path="url(#mx-clip-1484-728-222-26-0)" font-size="12px">
+            <text x="1485.5" y="740.5">
+                size_t       _size;
+            </text>
+        </g>
+        <path d="M 1400 957 L 1400 907 L 1860 907 L 1860 957" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10"/>
+        <path d="M 1400 957 L 1400 1049 L 1860 1049 L 1860 957" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10"/>
+        <path d="M 1400 957 L 1860 957" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 914px; margin-left: 1630px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: none; font-weight: bold; white-space: nowrap;">
+                                ReservedMemoryRegion
+                                <br/>
+                                <span style="font-weight: normal;">
+                                    virtualMemoryTracker.hpp
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="1630" y="926" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="12px" text-anchor="middle" font-weight="bold">
+                    ReservedMemoryRegion...
+                </text>
+            </switch>
+        </g>
+        <rect x="1400" y="957" width="460" height="40" fill="none" stroke="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" clip-path="url(#mx-clip-1404-962-452-40-0)" font-size="12px">
+            <text x="1405.5" y="974.5">
+                SortedLinkedList&lt;CommittedMemoryRegion, compare_committed_region&gt;
+            </text>
+            <text x="1405.5" y="988.5">
+                _committed_regions;
+            </text>
+        </g>
+        <rect x="1400" y="997" width="460" height="26" fill="none" stroke="rgb(0, 0, 0)"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" clip-path="url(#mx-clip-1404-1002-452-26-0)" font-size="12px">
+            <text x="1405.5" y="1014.5">
+                NativeCallStack  _stack
+            </text>
+        </g>
+        <rect x="1400" y="1023" width="460" height="26" fill="none" stroke="rgb(0, 0, 0)"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" clip-path="url(#mx-clip-1404-1028-452-26-0)" font-size="12px">
+            <text x="1405.5" y="1040.5">
+                MEMFLAGS         _flag
+            </text>
+        </g>
+        <path d="M 1621.13 907 L 1603.62 766.98" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10"/>
+        <path d="M 1601.51 750.11 L 1612.06 765.92 L 1595.19 768.03 Z" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 828px; margin-left: 1611px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 11px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: none; background-color: rgb(255, 255, 255); white-space: nowrap;">
+                                Extends
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="1611" y="831" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="11px" text-anchor="middle">
+                    Extends
+                </text>
+            </switch>
+        </g>
+        <path d="M 891.89 827 L 504.21 762.48" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" stroke-dasharray="3 3"/>
+        <path d="M 516.99 758.02 L 503.1 762.29 L 514.86 770.84" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 794px; margin-left: 696px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 11px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: none; background-color: rgb(255, 255, 255); white-space: nowrap;">
+                                types
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="696" y="798" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="11px" text-anchor="middle">
+                    types
+                </text>
+            </switch>
+        </g>
+        <path d="M 1400 928.41 L 1075.69 858.48" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10"/>
+        <path d="M 1051.25 853.21 L 1065.02 848.65 L 1075.69 858.48 L 1061.92 863.03 Z" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 891px; margin-left: 1225px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 11px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: none; background-color: rgb(255, 255, 255); white-space: nowrap;">
+                                list
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="1225" y="894" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="11px" text-anchor="middle">
+                    list
+                </text>
+            </switch>
+        </g>
+        <path d="M 2050 947 L 2050 897 L 2510 897 L 2510 947" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10"/>
+        <path d="M 2050 947 L 2050 987 L 2510 987 L 2510 947" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10"/>
+        <path d="M 2050 947 L 2510 947" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 904px; margin-left: 2280px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: none; font-weight: bold; white-space: nowrap;">
+                                CommittedMemoryRegion
+                                <br/>
+                                <span style="font-weight: normal;">
+                                    virtualMemoryTracker.hpp
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="2280" y="916" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="12px" text-anchor="middle" font-weight="bold">
+                    CommittedMemoryRegion...
+                </text>
+            </switch>
+        </g>
+        <rect x="2050" y="947" width="460" height="40" fill="none" stroke="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" clip-path="url(#mx-clip-2054-952-452-40-0)" font-size="12px">
+            <text x="2055.5" y="964.5">
+                NativeCallStack  _stack
+            </text>
+        </g>
+        <path d="M 2153.67 897 L 1727.07 745.04" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10"/>
+        <path d="M 1711.05 739.34 L 1729.92 737.04 L 1724.22 753.05 Z" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 818px; margin-left: 1932px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 11px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: none; background-color: rgb(255, 255, 255); white-space: nowrap;">
+                                Extends
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="1932" y="821" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="11px" text-anchor="middle">
+                    Extends
+                </text>
+            </switch>
+        </g>
+        <path d="M 2050 954.38 L 1885.95 963.22" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10"/>
+        <path d="M 1860.98 964.56 L 1873.07 956.55 L 1885.95 963.22 L 1873.86 971.23 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 960px; margin-left: 1955px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 11px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: none; background-color: rgb(255, 255, 255); white-space: nowrap;">
+                                list
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="1955" y="963" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="11px" text-anchor="middle">
+                    list
+                </text>
+            </switch>
+        </g>
+        <path d="M 1030 1227 L 1030 1177 L 1650 1177 L 1650 1227" fill="#e1d5e7" stroke="#9673a6" stroke-miterlimit="10"/>
+        <path d="M 1030 1227 L 1030 1279 L 1650 1279 L 1650 1227" fill="none" stroke="#9673a6" stroke-miterlimit="10"/>
+        <path d="M 1030 1227 L 1650 1227" fill="none" stroke="#9673a6" stroke-miterlimit="10"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 1184px; margin-left: 1340px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: none; font-weight: bold; white-space: nowrap;">
+                                VirtualMemorySummary
+                                <br/>
+                                <span style="font-weight: normal;">
+                                    virtualMemoryTracker.cpp
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="1340" y="1196" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="12px" text-anchor="middle" font-weight="bold">
+                    VirtualMemorySummary...
+                </text>
+            </switch>
+        </g>
+        <rect x="1030" y="1227" width="620" height="26" fill="none" stroke="rgb(0, 0, 0)"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" clip-path="url(#mx-clip-1034-1232-612-26-0)" font-size="12px">
+            <text x="1035.5" y="1244.5">
+                static size_t VirtualMemorySummary::_snapshot[CALC_OBJ_SIZE_IN_TYPE(VirtualMemorySnapshot, size_t)];
+            </text>
+        </g>
+        <rect x="1030" y="1253" width="620" height="26" fill="none" stroke="rgb(0, 0, 0)"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" clip-path="url(#mx-clip-1034-1258-612-26-0)" font-size="12px">
+            <text x="1035.5" y="1270.5">
+                staticrecord_reserved_memory(size_t size, MEMFLAGS flag)
+            </text>
+        </g>
+        <path d="M 1054.26 1103 L 1289.45 1215.77" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10"/>
+        <path d="M 1312 1226.57 L 1297.55 1227.8 L 1289.45 1215.77 L 1303.9 1214.54 Z" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 1165px; margin-left: 1184px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 11px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: none; background-color: rgb(255, 255, 255); white-space: nowrap;">
+                                enum map
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="1184" y="1168" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="11px" text-anchor="middle">
+                    enum map
+                </text>
+            </switch>
+        </g>
+        <path d="M 1001.38 879 L 1327.15 1251.32" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" stroke-dasharray="3 3"/>
+        <path d="M 1314.44 1246.66 L 1327.89 1252.16 L 1324.22 1238.09" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 1066px; margin-left: 1165px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 11px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: none; background-color: rgb(255, 255, 255); white-space: nowrap;">
+                                Use
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="1165" y="1069" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="11px" text-anchor="middle">
+                    Use
+                </text>
+            </switch>
+        </g>
+        <path d="M 595.17 1307 L 976.87 880.67" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" stroke-dasharray="3 3"/>
+        <path d="M 973.79 893.85 L 977.62 879.83 L 964.1 885.18" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 1217px; margin-left: 680px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 11px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: none; background-color: rgb(255, 255, 255); white-space: nowrap;">
+                                <span style="font-size: 14px; text-align: left; background-color: rgb(251, 251, 251);">
+                                    💡
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="680" y="1220" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="11px" text-anchor="middle">
+                    💡
+                </text>
+            </switch>
+        </g>
+        <rect x="1020" y="1807" width="655" height="170" fill="#d5e8d4" stroke="#82b366"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe flex-start; width: 633px; height: 1px; padding-top: 1814px; margin-left: 1042px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: left;">
+                            <div style="display: inline-block; font-size: 12px; font-family: &quot;Courier New&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: none; white-space: normal; overflow-wrap: normal;">
+                                [0x7f2c4859c000
+                                <br/>
+                                size=8kB )
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="1042" y="1826" fill="rgb(0, 0, 0)" font-family="Courier New" font-size="12px">
+                    [0x7f2c4859c000...
+                </text>
+            </switch>
+        </g>
+        <rect x="1163.45" y="1824.53" width="164.25" height="70.78" rx="10.62" ry="10.62" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 162px; height: 1px; padding-top: 1860px; margin-left: 1164px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 12px; font-family: &quot;Courier New&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: none; white-space: normal; overflow-wrap: normal;">
+                                Perm:r|w
+                                <br/>
+                                size: 8 Kb
+                                <br/>
+                                💡
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="1246" y="1864" fill="rgb(0, 0, 0)" font-family="Courier New" font-size="12px" text-anchor="middle">
+                    Perm:r|w...
+                </text>
+            </switch>
+        </g>
+        <rect x="1163.45" y="1906.35" width="164.25" height="55.19" rx="8.28" ry="8.28" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 162px; height: 1px; padding-top: 1934px; margin-left: 1164px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 12px; font-family: &quot;Courier New&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: none; white-space: normal; overflow-wrap: normal;">
+                                <span style="font-family: Helvetica; text-align: left;">
+                                    assert_poison
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="1246" y="1938" fill="rgb(0, 0, 0)" font-family="Courier New" font-size="12px" text-anchor="middle">
+                    assert_poison
+                </text>
+            </switch>
+        </g>
+        <rect x="1055" y="1895.31" width="50" height="19" fill="none" stroke="none"/>
+        <path d="M 1102.55 1909.54 C 1102.27 1909.54 1102.05 1909.77 1102.05 1910.05 L 1102.05 1912.31 C 1102.05 1912.58 1102.28 1912.81 1102.56 1912.81 C 1102.84 1912.81 1103.07 1912.58 1103.07 1912.31 L 1103.07 1910.05 C 1103.07 1909.91 1103.01 1909.78 1102.92 1909.69 C 1102.82 1909.59 1102.69 1909.54 1102.55 1909.54 Z M 1100.33 1909.54 C 1100.05 1909.54 1099.82 1909.77 1099.83 1910.05 L 1099.83 1912.31 C 1099.83 1912.58 1100.05 1912.81 1100.33 1912.81 C 1100.61 1912.81 1100.84 1912.58 1100.84 1912.31 L 1100.84 1910.05 C 1100.84 1909.91 1100.79 1909.78 1100.69 1909.69 C 1100.59 1909.59 1100.46 1909.54 1100.33 1909.54 Z M 1098.1 1909.54 C 1097.82 1909.54 1097.6 1909.77 1097.6 1910.05 L 1097.6 1912.31 C 1097.6 1912.48 1097.7 1912.65 1097.86 1912.74 C 1098.01 1912.83 1098.21 1912.83 1098.36 1912.74 C 1098.52 1912.65 1098.61 1912.48 1098.61 1912.31 L 1098.61 1910.05 C 1098.62 1909.91 1098.56 1909.78 1098.47 1909.69 C 1098.37 1909.59 1098.24 1909.54 1098.1 1909.54 Z M 1095.88 1909.54 C 1095.74 1909.54 1095.61 1909.6 1095.52 1909.69 C 1095.43 1909.79 1095.37 1909.91 1095.38 1910.05 L 1095.38 1912.31 C 1095.38 1912.48 1095.47 1912.65 1095.63 1912.74 C 1095.79 1912.83 1095.98 1912.83 1096.14 1912.74 C 1096.29 1912.65 1096.39 1912.48 1096.39 1912.31 L 1096.39 1910.05 C 1096.39 1909.91 1096.34 1909.78 1096.24 1909.69 C 1096.14 1909.59 1096.01 1909.54 1095.88 1909.54 Z M 1087.13 1909.54 C 1087 1909.54 1086.87 1909.6 1086.78 1909.69 C 1086.68 1909.79 1086.63 1909.91 1086.63 1910.05 L 1086.63 1912.31 C 1086.63 1912.48 1086.73 1912.65 1086.89 1912.74 C 1087.04 1912.83 1087.24 1912.83 1087.39 1912.74 C 1087.55 1912.65 1087.65 1912.48 1087.65 1912.31 L 1087.65 1910.05 C 1087.65 1909.91 1087.6 1909.78 1087.5 1909.69 C 1087.4 1909.59 1087.27 1909.54 1087.13 1909.54 Z M 1084.78 1909.54 C 1084.65 1909.54 1084.52 1909.6 1084.43 1909.69 C 1084.33 1909.79 1084.28 1909.91 1084.28 1910.05 L 1084.28 1912.31 C 1084.28 1912.48 1084.38 1912.65 1084.54 1912.74 C 1084.69 1912.83 1084.89 1912.83 1085.04 1912.74 C 1085.2 1912.65 1085.3 1912.48 1085.3 1912.31 L 1085.3 1910.05 C 1085.3 1909.91 1085.24 1909.78 1085.15 1909.69 C 1085.05 1909.59 1084.92 1909.54 1084.78 1909.54 Z M 1082.43 1909.54 C 1082.3 1909.54 1082.17 1909.6 1082.07 1909.69 C 1081.98 1909.79 1081.93 1909.91 1081.93 1910.05 L 1081.93 1912.31 C 1081.93 1912.48 1082.03 1912.65 1082.18 1912.74 C 1082.34 1912.83 1082.53 1912.83 1082.69 1912.74 C 1082.85 1912.65 1082.94 1912.48 1082.94 1912.31 L 1082.94 1910.05 C 1082.95 1909.91 1082.89 1909.78 1082.8 1909.69 C 1082.7 1909.59 1082.57 1909.54 1082.43 1909.54 Z M 1080.08 1909.54 C 1079.94 1909.54 1079.82 1909.6 1079.72 1909.69 C 1079.63 1909.79 1079.58 1909.91 1079.58 1910.05 L 1079.58 1912.31 C 1079.58 1912.48 1079.68 1912.65 1079.83 1912.74 C 1079.99 1912.83 1080.18 1912.83 1080.34 1912.74 C 1080.5 1912.65 1080.59 1912.48 1080.59 1912.31 L 1080.59 1910.05 C 1080.59 1909.91 1080.54 1909.78 1080.44 1909.69 C 1080.35 1909.59 1080.22 1909.54 1080.08 1909.54 Z M 1077.73 1909.54 C 1077.59 1909.54 1077.46 1909.6 1077.37 1909.69 C 1077.28 1909.79 1077.23 1909.91 1077.23 1910.05 L 1077.23 1912.31 C 1077.23 1912.48 1077.32 1912.65 1077.48 1912.74 C 1077.64 1912.83 1077.83 1912.83 1077.99 1912.74 C 1078.14 1912.65 1078.24 1912.48 1078.24 1912.31 L 1078.24 1910.05 C 1078.24 1909.91 1078.19 1909.78 1078.09 1909.69 C 1078 1909.59 1077.86 1909.54 1077.73 1909.54 Z M 1075.37 1909.54 C 1075.24 1909.54 1075.11 1909.6 1075.02 1909.69 C 1074.93 1909.79 1074.87 1909.91 1074.88 1910.05 L 1074.88 1912.31 C 1074.88 1912.48 1074.97 1912.65 1075.13 1912.74 C 1075.29 1912.83 1075.48 1912.83 1075.63 1912.74 C 1075.79 1912.65 1075.89 1912.48 1075.89 1912.31 L 1075.89 1910.05 C 1075.89 1909.91 1075.84 1909.78 1075.74 1909.69 C 1075.64 1909.59 1075.51 1909.54 1075.37 1909.54 Z M 1073.02 1909.54 C 1072.89 1909.54 1072.76 1909.6 1072.67 1909.69 C 1072.57 1909.79 1072.52 1909.91 1072.52 1910.05 L 1072.52 1912.31 C 1072.52 1912.48 1072.62 1912.65 1072.78 1912.74 C 1072.93 1912.83 1073.13 1912.83 1073.28 1912.74 C 1073.44 1912.65 1073.54 1912.48 1073.54 1912.31 L 1073.54 1910.05 C 1073.54 1909.91 1073.48 1909.78 1073.39 1909.69 C 1073.29 1909.59 1073.16 1909.54 1073.02 1909.54 Z M 1070.67 1909.54 C 1070.54 1909.54 1070.41 1909.6 1070.32 1909.69 C 1070.22 1909.79 1070.17 1909.91 1070.17 1910.05 L 1070.17 1912.31 C 1070.17 1912.48 1070.27 1912.65 1070.42 1912.74 C 1070.58 1912.83 1070.77 1912.83 1070.93 1912.74 C 1071.09 1912.65 1071.18 1912.48 1071.18 1912.31 L 1071.18 1910.05 C 1071.19 1909.91 1071.13 1909.78 1071.04 1909.69 C 1070.94 1909.59 1070.81 1909.54 1070.67 1909.54 Z M 1068.32 1909.54 C 1068.18 1909.54 1068.06 1909.6 1067.96 1909.69 C 1067.87 1909.79 1067.82 1909.91 1067.82 1910.05 L 1067.82 1912.31 C 1067.82 1912.48 1067.92 1912.65 1068.07 1912.74 C 1068.23 1912.83 1068.42 1912.83 1068.58 1912.74 C 1068.74 1912.65 1068.83 1912.48 1068.83 1912.31 L 1068.83 1910.05 C 1068.83 1909.91 1068.78 1909.78 1068.68 1909.69 C 1068.59 1909.59 1068.46 1909.54 1068.32 1909.54 Z M 1065.97 1909.54 C 1065.69 1909.54 1065.46 1909.77 1065.47 1910.05 L 1065.47 1912.31 C 1065.47 1912.48 1065.56 1912.65 1065.72 1912.74 C 1065.88 1912.83 1066.07 1912.83 1066.23 1912.74 C 1066.38 1912.65 1066.48 1912.48 1066.48 1912.31 L 1066.48 1910.05 C 1066.48 1909.91 1066.43 1909.78 1066.33 1909.69 C 1066.23 1909.59 1066.1 1909.54 1065.97 1909.54 Z M 1063.62 1909.54 C 1063.48 1909.54 1063.35 1909.6 1063.26 1909.69 C 1063.17 1909.79 1063.11 1909.91 1063.12 1910.05 L 1063.12 1912.31 C 1063.12 1912.48 1063.21 1912.65 1063.37 1912.74 C 1063.53 1912.83 1063.72 1912.83 1063.88 1912.74 C 1064.03 1912.65 1064.13 1912.48 1064.13 1912.31 L 1064.13 1910.05 C 1064.13 1909.91 1064.08 1909.78 1063.98 1909.69 C 1063.88 1909.59 1063.75 1909.54 1063.62 1909.54 Z M 1061.26 1909.54 C 1060.98 1909.54 1060.76 1909.77 1060.76 1910.05 L 1060.76 1912.31 C 1060.76 1912.48 1060.86 1912.65 1061.02 1912.74 C 1061.17 1912.83 1061.37 1912.83 1061.52 1912.74 C 1061.68 1912.65 1061.78 1912.48 1061.78 1912.31 L 1061.78 1910.05 C 1061.78 1909.91 1061.72 1909.78 1061.63 1909.69 C 1061.53 1909.59 1061.4 1909.54 1061.26 1909.54 Z M 1101.9 1897.99 C 1101.62 1897.99 1101.4 1898.22 1101.4 1898.49 C 1101.4 1898.77 1101.62 1899 1101.9 1899 L 1102.49 1899 C 1102.77 1899 1102.99 1898.77 1102.99 1898.49 C 1102.99 1898.22 1102.77 1897.99 1102.49 1897.99 Z M 1101.9 1899.79 C 1101.72 1899.79 1101.56 1899.89 1101.46 1900.04 C 1101.37 1900.2 1101.37 1900.39 1101.46 1900.54 C 1101.56 1900.7 1101.72 1900.8 1101.9 1900.8 L 1102.49 1900.8 C 1102.67 1900.8 1102.84 1900.7 1102.93 1900.54 C 1103.02 1900.39 1103.02 1900.2 1102.93 1900.04 C 1102.84 1899.89 1102.67 1899.79 1102.49 1899.79 Z M 1101.9 1901.59 C 1101.62 1901.59 1101.4 1901.82 1101.4 1902.09 C 1101.4 1902.37 1101.62 1902.6 1101.9 1902.6 L 1102.49 1902.6 C 1102.77 1902.6 1102.99 1902.37 1102.99 1902.09 C 1102.99 1901.82 1102.77 1901.59 1102.49 1901.59 Z M 1101.9 1903.39 C 1101.62 1903.39 1101.4 1903.61 1101.4 1903.89 C 1101.4 1904.17 1101.62 1904.39 1101.9 1904.39 L 1102.49 1904.39 C 1102.77 1904.39 1102.99 1904.17 1102.99 1903.89 C 1102.99 1903.61 1102.77 1903.39 1102.49 1903.39 Z M 1101.9 1905.19 C 1101.62 1905.19 1101.4 1905.41 1101.4 1905.69 C 1101.4 1905.97 1101.62 1906.19 1101.9 1906.19 L 1102.49 1906.19 C 1102.77 1906.19 1102.99 1905.97 1102.99 1905.69 C 1102.99 1905.41 1102.77 1905.19 1102.49 1905.19 Z M 1101.9 1906.99 C 1101.62 1906.99 1101.4 1907.21 1101.4 1907.49 C 1101.4 1907.77 1101.62 1907.99 1101.9 1907.99 L 1102.49 1907.99 C 1102.77 1907.99 1102.99 1907.77 1102.99 1907.49 C 1102.99 1907.21 1102.77 1906.99 1102.49 1906.99 Z M 1093.63 1897.99 C 1093.35 1897.99 1093.12 1898.22 1093.12 1898.49 C 1093.12 1898.77 1093.35 1899 1093.63 1899 L 1094.21 1899 C 1094.49 1899 1094.72 1898.77 1094.72 1898.49 C 1094.72 1898.22 1094.49 1897.99 1094.21 1897.99 Z M 1093.63 1899.79 C 1093.44 1899.79 1093.28 1899.89 1093.19 1900.04 C 1093.1 1900.2 1093.1 1900.39 1093.19 1900.54 C 1093.28 1900.7 1093.44 1900.8 1093.63 1900.8 L 1094.21 1900.8 C 1094.39 1900.8 1094.56 1900.7 1094.65 1900.54 C 1094.74 1900.39 1094.74 1900.2 1094.65 1900.04 C 1094.56 1899.89 1094.39 1899.79 1094.21 1899.79 Z M 1093.63 1901.59 C 1093.35 1901.59 1093.12 1901.82 1093.12 1902.09 C 1093.12 1902.37 1093.35 1902.6 1093.63 1902.6 L 1094.21 1902.6 C 1094.49 1902.6 1094.72 1902.37 1094.72 1902.09 C 1094.72 1901.82 1094.49 1901.59 1094.21 1901.59 Z M 1093.63 1903.39 C 1093.35 1903.39 1093.12 1903.61 1093.12 1903.89 C 1093.12 1904.17 1093.35 1904.39 1093.63 1904.39 L 1094.21 1904.39 C 1094.49 1904.39 1094.72 1904.17 1094.72 1903.89 C 1094.72 1903.61 1094.49 1903.39 1094.21 1903.39 Z M 1093.63 1905.19 C 1093.35 1905.19 1093.12 1905.41 1093.12 1905.69 C 1093.12 1905.97 1093.35 1906.19 1093.63 1906.19 L 1094.21 1906.19 C 1094.49 1906.19 1094.72 1905.97 1094.72 1905.69 C 1094.72 1905.41 1094.49 1905.19 1094.21 1905.19 Z M 1093.63 1906.99 C 1093.35 1906.99 1093.12 1907.21 1093.12 1907.49 C 1093.12 1907.77 1093.35 1907.99 1093.63 1907.99 L 1094.21 1907.99 C 1094.49 1907.99 1094.72 1907.77 1094.72 1907.49 C 1094.72 1907.21 1094.49 1906.99 1094.21 1906.99 Z M 1095.15 1897.54 L 1100.96 1897.54 L 1100.96 1908.44 L 1095.15 1908.44 Z M 1089.82 1897.99 C 1089.54 1897.99 1089.32 1898.22 1089.32 1898.49 C 1089.32 1898.77 1089.54 1899 1089.82 1899 L 1090.41 1899 C 1090.69 1899 1090.92 1898.77 1090.92 1898.49 C 1090.92 1898.22 1090.69 1897.99 1090.41 1897.99 Z M 1089.82 1899.79 C 1089.64 1899.79 1089.48 1899.89 1089.39 1900.04 C 1089.29 1900.2 1089.29 1900.39 1089.39 1900.54 C 1089.48 1900.7 1089.64 1900.8 1089.82 1900.8 L 1090.41 1900.8 C 1090.59 1900.8 1090.76 1900.7 1090.85 1900.54 C 1090.94 1900.39 1090.94 1900.2 1090.85 1900.04 C 1090.76 1899.89 1090.59 1899.79 1090.41 1899.79 Z M 1089.82 1901.59 C 1089.54 1901.59 1089.32 1901.82 1089.32 1902.09 C 1089.32 1902.37 1089.54 1902.6 1089.82 1902.6 L 1090.41 1902.6 C 1090.69 1902.6 1090.92 1902.37 1090.92 1902.09 C 1090.92 1901.82 1090.69 1901.59 1090.41 1901.59 Z M 1089.82 1903.39 C 1089.54 1903.39 1089.32 1903.61 1089.32 1903.89 C 1089.32 1904.17 1089.54 1904.39 1089.82 1904.39 L 1090.41 1904.39 C 1090.69 1904.39 1090.92 1904.17 1090.92 1903.89 C 1090.92 1903.61 1090.69 1903.39 1090.41 1903.39 Z M 1089.82 1905.19 C 1089.54 1905.19 1089.32 1905.41 1089.32 1905.69 C 1089.32 1905.97 1089.54 1906.19 1089.82 1906.19 L 1090.41 1906.19 C 1090.69 1906.19 1090.92 1905.97 1090.92 1905.69 C 1090.92 1905.41 1090.69 1905.19 1090.41 1905.19 Z M 1089.82 1906.99 C 1089.54 1906.99 1089.32 1907.21 1089.32 1907.49 C 1089.32 1907.77 1089.54 1907.99 1089.82 1907.99 L 1090.41 1907.99 C 1090.69 1907.99 1090.92 1907.77 1090.92 1907.49 C 1090.92 1907.21 1090.69 1906.99 1090.41 1906.99 Z M 1081.55 1897.99 C 1081.27 1897.99 1081.04 1898.22 1081.04 1898.49 C 1081.04 1898.77 1081.27 1899 1081.55 1899 L 1082.13 1899 C 1082.41 1899 1082.64 1898.77 1082.64 1898.49 C 1082.64 1898.22 1082.41 1897.99 1082.13 1897.99 Z M 1081.55 1899.79 C 1081.37 1899.79 1081.2 1899.89 1081.11 1900.04 C 1081.02 1900.2 1081.02 1900.39 1081.11 1900.54 C 1081.2 1900.7 1081.37 1900.8 1081.55 1900.8 L 1082.13 1900.8 C 1082.31 1900.8 1082.48 1900.7 1082.57 1900.54 C 1082.66 1900.39 1082.66 1900.2 1082.57 1900.04 C 1082.48 1899.89 1082.31 1899.79 1082.13 1899.79 Z M 1081.55 1901.59 C 1081.27 1901.59 1081.04 1901.82 1081.04 1902.09 C 1081.04 1902.37 1081.27 1902.6 1081.55 1902.6 L 1082.13 1902.6 C 1082.41 1902.6 1082.64 1902.37 1082.64 1902.09 C 1082.64 1901.82 1082.41 1901.59 1082.13 1901.59 Z M 1081.55 1903.39 C 1081.27 1903.39 1081.04 1903.61 1081.04 1903.89 C 1081.04 1904.17 1081.27 1904.39 1081.55 1904.39 L 1082.13 1904.39 C 1082.41 1904.39 1082.64 1904.17 1082.64 1903.89 C 1082.64 1903.61 1082.41 1903.39 1082.13 1903.39 Z M 1081.55 1905.19 C 1081.27 1905.19 1081.04 1905.41 1081.04 1905.69 C 1081.04 1905.97 1081.27 1906.19 1081.55 1906.19 L 1082.13 1906.19 C 1082.41 1906.19 1082.64 1905.97 1082.64 1905.69 C 1082.64 1905.41 1082.41 1905.19 1082.13 1905.19 Z M 1081.55 1906.99 C 1081.27 1906.99 1081.04 1907.21 1081.04 1907.49 C 1081.04 1907.77 1081.27 1907.99 1081.55 1907.99 L 1082.13 1907.99 C 1082.41 1907.99 1082.64 1907.77 1082.64 1907.49 C 1082.64 1907.21 1082.41 1906.99 1082.13 1906.99 Z M 1083.07 1897.54 L 1088.88 1897.54 L 1088.88 1908.44 L 1083.07 1908.44 Z M 1077.66 1897.99 C 1077.38 1897.99 1077.15 1898.22 1077.15 1898.49 C 1077.15 1898.77 1077.38 1899 1077.66 1899 L 1078.24 1899 C 1078.52 1899 1078.75 1898.77 1078.75 1898.49 C 1078.75 1898.22 1078.52 1897.99 1078.24 1897.99 Z M 1077.66 1899.79 C 1077.48 1899.79 1077.31 1899.89 1077.22 1900.04 C 1077.13 1900.2 1077.13 1900.39 1077.22 1900.54 C 1077.31 1900.7 1077.48 1900.8 1077.66 1900.8 L 1078.24 1900.8 C 1078.43 1900.8 1078.59 1900.7 1078.68 1900.54 C 1078.77 1900.39 1078.77 1900.2 1078.68 1900.04 C 1078.59 1899.89 1078.43 1899.79 1078.24 1899.79 Z M 1077.66 1901.59 C 1077.38 1901.59 1077.15 1901.82 1077.15 1902.09 C 1077.15 1902.37 1077.38 1902.6 1077.66 1902.6 L 1078.24 1902.6 C 1078.52 1902.6 1078.75 1902.37 1078.75 1902.09 C 1078.75 1901.82 1078.52 1901.59 1078.24 1901.59 Z M 1077.66 1903.39 C 1077.38 1903.39 1077.15 1903.61 1077.15 1903.89 C 1077.15 1904.17 1077.38 1904.39 1077.66 1904.39 L 1078.24 1904.39 C 1078.52 1904.39 1078.75 1904.17 1078.75 1903.89 C 1078.75 1903.61 1078.52 1903.39 1078.24 1903.39 Z M 1077.66 1905.19 C 1077.38 1905.19 1077.15 1905.41 1077.15 1905.69 C 1077.15 1905.97 1077.38 1906.19 1077.66 1906.19 L 1078.24 1906.19 C 1078.52 1906.19 1078.75 1905.97 1078.75 1905.69 C 1078.75 1905.41 1078.52 1905.19 1078.24 1905.19 Z M 1077.66 1906.99 C 1077.38 1906.99 1077.15 1907.21 1077.15 1907.49 C 1077.15 1907.77 1077.38 1907.99 1077.66 1907.99 L 1078.24 1907.99 C 1078.52 1907.99 1078.75 1907.77 1078.75 1907.49 C 1078.75 1907.21 1078.52 1906.99 1078.24 1906.99 Z M 1069.38 1897.99 C 1069.1 1897.99 1068.88 1898.22 1068.88 1898.49 C 1068.88 1898.77 1069.1 1899 1069.38 1899 L 1069.96 1899 C 1070.24 1899 1070.47 1898.77 1070.47 1898.49 C 1070.47 1898.22 1070.24 1897.99 1069.96 1897.99 Z M 1069.38 1899.79 C 1069.2 1899.79 1069.03 1899.89 1068.94 1900.04 C 1068.85 1900.2 1068.85 1900.39 1068.94 1900.54 C 1069.03 1900.7 1069.2 1900.8 1069.38 1900.8 L 1069.96 1900.8 C 1070.15 1900.8 1070.31 1900.7 1070.4 1900.54 C 1070.49 1900.39 1070.49 1900.2 1070.4 1900.04 C 1070.31 1899.89 1070.15 1899.79 1069.96 1899.79 Z M 1069.38 1901.59 C 1069.1 1901.59 1068.88 1901.82 1068.88 1902.09 C 1068.88 1902.37 1069.1 1902.6 1069.38 1902.6 L 1069.96 1902.6 C 1070.24 1902.6 1070.47 1902.37 1070.47 1902.09 C 1070.47 1901.82 1070.24 1901.59 1069.96 1901.59 Z M 1069.38 1903.39 C 1069.1 1903.39 1068.88 1903.61 1068.88 1903.89 C 1068.88 1904.17 1069.1 1904.39 1069.38 1904.39 L 1069.96 1904.39 C 1070.24 1904.39 1070.47 1904.17 1070.47 1903.89 C 1070.47 1903.61 1070.24 1903.39 1069.96 1903.39 Z M 1069.38 1905.19 C 1069.1 1905.19 1068.88 1905.41 1068.88 1905.69 C 1068.88 1905.97 1069.1 1906.19 1069.38 1906.19 L 1069.96 1906.19 C 1070.24 1906.19 1070.47 1905.97 1070.47 1905.69 C 1070.47 1905.41 1070.24 1905.19 1069.96 1905.19 Z M 1069.38 1906.99 C 1069.1 1906.99 1068.88 1907.21 1068.88 1907.49 C 1068.88 1907.77 1069.1 1907.99 1069.38 1907.99 L 1069.96 1907.99 C 1070.24 1907.99 1070.47 1907.77 1070.47 1907.49 C 1070.47 1907.21 1070.24 1906.99 1069.96 1906.99 Z M 1070.91 1897.54 L 1076.72 1897.54 L 1076.72 1908.44 L 1070.91 1908.44 Z M 1065.56 1897.99 C 1065.28 1897.99 1065.05 1898.22 1065.05 1898.49 C 1065.05 1898.77 1065.28 1899 1065.56 1899 L 1066.14 1899 C 1066.42 1899 1066.65 1898.77 1066.65 1898.49 C 1066.65 1898.22 1066.42 1897.99 1066.14 1897.99 Z M 1065.56 1899.79 C 1065.37 1899.79 1065.21 1899.89 1065.12 1900.04 C 1065.03 1900.2 1065.03 1900.39 1065.12 1900.54 C 1065.21 1900.7 1065.37 1900.8 1065.56 1900.8 L 1066.14 1900.8 C 1066.32 1900.8 1066.49 1900.7 1066.58 1900.54 C 1066.67 1900.39 1066.67 1900.2 1066.58 1900.04 C 1066.49 1899.89 1066.32 1899.79 1066.14 1899.79 Z M 1065.56 1901.59 C 1065.28 1901.59 1065.05 1901.82 1065.05 1902.09 C 1065.05 1902.37 1065.28 1902.6 1065.56 1902.6 L 1066.14 1902.6 C 1066.42 1902.6 1066.65 1902.37 1066.65 1902.09 C 1066.65 1901.82 1066.42 1901.59 1066.14 1901.59 Z M 1065.56 1903.39 C 1065.28 1903.39 1065.05 1903.61 1065.05 1903.89 C 1065.05 1904.17 1065.28 1904.39 1065.56 1904.39 L 1066.14 1904.39 C 1066.42 1904.39 1066.65 1904.17 1066.65 1903.89 C 1066.65 1903.61 1066.42 1903.39 1066.14 1903.39 Z M 1065.56 1905.19 C 1065.28 1905.19 1065.05 1905.41 1065.05 1905.69 C 1065.05 1905.97 1065.28 1906.19 1065.56 1906.19 L 1066.14 1906.19 C 1066.42 1906.19 1066.65 1905.97 1066.65 1905.69 C 1066.65 1905.41 1066.42 1905.19 1066.14 1905.19 Z M 1065.56 1906.99 C 1065.28 1906.99 1065.05 1907.21 1065.05 1907.49 C 1065.05 1907.77 1065.28 1907.99 1065.56 1907.99 L 1066.14 1907.99 C 1066.42 1907.99 1066.65 1907.77 1066.65 1907.49 C 1066.65 1907.21 1066.42 1906.99 1066.14 1906.99 Z M 1057.28 1897.99 C 1057 1897.99 1056.77 1898.22 1056.77 1898.49 C 1056.77 1898.77 1057 1899 1057.28 1899 L 1057.86 1899 C 1058.14 1899 1058.37 1898.77 1058.37 1898.49 C 1058.37 1898.22 1058.14 1897.99 1057.86 1897.99 Z M 1057.28 1899.79 C 1057.09 1899.79 1056.93 1899.89 1056.84 1900.04 C 1056.75 1900.2 1056.75 1900.39 1056.84 1900.54 C 1056.93 1900.7 1057.09 1900.8 1057.28 1900.8 L 1057.86 1900.8 C 1058.04 1900.8 1058.21 1900.7 1058.3 1900.54 C 1058.39 1900.39 1058.39 1900.2 1058.3 1900.04 C 1058.21 1899.89 1058.04 1899.79 1057.86 1899.79 Z M 1057.28 1901.59 C 1057 1901.59 1056.77 1901.82 1056.77 1902.09 C 1056.77 1902.37 1057 1902.6 1057.28 1902.6 L 1057.86 1902.6 C 1058.14 1902.6 1058.37 1902.37 1058.37 1902.09 C 1058.37 1901.82 1058.14 1901.59 1057.86 1901.59 Z M 1057.28 1903.39 C 1057 1903.39 1056.77 1903.61 1056.77 1903.89 C 1056.77 1904.17 1057 1904.39 1057.28 1904.39 L 1057.86 1904.39 C 1058.14 1904.39 1058.37 1904.17 1058.37 1903.89 C 1058.37 1903.61 1058.14 1903.39 1057.86 1903.39 Z M 1057.28 1905.19 C 1057 1905.19 1056.77 1905.41 1056.77 1905.69 C 1056.77 1905.97 1057 1906.19 1057.28 1906.19 L 1057.86 1906.19 C 1058.14 1906.19 1058.37 1905.97 1058.37 1905.69 C 1058.37 1905.41 1058.14 1905.19 1057.86 1905.19 Z M 1057.28 1906.99 C 1057 1906.99 1056.77 1907.21 1056.77 1907.49 C 1056.77 1907.77 1057 1907.99 1057.28 1907.99 L 1057.86 1907.99 C 1058.14 1907.99 1058.37 1907.77 1058.37 1907.49 C 1058.37 1907.21 1058.14 1906.99 1057.86 1906.99 Z M 1058.8 1897.54 L 1064.61 1897.54 L 1064.61 1908.44 L 1058.8 1908.44 Z M 1055 1895.31 L 1055 1895.81 L 1055 1911.64 L 1058.6 1911.64 L 1058.6 1914.31 L 1089.83 1914.31 L 1089.83 1911.64 L 1093.22 1911.64 L 1093.22 1914.31 L 1105 1914.31 L 1105 1895.31 Z M 1056.01 1896.31 L 1103.99 1896.31 L 1103.99 1913.31 L 1094.24 1913.31 L 1094.24 1910.64 L 1088.82 1910.64 L 1088.82 1913.31 L 1059.62 1913.31 L 1059.62 1910.64 L 1056.01 1910.64 Z" fill="#434445" stroke="none"/>
+        <rect x="1340" y="1813" width="320" height="74" fill="#d5e8d4" stroke="#82b366"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe flex-start; width: 298px; height: 1px; padding-top: 1820px; margin-left: 1362px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: left;">
+                            <div style="display: inline-block; font-size: 12px; font-family: &quot;Courier New&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: none; white-space: normal; overflow-wrap: normal;">
+                                [0x7ffff7ffa000
+                                <br style="border-color: var(--border-color);"/>
+                                size=0x1000 )
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="1362" y="1832" fill="rgb(0, 0, 0)" font-family="Courier New" font-size="12px">
+                    [0x7ffff7ffa000...
+                </text>
+            </switch>
+        </g>
+        <rect x="1500" y="1823.77" width="126.55" height="49.23" rx="7.38" ry="7.38" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 125px; height: 1px; padding-top: 1848px; margin-left: 1501px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 12px; font-family: &quot;Courier New&quot;; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: none; white-space: normal; overflow-wrap: normal;">
+                                <span style="font-family: Helvetica; text-align: left;">
+                                    assert_poison
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="1563" y="1852" fill="rgb(0, 0, 0)" font-family="Courier New" font-size="12px" text-anchor="middle">
+                    assert_poison
+                </text>
+            </switch>
+        </g>
+        <rect x="1340" y="1887" width="320" height="74" fill="#d5e8d4" stroke="#82b366"/>
+        <rect x="1500" y="1897.77" width="126.55" height="49.23" rx="7.38" ry="7.38" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)"/>
+    </g>
+    <switch>
+        <g requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"/>
+        <a transform="translate(0,-5)" xlink:href="https://www.diagrams.net/doc/faq/svg-export-text-problems" target="_blank">
+            <text text-anchor="middle" font-size="10px" x="50%" y="100%">
+                Text is not SVG - cannot display
+            </text>
+        </a>
+    </switch>
+</svg>
