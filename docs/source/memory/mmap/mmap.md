@@ -8,159 +8,34 @@
 
 ## 分阶段占用内存
 
+
+
 ### 实验
 ```bash
-bash -c 'echo pid=$$ && read && exec /home/labile/opensource/jdk/build/linux-x86_64-server-slowdebug-hsdis/jdk/bin/java -XX:NativeMemoryTracking=detail -XX:+PrintNMTStatistics -XX:+AlwaysPreTouch  -Xms100m -Xmx100m -server -XX:+UseSerialGC  -XX:-UseCompressedOops -XX:+UnlockDiagnosticVMOptions -cp /home/labile/pub-diy/jvm-insider-book/memory/java-obj-layout/out/production/java-obj-layout com.mygraphql.jvm.insider.safepoint.SafepointGDB'
+bash -c 'echo pid=$$ && read && exec setarch $(uname -m) --addr-no-randomize /home/labile/opensource/jdk/build/linux-x86_64-server-slowdebug-hsdis/jdk/bin/java -XX:NativeMemoryTracking=detail -XX:+PrintNMTStatistics -XX:+AlwaysPreTouch  -Xms100m -Xmx100m -server -XX:+UseSerialGC  -XX:-UseCompressedOops -XX:+UnlockDiagnosticVMOptions -cp /home/labile/pub-diy/jvm-insider-book/memory/java-obj-layout/out/production/java-obj-layout com.mygraphql.jvm.insider.safepoint.SafepointGDB'
 ```
 
-### Reserve Memory Address
+:::{figure-md} 图:JVM Memory Maps on Linux
 
-#### CodeCache
+<img src="jvm-mmap.drawio.svg" alt="图:JVM Memory Maps on Linux">
 
+*图:JVM Memory Maps on Linux*
+:::
+*[用 Draw.io 打开](https://app.diagrams.net/?ui=sketch#Uhttps%3A%2F%2Fjvm-insider.mygraphql.com%2Fzh-cn%2Flatest%2F_images%2Fjvm-mmap.drawio.svg)*
+
+
+不难看出，每个内存 Region 的使用，分为几个阶段：
+1. Reserved Region. 调用 mmap syscall，保留一大段连续的地址空间(未在 kernel 中占用 RSS 内存)，内存页不能读写。对应 mmap 权限 PROT_NONE
+2. Commit Region. 调用 mmap syscall，对 `Reserved Region` 的一大段连续的地址空间中的 一部分(或全部)连接内存页，增加可以读写或执行的权限。但还是未在 kernel 中占用 RSS 内存。对应 mmap 权限 PROT_READ|PROT_WRITE|PROT_EXEC 。
+3. Read/Write(touch) memory. 程序首次读写内存页时，在 kernel 中占用 RSS 内存
+
+
+上图同时描述了 Native Memory Tracking 实现的数据结构。 `jcmd` 的 Native Memory Tracking 相关子命令： 
 ```
-  char* addr = (char*)::mmap(requested_addr, bytes, PROT_NONE, flags, -1, 0);
-
-
-libjvm.so!anon_mmap(char * requested_addr, size_t bytes) (/home/labile/opensource/jdk/src/hotspot/os/linux/os_linux.cpp:3423)
-libjvm.so!os::pd_reserve_memory(size_t bytes, bool exec) (/home/labile/opensource/jdk/src/hotspot/os/linux/os_linux.cpp:3470)
-libjvm.so!os::reserve_memory(size_t bytes, bool executable, MEMFLAGS flags) (/home/labile/opensource/jdk/src/hotspot/share/runtime/os.cpp:1756)
-libjvm.so!map_or_reserve_memory(size_t size, int fd, bool executable) (/home/labile/opensource/jdk/src/hotspot/share/memory/virtualspace.cpp:95)
-libjvm.so!reserve_memory(char * requested_address, const size_t size, const size_t alignment, int fd, bool exec) (/home/labile/opensource/jdk/src/hotspot/share/memory/virtualspace.cpp:170)
-libjvm.so!ReservedSpace::reserve(ReservedSpace * const this, size_t size, size_t alignment, size_t page_size, char * requested_address, bool executable) (/home/labile/opensource/jdk/src/hotspot/share/memory/virtualspace.cpp:268)
-libjvm.so!ReservedSpace::initialize(ReservedSpace * const this, size_t size, size_t alignment, size_t page_size, char * requested_address, bool executable) (/home/labile/opensource/jdk/src/hotspot/share/memory/virtualspace.cpp:300)
-libjvm.so!ReservedCodeSpace::ReservedCodeSpace(ReservedCodeSpace * const this, size_t r_size, size_t rs_align, size_t rs_page_size) (/home/labile/opensource/jdk/src/hotspot/share/memory/virtualspace.cpp:662)
-libjvm.so!CodeCache::reserve_heap_memory(size_t size) (/home/labile/opensource/jdk/src/hotspot/share/code/codeCache.cpp:362)
-libjvm.so!CodeCache::initialize_heaps() (/home/labile/opensource/jdk/src/hotspot/share/code/codeCache.cpp:327)
-libjvm.so!CodeCache::initialize() (/home/labile/opensource/jdk/src/hotspot/share/code/codeCache.cpp:1191)
-libjvm.so!codeCache_init() (/home/labile/opensource/jdk/src/hotspot/share/code/codeCache.cpp:1214)
-libjvm.so!init_globals() (/home/labile/opensource/jdk/src/hotspot/share/runtime/init.cpp:121)
-libjvm.so!Threads::create_vm(JavaVMInitArgs * args, bool * canTryAgain) (/home/labile/opensource/jdk/src/hotspot/share/runtime/threads.cpp:549)
-libjvm.so!JNI_CreateJavaVM_inner(JavaVM ** vm, void ** penv, void * args) (/home/labile/opensource/jdk/src/hotspot/share/prims/jni.cpp:3577)
-libjvm.so!JNI_CreateJavaVM(JavaVM ** vm, void ** penv, void * args) (/home/labile/opensource/jdk/src/hotspot/share/prims/jni.cpp:3668)
-libjli.so!InitializeJVM(JavaVM ** pvm, JNIEnv ** penv, InvocationFunctions * ifn) (/home/labile/opensource/jdk/src/java.base/share/native/libjli/java.c:1506)
-libjli.so!JavaMain(void * _args) (/home/labile/opensource/jdk/src/java.base/share/native/libjli/java.c:415)
-libjli.so!ThreadJavaMain(void * args) (/home/labile/opensource/jdk/src/java.base/unix/native/libjli/java_md.c:650)
-start_thread(void * arg) (pthread_create.c:442)
+jcmd <pid> VM.native_memory [summary | detail | baseline | summary.diff | detail.diff | shutdown] [scale= KB | MB | GB]
 ```
 
-#### GenCollectedHeap
-```
-  // Check for overflow.
-  size_t total_reserved = _young_gen_spec->max_size() + _old_gen_spec->max_size();
-
-  char* addr = (char*)::mmap(requested_addr, bytes, PROT_NONE, flags, -1, 0);
-
-libjvm.so!anon_mmap(char * requested_addr, size_t bytes) (/home/labile/opensource/jdk/src/hotspot/os/linux/os_linux.cpp:3423)
-libjvm.so!os::pd_reserve_memory(size_t bytes, bool exec) (/home/labile/opensource/jdk/src/hotspot/os/linux/os_linux.cpp:3470)
-libjvm.so!os::reserve_memory(size_t bytes, bool executable, MEMFLAGS flags) (/home/labile/opensource/jdk/src/hotspot/share/runtime/os.cpp:1756)
-libjvm.so!map_or_reserve_memory(size_t size, int fd, bool executable) (/home/labile/opensource/jdk/src/hotspot/share/memory/virtualspace.cpp:95)
-libjvm.so!reserve_memory(char * requested_address, const size_t size, const size_t alignment, int fd, bool exec) (/home/labile/opensource/jdk/src/hotspot/share/memory/virtualspace.cpp:170)
-libjvm.so!ReservedSpace::reserve(ReservedSpace * const this, size_t size, size_t alignment, size_t page_size, char * requested_address, bool executable) (/home/labile/opensource/jdk/src/hotspot/share/memory/virtualspace.cpp:268)
-libjvm.so!ReservedSpace::initialize(ReservedSpace * const this, size_t size, size_t alignment, size_t page_size, char * requested_address, bool executable) (/home/labile/opensource/jdk/src/hotspot/share/memory/virtualspace.cpp:300)
-libjvm.so!ReservedHeapSpace::ReservedHeapSpace(ReservedHeapSpace * const this, size_t size, size_t alignment, size_t page_size, const char * heap_allocation_directory) (/home/labile/opensource/jdk/src/hotspot/share/memory/virtualspace.cpp:636)
-libjvm.so!Universe::reserve_heap(size_t heap_size, size_t alignment) (/home/labile/opensource/jdk/src/hotspot/share/memory/universe.cpp:874)
-libjvm.so!GenCollectedHeap::allocate(GenCollectedHeap * const this, size_t alignment) (/home/labile/opensource/jdk/src/hotspot/share/gc/shared/genCollectedHeap.cpp:168)
-libjvm.so!GenCollectedHeap::initialize(GenCollectedHeap * const this) (/home/labile/opensource/jdk/src/hotspot/share/gc/shared/genCollectedHeap.cpp:110)
-libjvm.so!Universe::initialize_heap() (/home/labile/opensource/jdk/src/hotspot/share/memory/universe.cpp:843)
-libjvm.so!universe_init() (/home/labile/opensource/jdk/src/hotspot/share/memory/universe.cpp:785)
-libjvm.so!init_globals() (/home/labile/opensource/jdk/src/hotspot/share/runtime/init.cpp:124)
-libjvm.so!Threads::create_vm(JavaVMInitArgs * args, bool * canTryAgain) (/home/labile/opensource/jdk/src/hotspot/share/runtime/threads.cpp:549)
-libjvm.so!JNI_CreateJavaVM_inner(JavaVM ** vm, void ** penv, void * args) (/home/labile/opensource/jdk/src/hotspot/share/prims/jni.cpp:3577)
-libjvm.so!JNI_CreateJavaVM(JavaVM ** vm, void ** penv, void * args) (/home/labile/opensource/jdk/src/hotspot/share/prims/jni.cpp:3668)
-libjli.so!InitializeJVM(JavaVM ** pvm, JNIEnv ** penv, InvocationFunctions * ifn) (/home/labile/opensource/jdk/src/java.base/share/native/libjli/java.c:1506)
-libjli.so!JavaMain(void * _args) (/home/labile/opensource/jdk/src/java.base/share/native/libjli/java.c:415)
-libjli.so!ThreadJavaMain(void * args) (/home/labile/opensource/jdk/src/java.base/unix/native/libjli/java_md.c:650)  
-
-```
-
-
-
-
-### commit memory
-
-
-```
-  int prot = exec ? PROT_READ|PROT_WRITE|PROT_EXEC : PROT_READ|PROT_WRITE;
-  uintptr_t res = (uintptr_t) ::mmap(addr, size, prot,
-                                     MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0);
-
-__GI___mmap64(void * addr, size_t len, int prot, int flags, int fd, off64_t offset) (mmap64.c:47)
-libjvm.so!os::Linux::commit_memory_impl(char * addr, size_t size, bool exec) (/home/labile/opensource/jdk/src/hotspot/os/linux/os_linux.cpp:2745)
-libjvm.so!os::Linux::commit_memory_impl(char * addr, size_t size, size_t alignment_hint, bool exec) (/home/labile/opensource/jdk/src/hotspot/os/linux/os_linux.cpp:2800)
-libjvm.so!os::pd_commit_memory(char * addr, size_t size, size_t alignment_hint, bool exec) (/home/labile/opensource/jdk/src/hotspot/os/linux/os_linux.cpp:2809)
-libjvm.so!os::commit_memory(char * addr, size_t size, size_t alignment_hint, bool executable) (/home/labile/opensource/jdk/src/hotspot/share/runtime/os.cpp:1791)
-libjvm.so!commit_expanded(char * start, size_t size, size_t alignment, bool pre_touch, bool executable) (/home/labile/opensource/jdk/src/hotspot/share/memory/virtualspace.cpp:829)
-libjvm.so!VirtualSpace::expand_by(VirtualSpace * const this, size_t bytes, bool pre_touch) (/home/labile/opensource/jdk/src/hotspot/share/memory/virtualspace.cpp:926)
-libjvm.so!VirtualSpace::initialize_with_granularity(VirtualSpace * const this, ReservedSpace rs, size_t committed_size, size_t max_commit_granularity) (/home/labile/opensource/jdk/src/hotspot/share/memory/virtualspace.cpp:732)
-libjvm.so!VirtualSpace::initialize(VirtualSpace * const this, ReservedSpace rs, size_t committed_size) (/home/labile/opensource/jdk/src/hotspot/share/memory/virtualspace.cpp:689)
-libjvm.so!CodeHeap::reserve(CodeHeap * const this, ReservedSpace rs, size_t committed_size, size_t segment_size) (/home/labile/opensource/jdk/src/hotspot/share/memory/heap.cpp:217)
-libjvm.so!CodeCache::add_heap(ReservedSpace rs, const char * name, CodeBlobType code_blob_type) (/home/labile/opensource/jdk/src/hotspot/share/code/codeCache.cpp:447)
-libjvm.so!CodeCache::initialize_heaps() (/home/labile/opensource/jdk/src/hotspot/share/code/codeCache.cpp:337)
-libjvm.so!CodeCache::initialize() (/home/labile/opensource/jdk/src/hotspot/share/code/codeCache.cpp:1191)
-libjvm.so!codeCache_init() (/home/labile/opensource/jdk/src/hotspot/share/code/codeCache.cpp:1214)
-libjvm.so!init_globals() (/home/labile/opensource/jdk/src/hotspot/share/runtime/init.cpp:121)
-libjvm.so!Threads::create_vm(JavaVMInitArgs * args, bool * canTryAgain) (/home/labile/opensource/jdk/src/hotspot/share/runtime/threads.cpp:549)
-libjvm.so!JNI_CreateJavaVM_inner(JavaVM ** vm, void ** penv, void * args) (/home/labile/opensource/jdk/src/hotspot/share/prims/jni.cpp:3577)
-libjvm.so!JNI_CreateJavaVM(JavaVM ** vm, void ** penv, void * args) (/home/labile/opensource/jdk/src/hotspot/share/prims/jni.cpp:3668)
-libjli.so!InitializeJVM(JavaVM ** pvm, JNIEnv ** penv, InvocationFunctions * ifn) (/home/labile/opensource/jdk/src/java.base/share/native/libjli/java.c:1506)
-libjli.so!JavaMain(void * _args) (/home/labile/opensource/jdk/src/java.base/share/native/libjli/java.c:415)
-```
-
-#### GenCollectedHeap
-```
-  int prot = exec ? PROT_READ|PROT_WRITE|PROT_EXEC : PROT_READ|PROT_WRITE;
-  uintptr_t res = (uintptr_t) ::mmap(addr, size, prot,
-                                     MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0);
-
-libjvm.so!os::Linux::commit_memory_impl(char * addr, size_t size, bool exec) (/home/labile/opensource/jdk/src/hotspot/os/linux/os_linux.cpp:2745)
-libjvm.so!os::Linux::commit_memory_impl(char * addr, size_t size, size_t alignment_hint, bool exec) (/home/labile/opensource/jdk/src/hotspot/os/linux/os_linux.cpp:2800)
-libjvm.so!os::pd_commit_memory(char * addr, size_t size, size_t alignment_hint, bool exec) (/home/labile/opensource/jdk/src/hotspot/os/linux/os_linux.cpp:2809)
-libjvm.so!os::commit_memory(char * addr, size_t size, size_t alignment_hint, bool executable) (/home/labile/opensource/jdk/src/hotspot/share/runtime/os.cpp:1791)
-libjvm.so!commit_expanded(char * start, size_t size, size_t alignment, bool pre_touch, bool executable) (/home/labile/opensource/jdk/src/hotspot/share/memory/virtualspace.cpp:829)
-libjvm.so!VirtualSpace::expand_by(VirtualSpace * const this, size_t bytes, bool pre_touch) (/home/labile/opensource/jdk/src/hotspot/share/memory/virtualspace.cpp:926)
-libjvm.so!VirtualSpace::initialize_with_granularity(VirtualSpace * const this, ReservedSpace rs, size_t committed_size, size_t max_commit_granularity) (/home/labile/opensource/jdk/src/hotspot/share/memory/virtualspace.cpp:732)
-libjvm.so!VirtualSpace::initialize(VirtualSpace * const this, ReservedSpace rs, size_t committed_size) (/home/labile/opensource/jdk/src/hotspot/share/memory/virtualspace.cpp:689)
-libjvm.so!Generation::Generation(Generation * const this, ReservedSpace rs, size_t initial_size) (/home/labile/opensource/jdk/src/hotspot/share/gc/shared/generation.cpp:46)
-libjvm.so!DefNewGeneration::DefNewGeneration(DefNewGeneration * const this, ReservedSpace rs, size_t initial_size, size_t min_size, size_t max_size, const char * policy) (/home/labile/opensource/jdk/src/hotspot/share/gc/serial/defNewGeneration.cpp:336)
-libjvm.so!GenerationSpec::init(GenerationSpec * const this, ReservedSpace rs, CardTableRS * remset) (/home/labile/opensource/jdk/src/hotspot/share/gc/shared/generationSpec.cpp:39)
-libjvm.so!GenCollectedHeap::initialize(GenCollectedHeap * const this) (/home/labile/opensource/jdk/src/hotspot/share/gc/shared/genCollectedHeap.cpp:130)
-libjvm.so!Universe::initialize_heap() (/home/labile/opensource/jdk/src/hotspot/share/memory/universe.cpp:843)
-libjvm.so!universe_init() (/home/labile/opensource/jdk/src/hotspot/share/memory/universe.cpp:785)
-libjvm.so!init_globals() (/home/labile/opensource/jdk/src/hotspot/share/runtime/init.cpp:124)
-libjvm.so!Threads::create_vm(JavaVMInitArgs * args, bool * canTryAgain) (/home/labile/opensource/jdk/src/hotspot/share/runtime/threads.cpp:549)
-libjvm.so!JNI_CreateJavaVM_inner(JavaVM ** vm, void ** penv, void * args) (/home/labile/opensource/jdk/src/hotspot/share/prims/jni.cpp:3577)
-libjvm.so!JNI_CreateJavaVM(JavaVM ** vm, void ** penv, void * args) (/home/labile/opensource/jdk/src/hotspot/share/prims/jni.cpp:3668)
-libjli.so!InitializeJVM(JavaVM ** pvm, JNIEnv ** penv, InvocationFunctions * ifn) (/home/labile/opensource/jdk/src/java.base/share/native/libjli/java.c:1506)
-libjli.so!JavaMain(void * _args) (/home/labile/opensource/jdk/src/java.base/share/native/libjli/java.c:415)
-```
-
-#### Metaspace
-
-直接 commit，不经过 reserve memory address。 因为其直接指定了地址，使用低地址，如 0x80040000 。原因
-
-
-```
-libjvm.so!metaspace::Metachunk::initialize(metaspace::Metachunk * const this, metaspace::VirtualSpaceNode * node, MetaWord * base, metaspace::chunklevel_t lvl) (/home/labile/opensource/jdk/src/hotspot/share/memory/metaspace/metachunk.hpp:327)
-libjvm.so!metaspace::RootChunkArea::alloc_root_chunk_header(metaspace::RootChunkArea * const this, metaspace::VirtualSpaceNode * node) (/home/labile/opensource/jdk/src/hotspot/share/memory/metaspace/rootChunkArea.cpp:64)
-libjvm.so!metaspace::VirtualSpaceNode::allocate_root_chunk(metaspace::VirtualSpaceNode * const this) (/home/labile/opensource/jdk/src/hotspot/share/memory/metaspace/virtualSpaceNode.cpp:322)
-libjvm.so!metaspace::VirtualSpaceList::allocate_root_chunk(metaspace::VirtualSpaceList * const this) (/home/labile/opensource/jdk/src/hotspot/share/memory/metaspace/virtualSpaceList.cpp:134)
-libjvm.so!metaspace::ChunkManager::get_chunk_locked(metaspace::ChunkManager * const this, metaspace::chunklevel_t preferred_level, metaspace::chunklevel_t max_level, size_t min_committed_words) (/home/labile/opensource/jdk/src/hotspot/share/memory/metaspace/chunkManager.cpp:186)
-libjvm.so!metaspace::ChunkManager::get_chunk(metaspace::ChunkManager * const this, metaspace::chunklevel_t preferred_level, metaspace::chunklevel_t max_level, size_t min_committed_words) (/home/labile/opensource/jdk/src/hotspot/share/memory/metaspace/chunkManager.cpp:118)
-libjvm.so!metaspace::MetaspaceArena::allocate_new_chunk(metaspace::MetaspaceArena * const this, size_t requested_word_size) (/home/labile/opensource/jdk/src/hotspot/share/memory/metaspace/metaspaceArena.cpp:93)
-libjvm.so!metaspace::MetaspaceArena::allocate_inner(metaspace::MetaspaceArena * const this, size_t requested_word_size) (/home/labile/opensource/jdk/src/hotspot/share/memory/metaspace/metaspaceArena.cpp:313)
-libjvm.so!metaspace::MetaspaceArena::allocate(metaspace::MetaspaceArena * const this, size_t requested_word_size) (/home/labile/opensource/jdk/src/hotspot/share/memory/metaspace/metaspaceArena.cpp:244)
-libjvm.so!ClassLoaderMetaspace::allocate(ClassLoaderMetaspace * const this, size_t word_size, Metaspace::MetadataType mdType) (/home/labile/opensource/jdk/src/hotspot/share/memory/classLoaderMetaspace.cpp:96)
-libjvm.so!Metaspace::allocate(ClassLoaderData * loader_data, size_t word_size, MetaspaceObj::Type type) (/home/labile/opensource/jdk/src/hotspot/share/memory/metaspace.cpp:907)
-libjvm.so!Metaspace::allocate(ClassLoaderData * loader_data, size_t word_size, MetaspaceObj::Type type, JavaThread * __the_thread__) (/home/labile/opensource/jdk/src/hotspot/share/memory/metaspace.cpp:927)
-libjvm.so!Array<Klass*>::operator new(size_t size, ClassLoaderData * loader_data, int length, JavaThread * __the_thread__) (/home/labile/opensource/jdk/src/hotspot/share/oops/array.inline.hpp:36)
-libjvm.so!MetadataFactory::new_array<Klass*>(ClassLoaderData * loader_data, int length, JavaThread * __the_thread__) (/home/labile/opensource/jdk/src/hotspot/share/memory/metadataFactory.hpp:41)
-libjvm.so!MetadataFactory::new_array<Klass*>(ClassLoaderData * loader_data, int length, Klass * value, JavaThread * __the_thread__) (/home/labile/opensource/jdk/src/hotspot/share/memory/metadataFactory.hpp:46)
-libjvm.so!Universe::genesis(JavaThread * __the_thread__) (/home/labile/opensource/jdk/src/hotspot/share/memory/universe.cpp:345)
-libjvm.so!universe2_init() (/home/labile/opensource/jdk/src/hotspot/share/memory/universe.cpp:973)
-libjvm.so!init_globals2() (/home/labile/opensource/jdk/src/hotspot/share/runtime/init.cpp:150)
-libjvm.so!Threads::create_vm(JavaVMInitArgs * args, bool * canTryAgain) (/home/labile/opensource/jdk/src/hotspot/share/runtime/threads.cpp:568)
-libjvm.so!JNI_CreateJavaVM_inner(JavaVM ** vm, void ** penv, void * args) (/home/labile/opensource/jdk/src/hotspot/share/prims/jni.cpp:3577)
-```
+的实现数据就是来源于这个数据结构。
 
 ## Inspect
 
