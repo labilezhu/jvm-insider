@@ -1,4 +1,4 @@
-# MMap - OS Memory Area
+# MMap - OS Memory Region
 
 ## 内存分区
 关于 JVM 内存分区，可见我之前写的文章：
@@ -29,8 +29,14 @@ bash -c 'echo pid=$$ && read && exec setarch $(uname -m) --addr-no-randomize /ho
 
 不难看出，每个内存 Region 的使用，分为几个阶段：
 1. Reserved Region. 调用 mmap syscall，保留一大段连续的地址空间(未在 kernel 中占用 RSS 内存)，内存页不能读写。对应 mmap 权限 PROT_NONE
-2. Commit Region. 调用 mmap syscall，对 `Reserved Region` 的一大段连续的地址空间中的 一部分(或全部)连接内存页，增加可以读写或执行的权限。但还是未在 kernel 中占用 RSS 内存。对应 mmap 权限 PROT_READ|PROT_WRITE|PROT_EXEC 。
-3. Read/Write(touch) memory. 程序首次读写内存页时，在 kernel 中占用 RSS 内存
+2. Commit Region. 在真正需要使用一个内存块之前，调用 mmap syscall，对 `Reserved Region` 的一大段连续的地址空间中的 一部分(或全部)连接内存页，设置可以读写或执行的权限（但还是未在 kernel 中占用 RSS 内存）。对应 mmap 权限 [PROT_READ|PROT_WRITE|PROT_EXEC](https://github.com/openjdk/jdk//blob/890adb6410dab4606a4f26a942aed02fb2f55387/src/hotspot/os/linux/os_linux.cpp#L2744) 。
+3. Read/Write(touch) memory. 程序首次读写内存页时，在 kernel 中计入 RSS 内存。
+
+
+
+看到 Reserved/Commit 这些术语，大概就知道平时我们监控 Java 内存使用时，Reserved Memory/Commit  Memory 是什么玩意了。
+
+
 
 
 上图同时描述了 Native Memory Tracking 实现的数据结构。 `jcmd` 的 Native Memory Tracking 相关子命令： 
@@ -42,11 +48,7 @@ jcmd <pid> VM.native_memory [summary | detail | baseline | summary.diff | detail
 
 ## Inspect
 
-
-
 ### pmap Linux command
-
-
 
 ### jcmd System.map
 
@@ -183,5 +185,4 @@ from               to                        vsize prot          rss      hugetl
 
 
 - 变更跟踪：[Provide a diagnostic PrintMemoryMapAtExit switch on Linux - Enhancement issue on bugs.openjdk.org](https://bugs.openjdk.org/browse/JDK-8334026?page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel)
-
 
