@@ -46,7 +46,7 @@ jcmd <pid> VM.native_memory [summary | detail | baseline | summary.diff | detail
 
 的实现数据就是来源于这个数据结构。
 
-## Inspect
+## 观察
 
 ### pmap Linux command
 
@@ -90,7 +90,7 @@ jcmd <pid> VM.native_memory [summary | detail | baseline | summary.diff | detail
 
 
 
-### Java options:  -XX:+PrintMemoryMapAtExit
+### Java 退出时打印 mmap: -XX:+PrintMemoryMapAtExit
 
 Java options:  `-XX:+PrintMemoryMapAtExit` .  Print an annotated memory map at exit.
 

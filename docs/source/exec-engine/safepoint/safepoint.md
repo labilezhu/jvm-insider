@@ -351,6 +351,17 @@ libc.so.6!clone3() (clone3.S:81)
 
 
 
+这里有个有趣的号外。Java profile 工具 [async-profiler](https://github.com/async-profiler/async-profiler) 有个 time-to-safepoint profiling 的功能，可以分析 JVM 在 arm global safepoint 到所有线程到达 safepoint 之间，各线程在忙什么：
+
+> - `--begin function`, `--end function` - automatically start/stop profiling when the specified native function is executed.
+> - `--ttsp` - time-to-safepoint profiling. An alias for
+>   `--begin SafepointSynchronize::begin --end RuntimeService::record_safepoint_synchronized`
+>   It is not a separate event type, but rather a constraint. Whatever event type you choose (e.g. `cpu` or `wall`), the profiler will work as usual, except that only events between the safepoint request and the start of the VM operation will be recorded.
+
+开始 profiling 用 `SafepointSynchronize::begin` 完全可以理解，但为何结束 profiling 用 `RuntimeService::record_safepoint_synchronized` ？不应该是 `SafepointSynchronize::synchronize_threads` 返回吗？其实两者只有一点点区别，有兴趣的同学自己看 `SafepointSynchronize::begin` 的原码吧。
+
+
+
 ### 执行 Stop The World 操作
 
 当 `VM Thread`   发现所有 App thread 都到达 safepoint （真实的 STW 的开始） 。就开始执行 `safepoint operation` 。`GC 操作` 是 `safepoint operation` 其中一种可能类型。
