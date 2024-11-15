@@ -14,6 +14,7 @@ thread-management.md
 internal-locks/internal-locks.md
 internal-vm-threads.md
 vm-threads-cooperative/vm-operation.md
+virtual-threads/virtual-threads.md
 ```
 
 
