@@ -40,7 +40,14 @@
 
 
 
+## Virtual Thread 类图
+:::{figure-md} 图: Virtual Thread 类图
 
+<img src="virtual-thread-class.drawio.svg" alt="图: Virtual Thread 类图">
+
+*图: Virtual Thread 类图*
+:::
+*[用 Draw.io 打开](https://app.diagrams.net/?ui=sketch#Uhttps%3A%2F%2Fjvm-insider.mygraphql.com%2Fzh-cn%2Flatest%2F_images%2Fvirtual-thread-class.drawio.svg)*
 
 
 
@@ -525,6 +532,7 @@ java -agentlib:jdwp=transport=dt_socket,address=8000,server=y,suspend=n,includev
 - [When not to use virtual threads in Java](https://berksoftware.com/24/1/When-Not-To-Use-Virtual-Threads)
 - [Essential Information on Virtual Threads](https://github.com/SAP/SapMachine/wiki/Essential-Information-on-Virtual-Threads)
 - [Inside Java - loom tags](https://inside.java/tag/loom)
+- [OpenJDK wiki - loom](https://wiki.openjdk.org/display/loom/Main)
 
 
 
