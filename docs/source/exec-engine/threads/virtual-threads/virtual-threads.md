@@ -240,7 +240,7 @@ synchronized block/method 要 pin 的原因是：
 >
 > 为了实现“synchronized”关键字，JVM 会跟踪当前哪个线程持有对象的 monitor 。遗憾的是，它跟踪的是哪个 PT 持有 monitor ，而不是哪个 VT。当 VT 运行“synchronized”实例方法并获取与该实例关联的 monitor 时，JVM 会记录 VT 的载体平台线程持有监视器 — 而不是 VT 本身。
 >
-> pin CT 会传染：
+> 另外，pin CT 会传染：
 >
 > 如果 VT 调用 `synchronized method`，并且与该实例关联的 monitor 由另一个线程持有，则 VT 必须阻塞，因为一次只有一个线程可以持有该 monitor。我们希望 VT 从其CT 上 unmount 并将该平台线程释放给 JDK 调度程序。不幸的是，如果  monitor 已被另一个线程持有，则 VT 将在 JVM 中阻塞，直到 CT 获取Monitor。
 >
@@ -264,7 +264,7 @@ synchronized block/method 要 pin 的原因是：
 
 
 
-#### 克服 pin
+#### 克服部分 VT pin
 
 直到 OpenJDK 24 的 [JEP 491: Synchronize Virtual Threads without Pinning](https://openjdk.org/jeps/491) pin CT 的场景大量减少：
 
@@ -272,13 +272,23 @@ synchronized block/method 要 pin 的原因是：
 >
 > 但是，不必放弃 `synchronized` 方法和语句即可享受 VT 的可扩展性优势。JVM 对 `synchronized` 关键字的实现应该允许 VT 在 `synchronized method/block`  时 unmount。这将使 VT 得到更广泛的应用。
 >
+> **如何做到：**
+>
+> 我们将更改 JVM 对 `synchronized` 关键字的实现，以便 VT 可以独立于其 CT 获取、保留和释放 monitor。 mounting 和 unmounting 操作将执行必要的登记，以允许 VT 在 `synchronized method/block` 中或在 wait monitor 时unmount 并 remount。 
+>
+> blocking  VT 以获取 monitor 时，将会 unmount VT 并将其 CT 释放给 JDK 的调度程序。当 monitor 被释放并且 JVM 选择恢复 VT 运行时，JVM 会将  VT 提交给调度程序。调度程序将 mount VT（可能在不同的 CT 上）以恢复执行并再次尝试获取 monitor。
+>
+> `Object.wait()` 方法及其定时等待变体将在 waiting 和 blocking 以重新获取 monitor 时类似地 unmount VT。当使用`Object.notify()`唤醒，并且 monitor 被释放，并且JVM选择恢复 VT 运行时，JVM会将 VT 提交给调度程序以恢复执行。
+>
+> **影响：**
+>
+> 所以 OpenJDK 24 后， `jdk.tracePinnedThreads` 将不再需要了。
+>
 > 
 >
-> 我们将更改 JVM 对 `synchronized` 关键字的实现，以便 VT 可以独立于其 CT 获取、保留和释放 monitor。 mounting 和 unmounting 操作将执行必要的登记，以允许 VT 在 `synchronized method/block` 中或在 wait monitor 时unmount 并 remount。
+> **用 synchronized 还是用 java.util.concurrent.locks？**
 >
-> blocking 以获取 monitor 将 unmount VT 并将其载体释放给 JDK 的调度程序。当 monitor 被释放并且 JVM 选择 VT 继续时，JVM 会将  VT 提交给调度程序。调度程序将 mount VT（可能在不同的 CT 上）以恢复执行并再次尝试获取monitor。
->
-> `Object.wait()` 方法及其定时等待变体将在等待和阻塞以重新获取 monitor 时类似地 unmount VT。当使用`Object.notify()`唤醒，并且 monitor 被释放，并且JVM选择 VT 继续执行时，JVM会将 VT 提交给调度程序以恢复执行。
+> If you are writing new code, we agree with the recommendation in [_Java Concurrency in Practice_](https://jcip.net/) §13.4: Use `synchronized` where practical, since it is more convenient and less error prone, and use `ReentrantLock` and the other APIs in `java.util.concurrent.locks` when more flexibility is required. Either way, reduce the potential for contention by narrowing the scope of locks and avoid, where possible, doing I/O or other blocking operations while holding locks.
 
 
 
@@ -307,6 +317,8 @@ synchronized block/method 要 pin 的原因是：
 ### VT 实例限制
 
 过多的 VT 实例，会占用过多的内存。所以要控制 VT 实例的数量。[Oracle 官方的 VT 文档](https://docs.oracle.com/en/java/javase/21/core/virtual-threads.html)，建议用 [Semaphore](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/Semaphore.html) class 控制并发量 。但那文档中说的方法是在 VT 中调用 Semaphore 。要限制 VT 的创建，达到 backpress 的目的，是应该在创建 VT 的地方控制的。
+
+具体见 [Managing Throughput with Virtual Threads - Sip of Java](https://inside.java/2024/02/04/sip094/)
 
 
 
@@ -512,6 +524,7 @@ java -agentlib:jdwp=transport=dt_socket,address=8000,server=y,suspend=n,includev
 - [Oracle 官方的 VT 文档](https://docs.oracle.com/en/java/javase/21/core/virtual-threads.html)
 - [When not to use virtual threads in Java](https://berksoftware.com/24/1/When-Not-To-Use-Virtual-Threads)
 - [Essential Information on Virtual Threads](https://github.com/SAP/SapMachine/wiki/Essential-Information-on-Virtual-Threads)
+- [Inside Java - loom tags](https://inside.java/tag/loom)
 
 
 
