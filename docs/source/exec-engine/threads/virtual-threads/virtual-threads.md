@@ -282,7 +282,7 @@ synchronized block/method 要 pin 的原因是：
 >
 > **影响：**
 >
-> 所以 OpenJDK 24 后， `jdk.tracePinnedThreads` 将不再需要了。
+> 所以 OpenJDK 24 后， 由于  [JEP 491: Synchronize Virtual Threads without Pinning](https://openjdk.org/jeps/491)， `jdk.tracePinnedThreads` 将不再支持了。
 >
 > 
 >
@@ -432,7 +432,7 @@ CT 在运行 VT 时被阻塞。从它们的堆栈来看，无法判断 VT 正在
 
 我们可以使用：
 
-- `-Djdk.tracePinnedThreads=short/full` Java 启动选项。它可以跟踪代码中出现 pinned VT 的位置
+- `-Djdk.tracePinnedThreads=short/full` Java 启动选项。它可以跟踪代码中出现 pinned VT 的位置。注意，OpenJDK 24 后， 由于  [JEP 491: Synchronize Virtual Threads without Pinning](https://openjdk.org/jeps/491)， `jdk.tracePinnedThreads` 将不再支持了。
 
 - JFR 事件 `jdk.VirtualThreadPinned` ：它能够识别可能影响性能的 pinned VT。此事件默认启用，阈值为记录超过 20 毫秒（可配置） 的 pinned VT
 
