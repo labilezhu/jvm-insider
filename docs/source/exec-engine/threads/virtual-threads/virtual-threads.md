@@ -52,7 +52,7 @@
 > Java debuggers can step through virtual threads, show call stacks, and inspect variables in stack frames. JDK Flight Recorder (JFR), which is the JDK's low-overhead profiling and monitoring mechanism, can associate events from application code (such as object allocation and I/O operations) with the correct virtual thread. **These tools cannot do these things for applications written in the asynchronous style**. In that style tasks are not related to threads, so debuggers cannot display or manipulate the state of a task, and profilers cannot tell how much time a task spends waiting for I/O.
 
 对于以前的基于 callback 异步编程模式编写的程序，很多性能分析(profiling)工具不能提供好的分析结果，因为这些工具有一个假设：一个任务是一个线程从头同步跑到尾的。工具本身不知道如何跟踪 callback 模式中的任务上下文，从而无法识别出运行期的相关性。
-而采用 virtual thread 后，运行期上下文的 virtual thread id 可以用于跟踪任务的相关性，就帮助已经原生支持 VT 的 profiling 工具更好更简单地串联起多个运行期事件。这方面我一直在使用的 AsyncProfiler 好像在写本文时，还未很原生地支持 VT 。但 OpenJDK 内置的亲生子 JFR 好像支持得比较完善。
+而采用 virtual thread 后，运行期上下文的 virtual thread id 可以用于跟踪任务的相关性，帮助已原生支持 VT 的 profiling 工具更好更简单地串联起多个运行期事件。这方面我一直在使用的 AsyncProfiler 好像在写本文时，还未很原生地支持 VT 。但 OpenJDK 内置的亲生子 JFR 好像支持得比较完善。
 
 
 
@@ -127,7 +127,7 @@ JDK 的 VT scheduler是一个以 FIFO 模式运行的 ForkJoinPool。scheduler�
 
 - `jdk.virtualThreadScheduler.parallelism` ：池大小（多少个 CT），默认为 CPU  core 数 。即 `Runtime.getRuntime().availableProcessors()`
 - `jdk.virtualThreadScheduler.maxPoolSize` ：池的最大大小，默认为 256。当 CT 被阻止时（由于操作系统或 JVM 限制），CT 数量可能会暂时超过 `jdk.virtualThreadScheduler.parallelism` 设置的数量。（scheduler 在一些情况下，会通过临时增加并行 CT 来补偿 pinned VT 占用的 CT）
-- `jdk.virtualThreadScheduler.minRunnable` ：池中保持可运行的线程的最小数量。控制何时将 CT 临时添加到池中的属性。默认情况下设置为 max(1 , jdk.virtualThreadScheduler.parallelism/2) 。如果可用于执行 VT 的 CT 较少，则 CT 数量可能会暂时增加。这可以提高吞吐量，但启动新的平台线程也意味着开销。
+- `jdk.virtualThreadScheduler.minRunnable` ：池中保持可运行的线程的最小数量。控制何时将 CT 临时f添加到池中的属性。默认情况下设置为 max(1 , jdk.virtualThreadScheduler.parallelism/2) 。如果可用于执行 VT 的 CT 较少，则 CT 数量可能会暂时增加。这可以提高吞吐量，但启动新的平台线程也意味着开销。
 
 
 
@@ -140,6 +140,53 @@ JDK 的 VT scheduler是一个以 FIFO 模式运行的 ForkJoinPool。scheduler�
 ![magic-of-continuation](./virtual-threads.assets/magic-of-continuation.png)
 
 *图：Magic of continuation : Source: [Monitoring Java Virtual Threads](https://jefrajames.fr/2024/01/10/monitoring-java-virtual-threads/)*
+
+
+
+mount 了 VT 的 CT 的完整 stack 应该像：
+
+```
+// Stack trace of virtual thread:
+StackTest.lambda$main$2(StackTest.java:25)
+java.base/java.lang.VirtualThread.run(VirtualThread.java:295)
+java.base/java.lang.VirtualThread$VThreadContinuation.lambda$new$0(VirtualThread.java:171)
+java.base/java.lang.Continuation.enter0(Continuation.java:372)
+java.base/java.lang.Continuation.enter(Continuation.java:365)
+// Stack trace of carrier thread：
+java.base/java.lang.Continuation.run(Continuation.java:300)
+java.base/java.lang.VirtualThread.runContinuation(VirtualThread.java:224)
+java.base/java.util.concurrent.ForkJoinTask$RunnableExecuteAction.exec(ForkJoinTask.java:1395)
+java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:373)
+java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1177)
+java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1648)
+java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1615)
+java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165)
+```
+
+
+
+parked 后 umount 状态的 VT 的 stack 应该像：
+
+```
+java.base/java.lang.Continuation.yield(Continuation.java:402)
+java.base/java.lang.VirtualThread.yieldContinuation(VirtualThread.java:367)
+java.base/java.lang.VirtualThread.park(VirtualThread.java:531)
+java.base/java.lang.System$2.parkVirtualThread(System.java:2346)
+java.base/jdk.internal.misc.VirtualThreads.park(VirtualThreads.java:60)
+java.base/java.util.concurrent.locks.LockSupport.park(LockSupport.java:369)
+java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+java.base/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3469)
+java.base/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3440)
+java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1623)
+java.base/java.util.concurrent.ArrayBlockingQueue.take(ArrayBlockingQueue.java:420)
+StackTest.lambda$main$2(StackTest.java:25)
+java.base/java.lang.VirtualThread.run(VirtualThread.java:295)
+java.base/java.lang.VirtualThread$VThreadContinuation.lambda$new$0(VirtualThread.java:171)
+java.base/java.lang.Continuation.enter0(Continuation.java:372)
+java.base/java.lang.Continuation.enter(Continuation.java:365)
+```
+
+
 
 
 
@@ -187,6 +234,20 @@ JDK 的 VT scheduler是一个以 FIFO 模式运行的 ForkJoinPool。scheduler�
 
 
 
+synchronized block/method 要 pin 的原因是：
+
+> [JEP 491: Synchronize Virtual Threads without Pinning](https://openjdk.org/jeps/491)
+>
+> 为了实现“synchronized”关键字，JVM 会跟踪当前哪个线程持有对象的 monitor 。遗憾的是，它跟踪的是哪个 PT 持有 monitor ，而不是哪个 VT。当 VT 运行“synchronized”实例方法并获取与该实例关联的 monitor 时，JVM 会记录 VT 的载体平台线程持有监视器 — 而不是 VT 本身。
+>
+> pin CT 会传染：
+>
+> 如果 VT 调用 `synchronized method`，并且与该实例关联的 monitor 由另一个线程持有，则 VT 必须阻塞，因为一次只有一个线程可以持有该 monitor。我们希望 VT 从其CT 上 unmount 并将该平台线程释放给 JDK 调度程序。不幸的是，如果  monitor 已被另一个线程持有，则 VT 将在 JVM 中阻塞，直到 CT 获取Monitor。
+>
+> 此外，当 一个VT 位于 `synchronized` 实例方法内，并调用对象上的 [`Object.wait()`](https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/lang/Object.html#wait\(\)) 时，VT 将在 JVM 中阻塞，直到被 [`Object.notify()`](https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/lang/Object.html#notify\(\)) 唤醒，然后 CT 重新获取 monitor。VT 被 pinned，因为它正在 `synchronized` 方法内执行。
+
+
+
 一个 VT  死锁的例子：
 
 如果虚拟线程 VT1 和 VT2 正在等待释放的锁。这里锁被第三方释放了，并且先通知了 VT1，而不是 mount 到其 CT 的 VT2，那么如果没有可用于 VT1 的 CT，则这可能会导致死锁。
@@ -203,11 +264,31 @@ JDK 的 VT scheduler是一个以 FIFO 模式运行的 ForkJoinPool。scheduler�
 
 
 
+#### 克服 pin
+
+直到 OpenJDK 24 的 [JEP 491: Synchronize Virtual Threads without Pinning](https://openjdk.org/jeps/491) pin CT 的场景大量减少：
+
+> 长时间频繁 pin 可能会损害可 scale 性。当 JDK 调度程序可用的所有 PT 都被 VT pin 或在 JVM 中被阻止时，VT 无法运行，这可能会导致资源匮乏甚至死锁。为了避免这些问题，许多库的维护者修改了他们的代码，使用 [`java.util.concurrent` 锁](https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/util/concurrent/locks/package-summary.html) — 不 pin 虚拟线程 — 而不是 `synchronized` 方法和语句。
+>
+> 但是，不必放弃 `synchronized` 方法和语句即可享受 VT 的可扩展性优势。JVM 对 `synchronized` 关键字的实现应该允许 VT 在 `synchronized method/block`  时 unmount。这将使 VT 得到更广泛的应用。
+>
+> 
+>
+> 我们将更改 JVM 对 `synchronized` 关键字的实现，以便 VT 可以独立于其 CT 获取、保留和释放 monitor。 mounting 和 unmounting 操作将执行必要的登记，以允许 VT 在 `synchronized method/block` 中或在 wait monitor 时unmount 并 remount。
+>
+> blocking 以获取 monitor 将 unmount VT 并将其载体释放给 JDK 的调度程序。当 monitor 被释放并且 JVM 选择 VT 继续时，JVM 会将  VT 提交给调度程序。调度程序将 mount VT（可能在不同的 CT 上）以恢复执行并再次尝试获取monitor。
+>
+> `Object.wait()` 方法及其定时等待变体将在等待和阻塞以重新获取 monitor 时类似地 unmount VT。当使用`Object.notify()`唤醒，并且 monitor 被释放，并且JVM选择 VT 继续执行时，JVM会将 VT 提交给调度程序以恢复执行。
+
+
+
 ## VT 应用
 
+这里不会教如何使用 VT 的了 ☺️
 
 
-什么时候应用使用 VT:
+
+什么时候考虑使用 VT:
 
 > [Essential Information on Virtual Threads](https://github.com/SAP/SapMachine/wiki/Essential-Information-on-Virtual-Threads) - When to Use Virtual Threads:
 >
@@ -235,7 +316,7 @@ JDK 的 VT scheduler是一个以 FIFO 模式运行的 ForkJoinPool。scheduler�
 
 > [Essential Information on Virtual Threads](https://github.com/SAP/SapMachine/wiki/Essential-Information-on-Virtual-Threads) - ThreadLocal vs Scoped Values (2nd Preview):
 >
-> [Thread local values](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/ThreadLocal.html) have design flaws that can have bigger impact with virtual threads (example is given [here](https://docs.oracle.com/en/java/javase/21/core/virtual-threads.html#GUID-68216B85-7B43-423E-91BA-11489B1ACA61)). [Scoped values (still in preview)](https://openjdk.org/jeps/464) are supposed to reduce complexity and improve security and performance. It is recommended to use scoped values instead of thread local values.
+> [Thread local values](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/ThreadLocal.html) have design flaws that can have bigger impact with virtual threads (example is given [here](https://docs.oracle.com/en/java/javase/21/core/virtual-threads.html#GUID-68216B85-7B43-423E-91BA-11489B1ACA61)). [Scoped values (still in preview)](https://openjdk.org/jeps/464)  / [JEP 487: Scoped Values (Fourth Preview)](https://openjdk.org/jeps/487) are supposed to reduce complexity and improve security and performance. It is recommended to use scoped values instead of thread local values.
 
 
 
@@ -372,7 +453,16 @@ Thread [#63, ForkJoinPool-1-worker-2,5, Carrier Threads]
 java -agentlib:jdwp=transport=dt_socket,address=8000,server=y,suspend=n,includevirtualthreads=y Example.java
 ```
 
-隐藏 VT 的一个原因是，在断点处停止会 pin VT。如果太多 VT 到达断点，这将导致 JVM 死锁。VT 中的局部变量目前只能在最顶层的  frame 中更改。
+隐藏 VT 的一个原因是，在断点处停止会 pin VT。如果太多 VT 到达断点，这将导致 JVM 死锁。
+
+另外，VT 中的局部变量目前只能在最顶层的  frame 中更改。
+
+
+
+更多 VT debug 支持的细节，可见： 
+
+- [OpenJDK Wiki - Debugger Support](https://wiki.openjdk.org/display/loom/Debugger+Support)
+- [Slides from March 24, 2021 meeting with IntelliJ and Eclipse maintainers](http://cr.openjdk.java.net/~alanb/loom/DebuggerSupport20210324.pdf)
 
 
 
