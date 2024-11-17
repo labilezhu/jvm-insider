@@ -210,6 +210,12 @@ java.base/java.lang.Continuation.enter(Continuation.java:365)
 
 
 
+如果读者对 stack 挂起和恢复的实现好奇，可以参见：[Continuations - Under the Covers](https://www.youtube.com/watch?v=6nRS6UiN7X0&ab_channel=Java)
+
+
+
+
+
 ### pin Carrier Threads
 
 
