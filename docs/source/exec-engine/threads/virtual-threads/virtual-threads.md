@@ -198,7 +198,7 @@ java.base/java.lang.Continuation.enter(Continuation.java:365)
 
 
 
-很多软件设计师（或者是西方人）有一个思维取向：通用或统一概念。在严谨的学术或科技上，事物概念应该尽可能的统一。他们相信大千世界上，应该是有些普遍的原理。这应用于自然规则的发现上，同时也应用于设计上。 Virtual Thread 的实现设计上，也是努力的避免重新发明轮子：
+很多软件设计师（或者是西方人）有一个思维取向：通用或统一概念。在严谨的学术或科技上，事物概念应该尽可能的统一。他们相信大千世界上，应该是有些普遍的原理/真理。这应用于自然规则的发现上，同时也应用于设计上。 Virtual Thread 的实现设计上，也是努力的避免重新发明轮子：
 
 1. PT 跑在原有的 ForkJoinPool/Executor 概念上
 2. VT 的每次要 mount 上 CT 运行时，只是生成一个特制的跑在 ForkJoinPool 上的 Runnable 对象
@@ -206,7 +206,7 @@ java.base/java.lang.Continuation.enter(Continuation.java:365)
 
 
 
-相比动不动就遥遥领先地在技术上发明新“名词”，这个踏实是值得佩服的。是不创新的创新，还是只是名为 “创新” 的不创新？这个问题值得思考。
+相比动不动就遥遥领先地在技术上发明新 “名词”，这个踏实是值得佩服的。是不创新的创新，还是只是名为 “创新” 的不创新？这个问题值得思考。
 
 
 
@@ -485,7 +485,7 @@ java -agentlib:jdwp=transport=dt_socket,address=8000,server=y,suspend=n,includev
 
 隐藏 VT 的一个原因是，在断点处停止会 pin VT。如果太多 VT 到达断点，这将导致 JVM 死锁。
 
-另外，VT 中的局部变量目前只能在最顶层的  frame 中更改。
+另外， debug 时，VT 目前只能修改最顶层的 frame 中的局部变量。
 
 
 
@@ -524,12 +524,6 @@ java -agentlib:jdwp=transport=dt_socket,address=8000,server=y,suspend=n,includev
 > - when **it is blocked on a lock or IO, then the lock object or the IO mechanism must retain a reference to it, or there would be no way to unblock it. The thread object has a reference to the stack**, which is a heap object (actually, it could be made up of several heap objects).
 >
 > **A thread that is not strongly reachable can provably no longer make progress** -- it must be blocked but there's no way to unblock it -- and will be collected even if it has not terminated. It may live forever in our hearts, but not in the heap.
-
-
-
-
-
-
 
 
 
