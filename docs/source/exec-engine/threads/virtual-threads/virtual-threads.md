@@ -40,15 +40,6 @@
 
 
 
-## Virtual Thread 类图
-:::{figure-md} 图: Virtual Thread 类图
-
-<img src="virtual-thread-class.drawio.svg" alt="图: Virtual Thread 类图">
-
-*图: Virtual Thread 类图*
-:::
-*[用 Draw.io 打开](https://app.diagrams.net/?ui=sketch#Uhttps%3A%2F%2Fjvm-insider.mygraphql.com%2Fzh-cn%2Flatest%2F_images%2Fvirtual-thread-class.drawio.svg)*
-
 
 
 ## 优劣及原因
@@ -195,7 +186,27 @@ java.base/java.lang.Continuation.enter(Continuation.java:365)
 
 
 
+### Virtual Thread  classes 协作
 
+:::{figure-md} 图: Virtual Thread 类图
+
+<img src="virtual-thread-class.drawio.svg" alt="图: Virtual Thread 类图">
+
+*图: Virtual Thread 类图*
+:::
+*[用 Draw.io 打开](https://app.diagrams.net/?ui=sketch#Uhttps%3A%2F%2Fjvm-insider.mygraphql.com%2Fzh-cn%2Flatest%2F_images%2Fvirtual-thread-class.drawio.svg)*
+
+
+
+很多软件设计师（或者是西方人）有一个思维取向：通用或统一概念。在严谨的学术或科技上，事物概念应该尽可能的统一。他们相信大千世界上，应该是有些普遍的原理。这应用于自然规则的发现上，同时也应用于设计上。 Virtual Thread 的实现设计上，也是努力的避免重新发明轮子：
+
+1. PT 跑在原有的 ForkJoinPool/Executor 概念上
+2. VT 的每次要 mount 上 CT 运行时，只是生成一个特制的跑在 ForkJoinPool 上的 Runnable 对象
+3. VT Stack / VT 也只是一个 Java Object 。还要参与 GC
+
+
+
+相比动不动就遥遥领先地在技术上发明新“名词”，这个踏实是值得佩服的。是不创新的创新，还是只是名为 “创新” 的不创新？这个问题值得思考。
 
 
 
