@@ -1,0 +1,476 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x00007f551642a0e4, pid=15858, tid=0x00007f5517b20700
+#
+# JRE version: Java(TM) SE Runtime Environment (9.0) (build 1.9.0-internal-debug-cphillim_2015_06_24_11_18-b00)
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (1.9.0-debug-jdk9.hs_err_0624_1709, mixed mode, tiered, compressed oops, parallel gc, linux-amd64)
+# Problematic frame:
+# V  [libjvm.so+0x107d0e4]  Unsafe_GetNativeInt+0x17d
+#
+# CreateCoredumpOnCrash turned off, no core file dumped
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.java.com/bugreport/crash.jsp
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -Xmx64m -XX:-TransmitErrorReport -XX:-CreateCoredumpOnCrash CreateCoredumpOnCrash$Crasher
+
+Host: mymachine, Intel(R) Core(TM) i5-3550 CPU @ 3.30GHz, 4 cores, 7G, Ubuntu 14.04.1 LTS
+
+time: Tue Jul  7 16:56:55 2015
+timezone: EDT
+elapsed time: 1 seconds (0d 0h 0m 1s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007f5510010000):  JavaThread "main" [_thread_in_vm, id=15861, stack(0x00007f5517a20000,0x00007f5517b21000)]
+
+Stack: [0x00007f5517a20000,0x00007f5517b21000],  sp=0x00007f5517b1f6b0,  free space=1021k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0x107d0e4]  Unsafe_GetNativeInt+0x17d
+j  sun.misc.Unsafe.getInt(J)I+0
+j  CreateCoredumpOnCrash$Crasher.main([Ljava/lang/String;)V+4
+v  ~StubRoutines::call_stub
+V  [libjvm.so+0xafe9ac]  JavaCalls::call_helper(JavaValue*, methodHandle*, JavaCallArguments*, Thread*)+0x6e8
+V  [libjvm.so+0xe6d55f]  os::os_exception_wrapper(void (*)(JavaValue*, methodHandle*, JavaCallArguments*, Thread*), JavaValue*, methodHandle*, JavaCallArguments*, Thread*)+0x41
+V  [libjvm.so+0xafe2ad]  JavaCalls::call(JavaValue*, methodHandle, JavaCallArguments*, Thread*)+0x8b
+V  [libjvm.so+0xb6fead]  jni_invoke_static(JNIEnv_*, JavaValue*, _jobject*, JNICallType, _jmethodID*, JNI_ArgumentPusher*, Thread*)+0x205
+V  [libjvm.so+0xb877ea]  jni_CallStaticVoidMethod+0x358
+C  [libjli.so+0x86ed]  JavaMain+0x93c
+C  [libpthread.so.0+0x8182]  start_thread+0xc2
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+j  sun.misc.Unsafe.getInt(J)I+0
+j  CreateCoredumpOnCrash$Crasher.main([Ljava/lang/String;)V+4
+v  ~StubRoutines::call_stub
+
+siginfo: si_signo: 11 (SIGSEGV), si_code: 1 (SEGV_MAPERR), si_addr: 0x0000000000000000
+
+Register to memory mapping:
+
+RAX=0x0000000000000000 is an unknown value
+RBX={method} {0x00007f550028f950} 'getInt' '(J)I' in 'sun/misc/Unsafe'
+RCX=0x00007f551791b320: <offset 0x219320> in /lib/x86_64-linux-gnu/libpthread.so.0 at 0x00007f5517702000
+RDX=0x0000000000000001 is an unknown value
+RSP=0x00007f5517b1f6b0 is pointing into the stack for thread: 0x00007f5510010000
+RBP=0x00007f5517b1f740 is pointing into the stack for thread: 0x00007f5510010000
+RSI=0x0000000000000001 is an unknown value
+RDI=0x00007f5510010000 is a thread
+R8 =0x00007f5517b1f250 is pointing into the stack for thread: 0x00007f5510010000
+R9 =0x0000000000000000 is an unknown value
+R10=0x00007f550102838b is at code_begin+2795 in an Interpreter codelet
+method entry point (kind = native)  [0x00007f55010278a0, 0x00007f5501029160]  6336 bytes
+R11=0x0000000000000008 is an unknown value
+R12=0x0000000000000000 is an unknown value
+R13={method} {0x00007f550028f950} 'getInt' '(J)I' in 'sun/misc/Unsafe'
+R14=0x00007f5517b1f7e0 is pointing into the stack for thread: 0x00007f5510010000
+R15=0x00007f5510010000 is a thread
+
+
+Registers:
+RAX=0x0000000000000000, RBX=0x00007f550028f950, RCX=0x00007f551791b320, RDX=0x0000000000000001
+RSP=0x00007f5517b1f6b0, RBP=0x00007f5517b1f740, RSI=0x0000000000000001, RDI=0x00007f5510010000
+R8 =0x00007f5517b1f250, R9 =0x0000000000000000, R10=0x00007f550102838b, R11=0x0000000000000008
+R12=0x0000000000000000, R13=0x00007f550028f950, R14=0x00007f5517b1f7e0, R15=0x00007f5510010000
+RIP=0x00007f551642a0e4, EFLAGS=0x0000000000010246, CSGSFS=0xbfdf000000000033, ERR=0x0000000000000004
+  TRAPNO=0x000000000000000e
+
+Top of Stack: (sp=0x00007f5517b1f6b0)
+0x00007f5517b1f6b0:   00000000feb07440 0000000000000000
+0x00007f5517b1f6c0:   00007f5517b1f7e0 00007f5510010240
+0x00007f5517b1f6d0:   00007f55004dd0f8 0000000000000000
+0x00007f5517b1f6e0:   00007f5510010000 00007f5510010000
+0x00007f5517b1f6f0:   0000000000000000 00007f5510010000
+0x00007f5517b1f700:   00007f5516e03750 00007f5510010000
+0x00007f5517b1f710:   00007f5516dffa30 00007f5510010000
+0x00007f5517b1f720:   00007f55002443f5 bfdfb9660a2ca500
+0x00007f5517b1f730:   00007f55003043a8 00007f550028f950
+0x00007f5517b1f740:   00007f5517b1f7b0 00007f550102843f
+0x00007f5517b1f750:   00007f5517b1f770 00007f5517b1f7d0
+0x00007f5517b1f760:   0000000000000004 00007f5501043275
+0x00007f5517b1f770:   00007f5517b1f770 0000000000000000
+0x00007f5517b1f780:   00007f5517b1f7e0 00007f55002c4ef0
+0x00007f5517b1f790:   0000000000000000 00007f550028f950
+0x00007f5517b1f7a0:   0000000000000000 00007f5517b1f7d0
+0x00007f5517b1f7b0:   00007f5517b1f828 00007f5501007cf0
+0x00007f5517b1f7c0:   0000000000000000 00007f550101ad76
+0x00007f5517b1f7d0:   0000000000000000 00007f5501008030
+0x00007f5517b1f7e0:   00000000feb07440 00007f5517b1f7e8
+0x00007f5517b1f7f0:   00007f55005fc2a4 00007f5517b1f838
+0x00007f5517b1f800:   00007f55005fc328 0000000000000000
+0x00007f5517b1f810:   00007f55005fc2b0 00007f5517b1f7d0
+0x00007f5517b1f820:   00007f5517b1f838 00007f5517b1f8a0
+0x00007f5517b1f830:   00007f5501000c31 00000000febb34d0
+0x00007f5517b1f840:   00007f5500001fa0 00007f5517b20700
+0x00007f5517b1f850:   00007f5517b209c0 00007f5517b1fbe0
+0x00007f5517b1f860:   0000000000000001 00007f5501000b24
+0x00007f5517b1f870:   00007f5517b1f990 00007f5517b1fce8
+0x00007f5517b1f880:   000000000000000a 00007f55005fc2b0
+0x00007f5517b1f890:   00007f550101f280 00007f5517b1fbe0
+0x00007f5517b1f8a0:   00007f5517b1fa00 00007f5515eab9ac 
+
+Instructions: (pc=0x00007f551642a0e4)
+0x00007f551642a0c4:   45 b0 e8 b7 d0 2a ff 48 89 45 b8 48 8b 45 b8 be
+0x00007f551642a0d4:   01 00 00 00 48 89 c7 e8 94 69 00 00 48 8b 45 b0
+0x00007f551642a0e4:   8b 00 89 45 9c 48 8b 45 b8 be 00 00 00 00 48 89
+0x00007f551642a0f4:   c7 e8 7a 69 00 00 8b 5d 9c 48 8d 45 d0 48 89 c7 
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x00007f5510166800 JavaThread "Service Thread" daemon [_thread_blocked, id=15926, stack(0x00007f54fa459000,0x00007f54fa55a000)]
+  0x00007f551015e800 JavaThread "Sweeper thread" daemon [_thread_blocked, id=15924, stack(0x00007f54fa55a000,0x00007f54fa65b000)]
+  0x00007f551015c800 JavaThread "C1 CompilerThread2" daemon [_thread_in_native, id=15923, stack(0x00007f54fa65b000,0x00007f54fa75c000)]
+  0x00007f5510159800 JavaThread "C2 CompilerThread1" daemon [_thread_blocked, id=15921, stack(0x00007f54fa75c000,0x00007f54fa85d000)]
+  0x00007f551014e800 JavaThread "C2 CompilerThread0" daemon [_thread_blocked, id=15918, stack(0x00007f54fa85d000,0x00007f54fa95e000)]
+  0x00007f551013b800 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=15917, stack(0x00007f54fa95e000,0x00007f54faa5f000)]
+  0x00007f5510113000 JavaThread "Finalizer" daemon [_thread_blocked, id=15892, stack(0x00007f54fad28000,0x00007f54fae29000)]
+  0x00007f5510111000 JavaThread "Reference Handler" daemon [_thread_blocked, id=15890, stack(0x00007f54fae29000,0x00007f54faf2a000)]
+=>0x00007f5510010000 JavaThread "main" [_thread_in_vm, id=15861, stack(0x00007f5517a20000,0x00007f5517b21000)]
+
+Other Threads:
+  0x00007f55100fa000 VMThread [stack: 0x00007f54faf2a000,0x00007f54fb02b000] [id=15879]
+  0x00007f5510167000 WatcherThread [stack: 0x00007f54fa358000,0x00007f54fa459000] [id=15928]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+heap address: 0x00000000fc000000, size: 64 MB, Compressed Oops mode: 32-bit
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 3
+Compressed class space size: 1073741824 Address: 0x0000000100000000
+
+Heap:
+ PSYoungGen      total 18944K, used 985K [0x00000000feb00000, 0x0000000100000000, 0x0000000100000000)
+  eden space 16384K, 6% used [0x00000000feb00000,0x00000000febf64b0,0x00000000ffb00000)
+  from space 2560K, 0% used [0x00000000ffd80000,0x00000000ffd80000,0x0000000100000000)
+  to   space 2560K, 0% used [0x00000000ffb00000,0x00000000ffb00000,0x00000000ffd80000)
+ ParOldGen       total 44032K, used 0K [0x00000000fc000000, 0x00000000feb00000, 0x00000000feb00000)
+  object space 44032K, 0% used [0x00000000fc000000,0x00000000fc000000,0x00000000feb00000)
+ Metaspace       used 3292K, capacity 4562K, committed 4864K, reserved 1056768K
+  class space    used 318K, capacity 386K, committed 512K, reserved 1048576K
+
+Card table byte_map: [0x00007f55179ff000,0x00007f5517a20000] byte_map_base: 0x00007f551721f000
+
+Marking Bits: (ParMarkBitMap*) 0x00007f5516ee2ba0
+ Begin Bits: [0x00007f55009fc000, 0x00007f5500afc000)
+ End Bits:   [0x00007f5500afc000, 0x00007f5500bfc000)
+
+Polling page: 0x00007f5517b3f000
+
+CodeHeap 'non-nmethods': size=5696Kb used=2280Kb max_used=2283Kb free=3415Kb
+ bounds [0x00007f5501000000, 0x00007f5501270000, 0x00007f5501590000]
+CodeHeap 'profiled nmethods': size=120032Kb used=15Kb max_used=15Kb free=120016Kb
+ bounds [0x00007f5501590000, 0x00007f5501800000, 0x00007f5508ac8000]
+CodeHeap 'non-profiled nmethods': size=120032Kb used=8Kb max_used=8Kb free=120023Kb
+ bounds [0x00007f5508ac8000, 0x00007f5508d38000, 0x00007f5510000000]
+ total_blobs=549 nmethods=18 adapters=452
+ compilation: enabled
+
+Compilation events (10 events):
+Event: 1.044 Thread 0x00007f551015c800 nmethod 13 0x00007f5501593990 code [0x00007f5501593b20, 0x00007f5501593d18]
+Event: 1.052 Thread 0x00007f5510159800   22       4       java.nio.DirectByteBuffer::get (16 bytes)
+Event: 1.055 Thread 0x00007f5510159800 nmethod 22 0x00007f5508ac8c90 code [0x00007f5508ac8de0, 0x00007f5508ac8e78]
+Event: 1.055 Thread 0x00007f551015c800   23       1       java.nio.DirectByteBuffer::ix (10 bytes)
+Event: 1.057 Thread 0x00007f551015c800 nmethod 23 0x00007f5508ac8f90 code [0x00007f5508ac9100, 0x00007f5508ac9238]
+Event: 1.057 Thread 0x00007f551015c800   14       1       java.lang.Object::<init> (1 bytes)
+Event: 1.059 Thread 0x00007f551015c800 nmethod 14 0x00007f5508ac9310 code [0x00007f5508ac9480, 0x00007f5508ac95b8]
+Event: 1.059 Thread 0x00007f551015c800   16       3       sun.nio.cs.UTF_8$Decoder::decode (779 bytes)
+Event: 1.155 Thread 0x00007f5510159800   37       4       java.lang.String::hashCode (57 bytes)
+Event: 1.176 Thread 0x00007f5510159800 nmethod 37 0x00007f5508ac9b10 code [0x00007f5508ac9c60, 0x00007f5508ac9df8]
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (1 events):
+Event: 1.224 Thread 0x00007f5510010000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007f5508ac9db0 method=java.lang.String.hashCode()I @ 47
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+Events (10 events):
+Event: 1.334 loading class sun/reflect/UnsafeQualifiedStaticObjectFieldAccessorImpl
+Event: 1.335 loading class sun/reflect/UnsafeQualifiedStaticFieldAccessorImpl
+Event: 1.335 loading class sun/reflect/UnsafeQualifiedStaticFieldAccessorImpl done
+Event: 1.335 loading class sun/reflect/UnsafeQualifiedStaticObjectFieldAccessorImpl done
+Event: 1.336 loading class java/util/HashMap$EntrySet
+Event: 1.352 loading class java/util/HashMap$EntrySet done
+Event: 1.352 loading class java/util/HashMap$EntryIterator
+Event: 1.353 loading class java/util/HashMap$HashIterator
+Event: 1.353 loading class java/util/HashMap$HashIterator done
+Event: 1.353 loading class java/util/HashMap$EntryIterator done
+
+
+Dynamic libraries:
+00400000-00401000 r-xp 00000000 08:01 64052                              /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/bin/java
+00600000-00601000 r--p 00000000 08:01 64052                              /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/bin/java
+00601000-00602000 rw-p 00001000 08:01 64052                              /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/bin/java
+007bd000-007de000 rw-p 00000000 00:00 0                                  [heap]
+fc000000-100080000 rw-p 00000000 00:00 0 
+100080000-140000000 ---p 00000000 00:00 0 
+7f54c4000000-7f54c4021000 rw-p 00000000 00:00 0 
+7f54c4021000-7f54c8000000 ---p 00000000 00:00 0 
+7f54c8000000-7f54c8021000 rw-p 00000000 00:00 0 
+7f54c8021000-7f54cc000000 ---p 00000000 00:00 0 
+7f54cc000000-7f54cc097000 rw-p 00000000 00:00 0 
+7f54cc097000-7f54d0000000 ---p 00000000 00:00 0 
+7f54d0000000-7f54d0021000 rw-p 00000000 00:00 0 
+7f54d0021000-7f54d4000000 ---p 00000000 00:00 0 
+7f54d4000000-7f54d4092000 rw-p 00000000 00:00 0 
+7f54d4092000-7f54d8000000 ---p 00000000 00:00 0 
+7f54d8000000-7f54d80ab000 rw-p 00000000 00:00 0 
+7f54d80ab000-7f54dc000000 ---p 00000000 00:00 0 
+7f54dc000000-7f54dc021000 rw-p 00000000 00:00 0 
+7f54dc021000-7f54e0000000 ---p 00000000 00:00 0 
+7f54e0000000-7f54e0021000 rw-p 00000000 00:00 0 
+7f54e0021000-7f54e4000000 ---p 00000000 00:00 0 
+7f54e4000000-7f54e4021000 rw-p 00000000 00:00 0 
+7f54e4021000-7f54e8000000 ---p 00000000 00:00 0 
+7f54e8000000-7f54e8021000 rw-p 00000000 00:00 0 
+7f54e8021000-7f54ec000000 ---p 00000000 00:00 0 
+7f54ec000000-7f54ec021000 rw-p 00000000 00:00 0 
+7f54ec021000-7f54f0000000 ---p 00000000 00:00 0 
+7f54f0000000-7f54f0021000 rw-p 00000000 00:00 0 
+7f54f0021000-7f54f4000000 ---p 00000000 00:00 0 
+7f54f4000000-7f54f4021000 rw-p 00000000 00:00 0 
+7f54f4021000-7f54f8000000 ---p 00000000 00:00 0 
+7f54f96a6000-7f54f9e8e000 rw-p 00000000 00:00 0 
+7f54f9e8e000-7f54f9eb3000 r--s 0002c000 08:01 64331                      /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/modules/appmodules.jimage
+7f54f9eb3000-7f54f9ed3000 r--s 0000d000 08:01 64331                      /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/modules/appmodules.jimage
+7f54f9ed3000-7f54f9f03000 r--s 00033000 08:01 64307                      /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/modules/extmodules.jimage
+7f54f9f03000-7f54f9f28000 r--s 0000f000 08:01 64307                      /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/modules/extmodules.jimage
+7f54f9f28000-7f54f9f3b000 r-xp 00000000 08:01 64076                      /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/amd64/libnio.so
+7f54f9f3b000-7f54fa13a000 ---p 00013000 08:01 64076                      /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/amd64/libnio.so
+7f54fa13a000-7f54fa13b000 r--p 00012000 08:01 64076                      /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/amd64/libnio.so
+7f54fa13b000-7f54fa13c000 rw-p 00013000 08:01 64076                      /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/amd64/libnio.so
+7f54fa13c000-7f54fa157000 r-xp 00000000 08:01 64063                      /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/amd64/libnet.so
+7f54fa157000-7f54fa356000 ---p 0001b000 08:01 64063                      /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/amd64/libnet.so
+7f54fa356000-7f54fa357000 r--p 0001a000 08:01 64063                      /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/amd64/libnet.so
+7f54fa357000-7f54fa358000 rw-p 0001b000 08:01 64063                      /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/amd64/libnet.so
+7f54fa358000-7f54fa359000 ---p 00000000 00:00 0 
+7f54fa359000-7f54fa459000 rw-p 00000000 00:00 0                          [stack:15928]
+7f54fa459000-7f54fa45c000 ---p 00000000 00:00 0 
+7f54fa45c000-7f54fa55a000 rw-p 00000000 00:00 0                          [stack:15926]
+7f54fa55a000-7f54fa55d000 ---p 00000000 00:00 0 
+7f54fa55d000-7f54fa65b000 rw-p 00000000 00:00 0                          [stack:15924]
+7f54fa65b000-7f54fa65e000 ---p 00000000 00:00 0 
+7f54fa65e000-7f54fa75c000 rw-p 00000000 00:00 0                          [stack:15923]
+7f54fa75c000-7f54fa75f000 ---p 00000000 00:00 0 
+7f54fa75f000-7f54fa85d000 rw-p 00000000 00:00 0                          [stack:15921]
+7f54fa85d000-7f54fa860000 ---p 00000000 00:00 0 
+7f54fa860000-7f54fa95e000 rw-p 00000000 00:00 0                          [stack:15918]
+7f54fa95e000-7f54fa961000 ---p 00000000 00:00 0 
+7f54fa961000-7f54faa5f000 rw-p 00000000 00:00 0                          [stack:15917]
+7f54faa5f000-7f54fad28000 r--p 00000000 08:01 10489230                   /usr/lib/locale/locale-archive
+7f54fad28000-7f54fad2b000 ---p 00000000 00:00 0 
+7f54fad2b000-7f54fae29000 rw-p 00000000 00:00 0                          [stack:15892]
+7f54fae29000-7f54fae2c000 ---p 00000000 00:00 0 
+7f54fae2c000-7f54faf2a000 rw-p 00000000 00:00 0                          [stack:15890]
+7f54faf2a000-7f54faf2b000 ---p 00000000 00:00 0 
+7f54faf2b000-7f54fbf3a000 rw-p 00000000 00:00 0                          [stack:15879]
+7f54fbf3a000-7f54fc000000 r--p 00000000 08:01 63984                      /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/modules/bootmodules.jimage
+7f54fc000000-7f54fc021000 rw-p 00000000 00:00 0 
+7f54fc021000-7f5500000000 ---p 00000000 00:00 0 
+7f5500013000-7f550001b000 r--s 00006000 08:01 64331                      /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/modules/appmodules.jimage
+7f550001b000-7f5500022000 r--s 00000000 08:01 64331                      /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/modules/appmodules.jimage
+7f5500022000-7f550063c000 rw-p 00000000 00:00 0 
+7f550063c000-7f55009fc000 ---p 00000000 00:00 0 
+7f55009fc000-7f5500bfc000 rw-p 00000000 00:00 0 
+7f5500bfc000-7f5500bfd000 ---p 00000000 00:00 0 
+7f5500bfd000-7f5500cfd000 rw-p 00000000 00:00 0                          [stack:15867]
+7f5500cfd000-7f5500cfe000 ---p 00000000 00:00 0 
+7f5500cfe000-7f5500dfe000 rw-p 00000000 00:00 0                          [stack:15866]
+7f5500dfe000-7f5500dff000 ---p 00000000 00:00 0 
+7f5500dff000-7f5500eff000 rw-p 00000000 00:00 0                          [stack:15865]
+7f5500eff000-7f5500f00000 ---p 00000000 00:00 0 
+7f5500f00000-7f5501000000 rw-p 00000000 00:00 0                          [stack:15864]
+7f5501000000-7f5501270000 rwxp 00000000 00:00 0 
+7f5501270000-7f5501590000 ---p 00000000 00:00 0 
+7f5501590000-7f5501800000 rwxp 00000000 00:00 0 
+7f5501800000-7f5508ac8000 ---p 00000000 00:00 0 
+7f5508ac8000-7f5508d38000 rwxp 00000000 00:00 0 
+7f5508d38000-7f5510000000 ---p 00000000 00:00 0 
+7f5510000000-7f55101d8000 rw-p 00000000 00:00 0 
+7f55101d8000-7f5514000000 ---p 00000000 00:00 0 
+7f5514005000-7f551402b000 rw-p 00000000 00:00 0 
+7f551402b000-7f5514111000 ---p 00000000 00:00 0 
+7f5514111000-7f5514116000 rw-p 00000000 00:00 0 
+7f5514116000-7f55141fc000 ---p 00000000 00:00 0 
+7f55141fc000-7f5514221000 r-xp 00000000 08:01 64071                      /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/amd64/libzip.so
+7f5514221000-7f5514420000 ---p 00025000 08:01 64071                      /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/amd64/libzip.so
+7f5514420000-7f5514421000 r--p 00024000 08:01 64071                      /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/amd64/libzip.so
+7f5514421000-7f5514422000 rw-p 00025000 08:01 64071                      /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/amd64/libzip.so
+7f5514422000-7f5514439000 r-xp 00000000 08:01 28716361                   /lib/x86_64-linux-gnu/libnsl-2.19.so
+7f5514439000-7f5514638000 ---p 00017000 08:01 28716361                   /lib/x86_64-linux-gnu/libnsl-2.19.so
+7f5514638000-7f5514639000 r--p 00016000 08:01 28716361                   /lib/x86_64-linux-gnu/libnsl-2.19.so
+7f5514639000-7f551463a000 rw-p 00017000 08:01 28716361                   /lib/x86_64-linux-gnu/libnsl-2.19.so
+7f551463a000-7f551463c000 rw-p 00000000 00:00 0 
+7f551463c000-7f5514647000 r-xp 00000000 08:01 28716377                   /lib/x86_64-linux-gnu/libnss_nis-2.19.so
+7f5514647000-7f5514846000 ---p 0000b000 08:01 28716377                   /lib/x86_64-linux-gnu/libnss_nis-2.19.so
+7f5514846000-7f5514847000 r--p 0000a000 08:01 28716377                   /lib/x86_64-linux-gnu/libnss_nis-2.19.so
+7f5514847000-7f5514848000 rw-p 0000b000 08:01 28716377                   /lib/x86_64-linux-gnu/libnss_nis-2.19.so
+7f5514848000-7f5514853000 r-xp 00000000 08:01 28716352                   /lib/x86_64-linux-gnu/libnss_files-2.19.so
+7f5514853000-7f5514a52000 ---p 0000b000 08:01 28716352                   /lib/x86_64-linux-gnu/libnss_files-2.19.so
+7f5514a52000-7f5514a53000 r--p 0000a000 08:01 28716352                   /lib/x86_64-linux-gnu/libnss_files-2.19.so
+7f5514a53000-7f5514a54000 rw-p 0000b000 08:01 28716352                   /lib/x86_64-linux-gnu/libnss_files-2.19.so
+7f5514a54000-7f5514a89000 r-xp 00000000 08:01 64075                      /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/amd64/libjava.so
+7f5514a89000-7f5514c88000 ---p 00035000 08:01 64075                      /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/amd64/libjava.so
+7f5514c88000-7f5514c89000 r--p 00034000 08:01 64075                      /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/amd64/libjava.so
+7f5514c89000-7f5514c8a000 rw-p 00035000 08:01 64075                      /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/amd64/libjava.so
+7f5514c8a000-7f5514c8b000 rw-p 00000000 00:00 0 
+7f5514c8b000-7f5514c9d000 r-xp 00000000 08:01 64064                      /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/amd64/libverify.so
+7f5514c9d000-7f5514e9c000 ---p 00012000 08:01 64064                      /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/amd64/libverify.so
+7f5514e9c000-7f5514e9e000 r--p 00011000 08:01 64064                      /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/amd64/libverify.so
+7f5514e9e000-7f5514e9f000 rw-p 00013000 08:01 64064                      /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/amd64/libverify.so
+7f5514e9f000-7f5514ea6000 r-xp 00000000 08:01 28716370                   /lib/x86_64-linux-gnu/librt-2.19.so
+7f5514ea6000-7f55150a5000 ---p 00007000 08:01 28716370                   /lib/x86_64-linux-gnu/librt-2.19.so
+7f55150a5000-7f55150a6000 r--p 00006000 08:01 28716370                   /lib/x86_64-linux-gnu/librt-2.19.so
+7f55150a6000-7f55150a7000 rw-p 00007000 08:01 28716370                   /lib/x86_64-linux-gnu/librt-2.19.so
+7f55150a7000-7f55151ac000 r-xp 00000000 08:01 28716350                   /lib/x86_64-linux-gnu/libm-2.19.so
+7f55151ac000-7f55153ab000 ---p 00105000 08:01 28716350                   /lib/x86_64-linux-gnu/libm-2.19.so
+7f55153ab000-7f55153ac000 r--p 00104000 08:01 28716350                   /lib/x86_64-linux-gnu/libm-2.19.so
+7f55153ac000-7f55153ad000 rw-p 00105000 08:01 28716350                   /lib/x86_64-linux-gnu/libm-2.19.so
+7f55153ad000-7f5516b75000 r-xp 00000000 08:01 42                         /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/amd64/server/libjvm.so
+7f5516b75000-7f5516d75000 ---p 017c8000 08:01 42                         /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/amd64/server/libjvm.so
+7f5516d75000-7f5516e3e000 r--p 017c8000 08:01 42                         /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/amd64/server/libjvm.so
+7f5516e3e000-7f5516e73000 rw-p 01891000 08:01 42                         /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/amd64/server/libjvm.so
+7f5516e73000-7f5516f1d000 rw-p 00000000 00:00 0 
+7f5516f1d000-7f55170d8000 r-xp 00000000 08:01 28716367                   /lib/x86_64-linux-gnu/libc-2.19.so
+7f55170d8000-7f55172d7000 ---p 001bb000 08:01 28716367                   /lib/x86_64-linux-gnu/libc-2.19.so
+7f55172d7000-7f55172db000 r--p 001ba000 08:01 28716367                   /lib/x86_64-linux-gnu/libc-2.19.so
+7f55172db000-7f55172dd000 rw-p 001be000 08:01 28716367                   /lib/x86_64-linux-gnu/libc-2.19.so
+7f55172dd000-7f55172e2000 rw-p 00000000 00:00 0 
+7f55172e2000-7f55172e5000 r-xp 00000000 08:01 28716355                   /lib/x86_64-linux-gnu/libdl-2.19.so
+7f55172e5000-7f55174e4000 ---p 00003000 08:01 28716355                   /lib/x86_64-linux-gnu/libdl-2.19.so
+7f55174e4000-7f55174e5000 r--p 00002000 08:01 28716355                   /lib/x86_64-linux-gnu/libdl-2.19.so
+7f55174e5000-7f55174e6000 rw-p 00003000 08:01 28716355                   /lib/x86_64-linux-gnu/libdl-2.19.so
+7f55174e6000-7f5517500000 r-xp 00000000 08:01 64073                      /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/amd64/jli/libjli.so
+7f5517500000-7f5517700000 ---p 0001a000 08:01 64073                      /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/amd64/jli/libjli.so
+7f5517700000-7f5517701000 r--p 0001a000 08:01 64073                      /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/amd64/jli/libjli.so
+7f5517701000-7f5517702000 rw-p 0001b000 08:01 64073                      /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/amd64/jli/libjli.so
+7f5517702000-7f551771b000 r-xp 00000000 08:01 28716368                   /lib/x86_64-linux-gnu/libpthread-2.19.so
+7f551771b000-7f551791a000 ---p 00019000 08:01 28716368                   /lib/x86_64-linux-gnu/libpthread-2.19.so
+7f551791a000-7f551791b000 r--p 00018000 08:01 28716368                   /lib/x86_64-linux-gnu/libpthread-2.19.so
+7f551791b000-7f551791c000 rw-p 00019000 08:01 28716368                   /lib/x86_64-linux-gnu/libpthread-2.19.so
+7f551791c000-7f5517920000 rw-p 00000000 00:00 0 
+7f5517920000-7f5517943000 r-xp 00000000 08:01 28716363                   /lib/x86_64-linux-gnu/ld-2.19.so
+7f5517945000-7f5517948000 rw-p 00000000 00:00 0 
+7f5517948000-7f5517951000 r--s 00007000 08:01 64307                      /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/modules/extmodules.jimage
+7f5517951000-7f5517959000 r--s 00000000 08:01 64307                      /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/modules/extmodules.jimage
+7f5517959000-7f5517a20000 rw-p 00000000 00:00 0 
+7f5517a20000-7f5517a23000 ---p 00000000 00:00 0 
+7f5517a23000-7f5517b25000 rw-p 00000000 00:00 0                          [stack:15861]
+7f5517b25000-7f5517b26000 r--s 00000000 08:01 64331                      /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/modules/appmodules.jimage
+7f5517b26000-7f5517b27000 r--s 00000000 08:01 64307                      /scratch/cphillim/hg/jdk9.hs_err/build/images/jdk/lib/modules/extmodules.jimage
+7f5517b27000-7f5517b2f000 rw-p 00000000 00:00 0 
+7f5517b2f000-7f5517b36000 ---p 00000000 00:00 0 
+7f5517b36000-7f5517b3e000 rw-s 00000000 08:01 17889013                   /tmp/hsperfdata_cphillim/15858
+7f5517b3e000-7f5517b3f000 rw-p 00000000 00:00 0 
+7f5517b3f000-7f5517b40000 r--p 00000000 00:00 0 
+7f5517b40000-7f5517b42000 rw-p 00000000 00:00 0 
+7f5517b42000-7f5517b43000 r--p 00022000 08:01 28716363                   /lib/x86_64-linux-gnu/ld-2.19.so
+7f5517b43000-7f5517b44000 rw-p 00023000 08:01 28716363                   /lib/x86_64-linux-gnu/ld-2.19.so
+7f5517b44000-7f5517b45000 rw-p 00000000 00:00 0 
+7ffd03c50000-7ffd03c71000 rw-p 00000000 00:00 0                          [stack]
+7ffd03c77000-7ffd03c79000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+
+jvm_args: -Xmx64m -XX:-TransmitErrorReport -XX:-CreateCoredumpOnCrash 
+java_command: CreateCoredumpOnCrash$Crasher
+java_class_path (initial): /scratch/cphillim/hg/jdk9.hs_err/hotspot/test/JTwork/classes/3/runtime/ErrorHandling:/scratch/cphillim/hg/jdk9.hs_err/hotspot/test/runtime/ErrorHandling:/scratch/cphillim/hg/jdk9.hs_err/hotspot/test/JTwork/classes/3/testlibrary:/scratch/cphillim/jtreg/lib/javatest.jar:/scratch/cphillim/jtreg/lib/jtreg.jar
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+CLASSPATH=/scratch/cphillim/jtreg/lib/javatest.jar:/scratch/cphillim/jtreg/lib/jtreg.jar
+PATH=/bin:/usr/bin
+DISPLAY=mymachine:1
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0x10ba28a], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGBUS: [libjvm.so+0x10ba28a], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGFPE: [libjvm.so+0x10ba28a], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGPIPE: [libjvm.so+0xe6afeb], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGXFSZ: [libjvm.so+0xe6afeb], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGILL: [libjvm.so+0x10ba28a], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGUSR1: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGUSR2: [libjvm.so+0xe6a895], sa_mask[0]=00100000000000000000000000000000, sa_flags=SA_RESTART|SA_SIGINFO
+SIGHUP: [libjvm.so+0xe667fe], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGINT: [libjvm.so+0xe667fe], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGTERM: [libjvm.so+0xe667fe], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGQUIT: [libjvm.so+0xe667fe], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+
+
+---------------  S Y S T E M  ---------------
+
+OS:DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=14.04
+DISTRIB_CODENAME=trusty
+DISTRIB_DESCRIPTION="Ubuntu 14.04.1 LTS"
+uname:Linux mymachine 3.13.0-55-generic #94-Ubuntu SMP Thu Jun 18 00:27:10 UTC 2015 x86_64
+libc:glibc 2.19 NPTL 2.19 
+rlimit: STACK 8192k, CORE 0k, NPROC 62777, NOFILE 4096, AS infinity
+load average:12.20 12.71 11.05
+
+/proc/meminfo:
+MemTotal:        8057080 kB
+MemFree:          969708 kB
+Buffers:           10096 kB
+Cached:           141860 kB
+SwapCached:        62308 kB
+Active:          5516708 kB
+Inactive:        1291908 kB
+Active(anon):    5449336 kB
+Inactive(anon):  1218964 kB
+Active(file):      67372 kB
+Inactive(file):    72944 kB
+Unevictable:           0 kB
+Mlocked:               0 kB
+SwapTotal:       8266748 kB
+SwapFree:        7639252 kB
+Dirty:               912 kB
+Writeback:             0 kB
+AnonPages:       6610200 kB
+Mapped:            27680 kB
+Shmem:             11616 kB
+Slab:             164748 kB
+SReclaimable:     136340 kB
+SUnreclaim:        28408 kB
+KernelStack:        5448 kB
+PageTables:        33772 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:    12295288 kB
+Committed_AS:   10088432 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:      355592 kB
+VmallocChunk:   34359374332 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:    894976 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+DirectMap4k:       64580 kB
+DirectMap2M:     8204288 kB
+
+
+CPU:total 4 (4 cores per cpu, 1 threads per core) family 6 model 58 stepping 9, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, aes, clmul, erms, tsc, tscinvbit, tscinv
+
+CPU Model and flags from /proc/cpuinfo:
+model name	: Intel(R) Core(TM) i5-3550 CPU @ 3.30GHz
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf eagerfpu pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm ida arat epb xsaveopt pln pts dtherm tpr_shadow vnmi flexpriority ept vpid fsgsbase smep erms
+
+Memory: 4k page, physical 8057080k(969708k free), swap 8266748k(7639252k free)
+
+vm_info: Java HotSpot(TM) 64-Bit Server VM (1.9.0-debug-jdk9.hs_err_0624_1709) for linux-amd64 JRE (1.9.0-debug), built on Jul  7 2015 15:55:49 by "cphillim" with gcc 4.8.4
+
+END.
