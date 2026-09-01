@@ -164,7 +164,7 @@ static void *thread_native_entry(Thread *thread) {
 虚拟机中每个特定线程都有许多相关联的对象（这里指 C++ 编程语言编写的对象）：
 
 - 代表 Java 代码中线程的 `java.lang.Thread` 实例
-- Java code 的 `java.lang.Thread` 实例对应 JVM 的 `JavaThread` 实例。它包含跟踪线程状态的附加信息。 `JavaThread` 拥有对其关联 `java.lang.Thread` 对象的引用（oop 形式），`java.lang.Thread` 对象也存储了对其 `JavaThread` 的引用（以 int `形式）。JavaThread` 还保存一个指向其关联 `OSThread` 实例的引用。
+- Java code 的 `java.lang.Thread` 实例对应 JVM 的 `JavaThread` 实例。它包含跟踪线程状态的附加信息。 `JavaThread` 拥有对其关联 `java.lang.Thread` 对象的引用（oop 形式），`java.lang.Thread` 对象也存储了对其 `JavaThread` 的引用（以 `int` 形式）。JavaThread` 还保存一个指向其关联 `OSThread` 实例的引用。
 - `OSThread` 实例代表操作系统线程，包含跟踪线程状态所需的附加操作系统级信息。然后， `OSThread` 包含一个平台特定的 “`句柄(handle)`”，用于向操作系统标识实际的线程
 
 

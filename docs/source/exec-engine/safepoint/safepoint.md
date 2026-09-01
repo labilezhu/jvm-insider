@@ -73,7 +73,7 @@ Safepoint 作为 Java 最让 end-user 讨厌，但又最让 JVM 实现者爱恨�
 
 
 - `Thread-local GC root` := `JavaThread` 本地的一个指向 heap 的  [oop](/memory/oop/oop.md) 。作为 GC 对象可达性分析树的树根
-- `Mutable thread state` := 指一类型的 JavaThread 的状态，在该状态下，线程可以改变 Java help 或其 `Thread-local GC root`。又称 `unsafe state`。
+- `Mutable thread state` := 指一类型的 JavaThread 的状态，在该状态下，线程可以改变 Java heap 或其 `Thread-local GC root`。又称 `unsafe state`。
 - `Safepoint (名词)` 是指一种 JVM 全局状态
   - 直觉上：此时（状态），Java 世界已停止。因此，JVM 检查和处理是安全的，就像独占访问一样。
   - 技术上：没有 JavaThread 在内部执行或可以转换为归类为 `Mutable thread state`  的线程
